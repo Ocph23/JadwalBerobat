@@ -32,15 +32,17 @@ class ObatService
     public function post(ObatRequest $req)
     {
         try {
-            $req->validate();
-
             $result =  Obat::create([
+                'kode' => $req['kode'],
                 'nama' => $req['nama'],
-                'merek' => $req['nama'],
-                'deskripsi' => $req['nama'],
-                'kemasan' => $req['nama'],
-                'exp' => $req['nama'],
+                'merek' => $req['merek'],
+                'dosis' => $req['dosis'],
+                'deskripsi' => $req['deskripsi'],
+                'kemasan' => $req['kemasan'],
+                'exp' => $req['exp'],
             ]);
+
+            
 
             return $result;
         } catch (\Throwable $th) {
