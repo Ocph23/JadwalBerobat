@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Poli extends Model
 {
     use HasFactory;
-    
-    public $timestamps=false;
 
-    public $fillable =[
+    public $timestamps = false;
+
+    public $fillable = [
         'id',
         'kode',
         'nama',
-       'deskripsi',
-       'dokter_id'
+        'deskripsi',
+        'dokter_id'
     ];
 }

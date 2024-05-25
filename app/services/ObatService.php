@@ -58,10 +58,12 @@ class ObatService
                 throw new Error("Data Obat Tidak Ditemukan!");
             }
 
+            $data->kode = $req['kode'];
             $data->nama = $req['nama'];
             $data->merek = $req['merek'];
-            $data->deskripsi = $req['deskripsi'];
+            $data->dosis = $req['dosis'];
             $data->kemasan = $req['kemasan'];
+            $data->deskripsi = $req['deskripsi'];
             $data->exp = $req['exp'];
             $data->save();
             return true;

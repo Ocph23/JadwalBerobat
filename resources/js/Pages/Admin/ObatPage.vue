@@ -1,5 +1,9 @@
 <script setup>
 import Layout from '@/dashboard/Layout.vue';
+import EditIcon from '@/Icons/EditIcon.vue';
+import DeleteIcon from '@/Icons/DeleteIcon.vue';
+import Swal from 'sweetalert2';
+import {useForm} from '@inertiajs/vue3'
 
 
 const props = defineProps({
@@ -8,13 +12,50 @@ const props = defineProps({
     }
 })
 
-
+const form = useForm({
+    id: 0
+})
 
 function addNewItem() {
     console.log("siap");
     window.location = "/admin/obat/add";
 
 }
+
+
+function deleteItem(item) {
+    Swal.fire({
+        title: "Anda Yakin ?",
+        text: "Menghapus Data !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.delete(route('admin.obat.delete', item.id), {
+                onSuccess: (res) => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Data Berhasil Di hapus.",
+                        icon: "success"
+                    });
+
+                }, onError: (err) => {
+                    Swal.fire({
+                        title: "Error",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            })
+
+
+        }
+    });
+}
+
 
 </script>
 
@@ -37,37 +78,54 @@ function addNewItem() {
                     <thead>
                         <tr>
                             <th scope="col"
-                                class="border-b border-gray-200 bg-white px-5 py-3 text-left text-sm font-normal uppercase text-gray-800">
-                                User
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Kode
                             </th>
                             <th scope="col"
-                                class="border-b border-gray-200 bg-white px-5 py-3 text-left text-sm font-normal uppercase text-gray-800">
-                                Role
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Nama Obat
                             </th>
                             <th scope="col"
-                                class="border-b border-gray-200 bg-white px-5 py-3 text-left text-sm font-normal uppercase text-gray-800">
-                                Created at
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Dosis
                             </th>
                             <th scope="col"
-                                class="border-b border-gray-200 bg-white px-5 py-3 text-left text-sm font-normal uppercase text-gray-800">
-                                status
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Kemasan
                             </th>
                             <th scope="col"
-                                class="border-b border-gray-200 bg-white px-5 py-3 text-left text-sm font-normal uppercase text-gray-800" />
+                                class=" w-28 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Expire
+                            </th>
+                            <th scope="col"
+                                class=" w-20 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in data">
-                            <td class="border-b border-gray-200 bg-white p-5 text-sm">
-                                <p class="whitespace-nowrap text-gray-900">{{item.nama}}</p>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
                             </td>
-                            <td class="border-b border-gray-200 bg-white p-5 text-sm">
-                                <p class="whitespace-nowrap text-gray-900">12/09/2020</p>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
                             </td>
-                            
-                            <td class="border-b border-gray-200 bg-white p-5 text-sm">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                    Edit
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.dosis }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.kemasan }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.exp }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm flex">
+                                <a :href="'/admin/obat/add/' + item.id" class=" text-amber-500 hover:text-amber-700">
+                                    <EditIcon class=" w-5" />
+                                </a>
+                                <a @click="deleteItem(item)" class=" cursor-pointer text-rose-600 hover:text-rose-900">
+                                    <DeleteIcon class=" w-5" />
                                 </a>
                             </td>
                         </tr>

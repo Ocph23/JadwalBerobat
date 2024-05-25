@@ -23,17 +23,17 @@ import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
       </SidebarItem>
     </SidebarItemSection>
 
-    <SidebarItemSection name="Categories">
+    <SidebarItemSection  name="Categories">
       <SidebarItem title="Obat" to="/admin/obat">
         <PhotographyIcon />
       </SidebarItem>
-      <SidebarItem title="Graphic Design" to="/admin/graphic-design">
+      <SidebarItem title="Poli" to="/admin/poli">
         <GraphicDesignIcon />
       </SidebarItem>
-      <SidebarItem title="Videos" to="/admin/videos">
+      <SidebarItem title="Dokter" to="/admin/dokter">
         <VideoIcon />
       </SidebarItem>
-      <SidebarItem title="Illustration" to="/admin/illustration">
+      <SidebarItem title="Pegawai" to="/admin/pegawai">
         <IllustrationIcon />
       </SidebarItem>
       <SidebarItem title="UI/UX" to="/admin/ux">
@@ -43,11 +43,6 @@ import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
         <ArIcon />
       </SidebarItem>
     </SidebarItemSection>
-
-    <SidebarItemSection name="Guides">
-      <SidebarItem title="Documentation" to="/admin/documentation">
-        <DocIcon />
-      </SidebarItem>
-    </SidebarItemSection>
+  
   </div>
 </template>

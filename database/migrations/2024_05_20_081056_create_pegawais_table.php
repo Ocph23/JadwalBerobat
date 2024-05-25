@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('kode');
+            $table->string('nama');
+            $table->enum('jk',['pria','wanita']);
+            $table->string('kontak');
         });
     }
+
+  
 
     /**
      * Reverse the migrations.

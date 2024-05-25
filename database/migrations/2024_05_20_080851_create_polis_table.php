@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('polis', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('kode');
+            $table->string('nama');
+            $table->string('keterangan');
+            $table->foreignId('dokter_id');
         });
     }
 

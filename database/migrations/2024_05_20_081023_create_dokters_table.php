@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('dokters', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('kode');
+            $table->string('nama');
+            $table->enum('jk',['pria','wanita']);
+            $table->string('spesialis');
+            $table->string('kontak');
         });
     }
-
     /**
      * Reverse the migrations.
      */

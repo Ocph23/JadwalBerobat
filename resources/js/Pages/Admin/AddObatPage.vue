@@ -1,8 +1,16 @@
 <script setup>
 import Layout from '@/dashboard/Layout.vue';
 import { useForm } from '@inertiajs/vue3';
+import Obat from '@/Models/Obat';
+import Swal from 'sweetalert2';
+import { onMounted } from 'vue';
 
 
+const props = defineProps({
+    obat: {
+        type: Obat
+    }
+})
 
 
 const form = useForm({
@@ -29,15 +37,55 @@ function backAction(params) {
 }
 
 const save = () => {
-    form.post(route('admin.obat.post'), {
-        onSuccess: (res) => {
-            console.log(res);
-        },
-        onError: (err) => {
+
+    if (form.id <= 0) {
+        form.post(route('admin.obat.post'), {
+            onSuccess: (res) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Data Berhasil Disimpan ",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                form.clear();
+            },
+            onError: (err) => {
                 console.log(err);
-        }
-    });
+            }
+        });
+    } else {
+        form.put(route('admin.obat.put', form.id), {
+            onSuccess: (res) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Data Berhasil Disimpan ",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            },
+            onError: (err) => {
+                console.log(err);
+            }
+        });
+    }
 }
+
+
+onMounted(() => {
+    if (props.obat) {
+        form.id = props.obat.id;
+        form.kode = props.obat.kode;
+        form.nama = props.obat.nama;
+        form.merek = props.obat.merek;
+        form.dosis = props.obat.dosis;
+        form.deskripsi = props.obat.deskripsi;
+        form.kemasan = props.obat.kemasan;
+        form.exp = props.obat.exp;
+    }
+
+})
 
 </script>
 

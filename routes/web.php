@@ -38,36 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/obat/{id}', [ObatController::class, 'delete'])->name('obat.delete');
 
     //ADMIN
-    Route::get('/admin/obat', function (ObatService $obatService) {
-        return Inertia::render('Admin/ObatPage', ['data'=>$obatService->all()]);
-    })->name('admin.obat');
-
-    Route::get('/admin/obat/add', function (ObatService $obatService) {
-        return Inertia::render('Admin/AddObatPage', $obatService->all());
-    })->name('admin.obat.add');
-
-    Route::post('/admin/obat', function (ObatRequest $obatRequest, ObatService $obatService) {
-        try {
-            $result = $obatService->post($obatRequest);
-            if ($result) {
-                return Redirect::back()->with('success');
-            }
-        } catch (\Throwable $th) {
-            return Redirect::back()->withErrors($th->getMessage());
-        }
-    })->name('admin.obat.post');
-
-    Route::put('/admin/obat', function (ObatRequest $obatRequest, ObatService $obatService, $id) {
-        try {
-            $result = $obatService->put($obatRequest, $id);
-            if ($result) {
-                return Redirect::back()->with('success');
-            }
-        } catch (\Throwable $th) {
-            return Redirect::back()->withErrors($th->getMessage());
-        }
-    })->name('admin.obat.post');
-
+    include 'admin-obat.php';
+    include 'admin-poli.php';
+    include 'admin-dokter.php';
 
 
 });
