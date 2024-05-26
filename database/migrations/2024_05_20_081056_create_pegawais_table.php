@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('nama');
             $table->enum('jk',['pria','wanita']);
+            $table->string('bagian');
             $table->string('kontak');
         });
     }

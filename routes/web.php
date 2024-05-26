@@ -23,24 +23,15 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    //Obat
-    Route::get('/obat', [ObatController::class, 'all'])->name('obat');
-    Route::post('/obat', [ObatController::class, 'post'])->name('obat.post');
-    Route::get('/obat/{id}', [ObatController::class, 'getById'])->name('obat.edit');
-    Route::put('/obat/{id}', [ObatController::class, 'put'])->name('obat.put');
-    Route::delete('/obat/{id}', [ObatController::class, 'delete'])->name('obat.delete');
-
+   
     //ADMIN
-    include 'admin-obat.php';
-    include 'admin-poli.php';
-    include 'admin-dokter.php';
+    include 'admin/admin.php';
+    include 'dokter/dokter.php';
 
 
 });

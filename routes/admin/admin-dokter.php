@@ -12,16 +12,16 @@ use Inertia\Inertia;
 
 Route::get('/admin/dokter', function (DokterService $dokterService) {
     return Inertia::render('Admin/DokterPage', ['data' => $dokterService->all()]);
-})->name('admin.Dokter');
+})->name('admin.dokter');
 
 Route::get('/admin/dokter/add', function (DokterService $dokterService) {
     return Inertia::render('Admin/AddDokterPage');
-})->name('admin.Dokter.add');
+})->name('admin.dokter.add');
 
 
 Route::get('/admin/dokter/add/{id}', function (DokterService $dokterService, $id) {
-    return Inertia::render('Admin/AddDokterPage', ["Dokter" => $dokterService->getById($id)]);
-})->name('admin.Dokter.add');
+    return Inertia::render('Admin/AddDokterPage', ["dokter" => $dokterService->getById($id)]);
+})->name('admin.dokter.add');
 
 Route::post('/admin/dokter', function (DokterRequest $DokterRequest, DokterService $dokterService) {
     try {
@@ -30,9 +30,9 @@ Route::post('/admin/dokter', function (DokterRequest $DokterRequest, DokterServi
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        return Redirect::back()->withErrors("error", $th->getMessage());
     }
-})->name('admin.Dokter.post');
+})->name('admin.dokter.post');
 
 Route::put('/admin/dokter/{id}', function (DokterRequest $DokterRequest, DokterService $dokterService, $id) {
     try {
@@ -43,7 +43,7 @@ Route::put('/admin/dokter/{id}', function (DokterRequest $DokterRequest, DokterS
     } catch (\Throwable $th) {
         return Redirect::back()->withErrors($th->getMessage());
     }
-})->name('admin.Dokter.put');
+})->name('admin.dokter.put');
 
 Route::delete('/admin/dokter/{id}', function (DokterService $dokterService, $id) {
     try {
@@ -54,4 +54,4 @@ Route::delete('/admin/dokter/{id}', function (DokterService $dokterService, $id)
     } catch (\Throwable $th) {
         return Redirect::back()->withErrors($th->getMessage());
     }
-})->name('admin.Dokter.delete');
+})->name('admin.dokter.delete');

@@ -36,10 +36,10 @@ import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
       <SidebarItem title="Pegawai" to="/admin/pegawai">
         <IllustrationIcon />
       </SidebarItem>
-      <SidebarItem title="UI/UX" to="/admin/ux">
+      <SidebarItem title="Pasien" to="/admin/pasien">
         <UxIcon />
       </SidebarItem>
-      <SidebarItem title="3D/AR" to="/admin/ar">
+      <SidebarItem title="Rekam Medik" to="/admin/rekammedik">
         <ArIcon />
       </SidebarItem>
     </SidebarItemSection>

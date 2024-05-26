@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Dokter extends Model
 {
     use HasFactory;
-        
-    public $timestamps=false;
 
-    public $fillable =[
+    public $timestamps = false;
+
+    public $fillable = [
         'id',
-        'nip',
+        'kode',
         'nama',
-       'spesialis',
-       'kontak'
+        'spesialis',
+        'kontak'
     ];
 }

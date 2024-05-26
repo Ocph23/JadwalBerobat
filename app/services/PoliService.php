@@ -19,6 +19,9 @@ class PoliService
     public function all()
     {
         $result = Poli::all();
+        foreach ($result as $key => $poli) {
+            $poli->dokter;
+        }
         return $result;
     }
 
@@ -35,15 +38,9 @@ class PoliService
             $result =  Poli::create([
                 'kode' => $req['kode'],
                 'nama' => $req['nama'],
-                'merek' => $req['merek'],
-                'dosis' => $req['dosis'],
-                'deskripsi' => $req['deskripsi'],
-                'kemasan' => $req['kemasan'],
-                'exp' => $req['exp'],
+                'keterangan' => $req['keterangan'],
+                'dokter_id' => $req['dokter_id'],
             ]);
-
-            
-
             return $result;
         } catch (\Throwable $th) {
             throw new Error($th->getMessage());
@@ -57,18 +54,14 @@ class PoliService
             if (!$data) {
                 throw new Error("Data Poli Tidak Ditemukan!");
             }
-
             $data->kode = $req['kode'];
             $data->nama = $req['nama'];
-            $data->merek = $req['merek'];
-            $data->dosis = $req['dosis'];
-            $data->kemasan = $req['kemasan'];
-            $data->deskripsi = $req['deskripsi'];
-            $data->exp = $req['exp'];
+            $data->keterangan = $req['keterangan'];
+            $data->dokter_id = $req['dokter_id'];
             $data->save();
             return true;
         } catch (\Throwable $th) {
-            //throw $th;
+            throw new Error($th->getMessage());
         }
     }
 

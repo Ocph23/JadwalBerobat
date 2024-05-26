@@ -11,7 +11,7 @@ class PasienRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class PasienRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'kode' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
+            'jk' => ['required'],
+            'tempat_lahir' => ['required'],
+            'tanggal_lahir' => ['required'],
+            'kontak' => ['required'],
+            'alamat' => ['required'],
         ];
     }
 }

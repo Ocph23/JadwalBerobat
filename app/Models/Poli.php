@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Poli extends Model
 {
@@ -15,7 +16,12 @@ class Poli extends Model
         'id',
         'kode',
         'nama',
-        'deskripsi',
+        'keterangan',
         'dokter_id'
     ];
+
+    public function dokter():HasOne{
+        return  $this->hasOne(Dokter::class,'id',"dokter_id");
+    }
+
 }

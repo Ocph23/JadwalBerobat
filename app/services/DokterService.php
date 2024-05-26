@@ -35,9 +35,9 @@ class DokterService
             $result =  Dokter::create([
                 'kode' => $req['kode'],
                 'nama' => $req['nama'],
-                'jk' => $req['merek'],
-                'spesialis' => $req['dosis'],
-                'kontak' => $req['deskripsi'],
+                'jk' => $req['jk'],
+                'spesialis' => $req['spesialis'],
+                'kontak' => $req['kontak'],
             ]);
 
             

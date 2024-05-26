@@ -1,14 +1,14 @@
 <script setup>
 import Layout from '@/dashboard/Layout.vue';
 import { useForm } from '@inertiajs/vue3';
-import Obat from '@/Models/Obat';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
+import Pasien from '@/Models/Pasien';
 
 
 const props = defineProps({
-    obat: {
-        type: Obat
+    pasien: {
+        type:Pasien
     }
 })
 
@@ -17,29 +17,29 @@ const form = useForm({
     "id": 0,
     "kode": '',
     "nama": '',
-    "merek": '',
-    "dosis": '',
-    "deskripsi": '',
-    "kemasan": '',
-    "exp": new Date(),
+    "jk": 'pria',
+    "tempat_lahir": '',
+    "tanggal_lahir": new Date(),
+    "kontak": '',
+    "alamat": '',
 }
 )
 
 
 function addNewItem() {
     console.log("siap");
-    window.location = "/admin/obat/add";
+    window.location = "/admin/pasien/add";
 }
 
 
 function backAction(params) {
-    window.location = "/admin/obat";
+    window.location = "/admin/pasien";
 }
 
 const save = () => {
 
     if (form.id <= 0) {
-        form.post(route('admin.obat.post'), {
+        form.post(route('admin.pasien.post'), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -48,14 +48,20 @@ const save = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                form.clear();
+                form.reset();
             },
             onError: (err) => {
-                console.log(err);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Periksa Kembali Data Anda , atau hubungi administrator ",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         });
     } else {
-        form.put(route('admin.obat.put', form.id), {
+        form.put(route('admin.pasien.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -74,15 +80,15 @@ const save = () => {
 
 
 onMounted(() => {
-    if (props.obat) {
-        form.id = props.obat.id;
-        form.kode = props.obat.kode;
-        form.nama = props.obat.nama;
-        form.merek = props.obat.merek;
-        form.dosis = props.obat.dosis;
-        form.deskripsi = props.obat.deskripsi;
-        form.kemasan = props.obat.kemasan;
-        form.exp = props.obat.exp;
+    if (props.pasien) {
+        form.id = props.pasien.id;
+        form.kode = props.pasien.kode;
+        form.nama = props.pasien.nama;
+        form.jk = props.pasien.jk;
+        form.tempat_lahir = props.pasien.tempat_lahir;
+        form.tanggal_lahir = props.pasien.tanggal_lahir;
+        form.kontak = props.pasien.kontak;
+        form.alamat = props.pasien.alamat;
     }
 
 })
@@ -93,11 +99,11 @@ onMounted(() => {
 
     <Layout>
         <div class="p-5 mt-5 flex justify-between">
-            <h1 class="text-2xl"> OBAT</h1>
+            <h1 class="text-2xl"> Pasien</h1>
         </div>
         <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
-                <form  @submit.prevent="save">
+                <form @submit.prevent="save">
                     <div class=" grid grid-cols-2">
                         <div>
                             <div class="flex flex-col p-3">
@@ -106,36 +112,39 @@ onMounted(() => {
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Nama Obat</label>
+                                <label class="mb-2">Nama Pasien</label>
                                 <input type="text" v-model="form.nama"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Merek</label>
-                                <input type="text" v-model="form.merek" required
+                                <label class="mb-2">Jenis Kelamin</label>
+                                <select type="text" v-model="form.jk" required
                                     class="rounded-lg bg-transparent  text-neutral-400">
+                                    <option value="pria">Laki-Laki</option>
+                                    <option value="wanita">Perempuan</option>
+                                </select>
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Dosis</label>
-                                <input type="text" v-model="form.dosis"
+                                <label class="mb-2">Tempat Lahir</label>
+                                <input type="text" v-model="form.tempat_lahir"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                         </div>
                         <div>
 
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Kemasan</label>
-                                <input type="text" v-model="form.kemasan"
+                                <label class="mb-2">Tanggal Lahir</label>
+                                <input type="date" v-model="form.tanggal_lahir"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Expire</label>
-                                <input type="date" v-model="form.exp"
+                                <label class="mb-2">Kotak</label>
+                                <input type="text" v-model="form.kontak"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Deskripsi</label>
-                                <textarea v-model="form.deskripsi"
+                                <label class="mb-2">Alamat</label>
+                                <textarea v-model="form.alamat"
                                     class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
                             </div>
                         </div>

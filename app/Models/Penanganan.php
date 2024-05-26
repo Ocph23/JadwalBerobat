@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pegawai extends Model
+class Penanganan extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public $fillable = [
         'id',
-        'kode',
-        'nama',
-        'bagian',
-        'kontak'
+        'penanganan',
+        'keterangan',
     ];
 }

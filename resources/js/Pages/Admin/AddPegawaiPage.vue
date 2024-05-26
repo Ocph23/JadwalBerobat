@@ -1,14 +1,14 @@
 <script setup>
 import Layout from '@/dashboard/Layout.vue';
 import { useForm } from '@inertiajs/vue3';
-import Obat from '@/Models/Obat';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
+import Pegawai from '@/Models/Pegawai';
 
 
 const props = defineProps({
-    obat: {
-        type: Obat
+    pegawai: {
+        type: Pegawai
     }
 })
 
@@ -17,29 +17,27 @@ const form = useForm({
     "id": 0,
     "kode": '',
     "nama": '',
-    "merek": '',
-    "dosis": '',
-    "deskripsi": '',
-    "kemasan": '',
-    "exp": new Date(),
+    "jk": '',
+    "bagian": '',
+    "kontak": '',
 }
 )
 
 
 function addNewItem() {
     console.log("siap");
-    window.location = "/admin/obat/add";
+    window.location = "/admin/pegawai/add";
 }
 
 
 function backAction(params) {
-    window.location = "/admin/obat";
+    window.location = "/admin/pegawai";
 }
 
 const save = () => {
 
     if (form.id <= 0) {
-        form.post(route('admin.obat.post'), {
+        form.post(route('admin.pegawai.post'), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -48,14 +46,14 @@ const save = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                form.clear();
+                form.reset();
             },
             onError: (err) => {
                 console.log(err);
             }
         });
     } else {
-        form.put(route('admin.obat.put', form.id), {
+        form.put(route('admin.pegawai.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -64,7 +62,7 @@ const save = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-            },
+            }, 
             onError: (err) => {
                 console.log(err);
             }
@@ -74,15 +72,13 @@ const save = () => {
 
 
 onMounted(() => {
-    if (props.obat) {
-        form.id = props.obat.id;
-        form.kode = props.obat.kode;
-        form.nama = props.obat.nama;
-        form.merek = props.obat.merek;
-        form.dosis = props.obat.dosis;
-        form.deskripsi = props.obat.deskripsi;
-        form.kemasan = props.obat.kemasan;
-        form.exp = props.obat.exp;
+    if (props.pegawai) {
+        form.id = props.pegawai.id;
+        form.kode = props.pegawai.kode;
+        form.nama = props.pegawai.nama;
+        form.jk = props.pegawai.jk;
+        form.bagian = props.pegawai.bagian;
+        form.kontak = props.pegawai.kontak;
     }
 
 })
@@ -93,11 +89,11 @@ onMounted(() => {
 
     <Layout>
         <div class="p-5 mt-5 flex justify-between">
-            <h1 class="text-2xl"> OBAT</h1>
+            <h1 class="text-2xl">Pegawai</h1>
         </div>
         <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
-                <form  @submit.prevent="save">
+                <form @submit.prevent="save">
                     <div class=" grid grid-cols-2">
                         <div>
                             <div class="flex flex-col p-3">
@@ -106,46 +102,36 @@ onMounted(() => {
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Nama Obat</label>
+                                <label class="mb-2">Nama Pegawai</label>
                                 <input type="text" v-model="form.nama"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Merek</label>
-                                <input type="text" v-model="form.merek" required
+                                <label class="mb-2">Jenis Kelamin</label>
+                                <select type="text" v-model="form.jk" required
                                     class="rounded-lg bg-transparent  text-neutral-400">
+                                    <option value="pria">Laki-Laki</option>
+                                    <option value="wanita">Perempuan</option>
+                                </select>
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Dosis</label>
-                                <input type="text" v-model="form.dosis"
+                                <label class="mb-2">Bagian</label>
+                                <input type="text" v-model="form.bagian"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                            </div>
+                            <div class="flex flex-col p-3">
+                                <label class="mb-2">Kotak</label>
+                                <input type="text" v-model="form.kontak"
+                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                            </div>
+                            <div class="m-2 flex justify-end">
+                                <button type="button" @click="backAction()"
+                                    class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
+                                <button type="submit"
+                                    class=" mx-1 rounded-full border  border-sky-500 px-5 py-1  text-white bg-sky-700">Simpan</button>
+
                             </div>
                         </div>
-                        <div>
-
-                            <div class="flex flex-col p-3">
-                                <label class="mb-2">Kemasan</label>
-                                <input type="text" v-model="form.kemasan"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
-                            </div>
-                            <div class="flex flex-col p-3">
-                                <label class="mb-2">Expire</label>
-                                <input type="date" v-model="form.exp"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
-                            </div>
-                            <div class="flex flex-col p-3">
-                                <label class="mb-2">Deskripsi</label>
-                                <textarea v-model="form.deskripsi"
-                                    class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-2 flex justify-end">
-                        <button type="button" @click="backAction()"
-                            class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
-                        <button type="submit"
-                            class=" mx-1 rounded-full border  border-sky-500 px-5 py-1  text-white bg-sky-700">Simpan</button>
-
                     </div>
                 </form>
             </div>

@@ -6,6 +6,7 @@
         "build": "vite build"
     },
     "dependencies": {
+        "serve": "^14.2.3",
         "sweetalert2": "^11.11.0",
         "vue-router": "4"
     },
