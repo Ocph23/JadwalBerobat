@@ -7,6 +7,7 @@ use App\Http\Requests\PoliRequest;
 use App\services\DokterService;
 use App\services\PoliService;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,7 +32,8 @@ Route::post('/admin/poli', function (PoliRequest $PoliRequest, PoliService $poli
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors("error", $th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Disimpan !"]);
     }
 })->name('admin.poli.post');
 
@@ -42,7 +44,8 @@ Route::put('/admin/poli/{id}', function (PoliRequest $PoliRequest, PoliService $
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Diubah !"]);
     }
 })->name('admin.poli.put');
 
@@ -53,6 +56,7 @@ Route::delete('/admin/poli/{id}', function (PoliService $poliService, $id) {
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Dihapus !"]);
     }
 })->name('admin.poli.delete');

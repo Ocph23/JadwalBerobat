@@ -5,6 +5,7 @@ namespace App\services;
 use App\Http\Requests\PasienRequest;
 use App\Models\Pasien;
 use Error;
+use Illuminate\Support\Facades\Log;
 
 class PasienService
 {
@@ -44,6 +45,7 @@ class PasienService
             ]);
             return $result;
         } catch (\Throwable $th) {
+            Log::info($th->getMessage());
             throw new Error($th->getMessage());
         }
     }

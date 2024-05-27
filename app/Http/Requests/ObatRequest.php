@@ -23,6 +23,9 @@ class ObatRequest extends FormRequest
     {
         return [
             'nama' => ['required', 'string', 'max:255'],
+            'dosis' => ['required', 'string', 'max:255'],
+            'merek' => ['required', 'string', 'max:255'],
+            'kemasan' => ['required', 'string', 'max:255'],
         ];
     }
 }

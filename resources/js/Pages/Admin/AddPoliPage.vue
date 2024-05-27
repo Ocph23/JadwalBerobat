@@ -5,6 +5,7 @@ import Poli from '@/Models/Poli';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import Dokter from '@/Models/Dokter';
+import InputError from '@/Components/InputError.vue';
 
 
 const props = defineProps({
@@ -52,7 +53,15 @@ const save = () => {
                 form.reset();
             },
             onError: (err) => {
-                console.log(err);
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "err",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     } else {
@@ -67,7 +76,15 @@ const save = () => {
                 });
             },
             onError: (err) => {
-                console.log(err);
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     }
@@ -100,13 +117,15 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode"
+                                <input type="text" v-model="form.kode" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
-                                <input type="text" v-model="form.nama"
+                                <input type="text" v-model="form.nama" required
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                <InputError :message="form.errors['nama']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
@@ -114,11 +133,13 @@ onMounted(() => {
                                     class="rounded-lg bg-transparent  text-neutral-400">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
+                                <InputError :message="form.errors['dokter_id']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Keterangan</label>
-                                <textarea v-model="form.keterangan"
+                                <textarea v-model="form.keterangan" required
                                     class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
+                                <InputError :message="form.errors['keterangan']" />
                             </div>
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"

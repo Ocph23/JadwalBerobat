@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import Dokter from '@/Models/Dokter';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
+import InputError from '@/Components/InputError.vue';
 
 
 const props = defineProps({
@@ -49,7 +50,15 @@ const save = () => {
                 form.reset();
             },
             onError: (err) => {
-                console.log(err);
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     } else {
@@ -62,9 +71,17 @@ const save = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-            }, 
+            },
             onError: (err) => {
-                console.log(err);
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     }
@@ -89,7 +106,7 @@ onMounted(() => {
 
     <Layout>
         <div class="p-5 mt-5 flex justify-between">
-            <h1 class="text-2xl"> dokter</h1>
+            <h1 class="text-2xl"> Tambah/Edit Dokter</h1>
         </div>
         <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
@@ -100,11 +117,13 @@ onMounted(() => {
                                 <label class="mb-2">NID</label>
                                 <input type="text" v-model="form.kode"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama dokter</label>
                                 <input type="text" v-model="form.nama"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                <InputError :message="form.errors['nama']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Jenis Kelamin</label>
@@ -113,16 +132,19 @@ onMounted(() => {
                                     <option value="pria">Laki-Laki</option>
                                     <option value="wanita">Perempuan</option>
                                 </select>
+                                <InputError :message="form.errors['jk']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Spesialis</label>
                                 <input type="text" v-model="form.spesialis"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                <InputError :message="form.errors['spesialis']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kotak</label>
                                 <input type="text" v-model="form.kontak"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                <InputError :message="form.errors['kontak']" />
                             </div>
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"

@@ -16,9 +16,9 @@ class RekamMedik extends Model
         'id',
         'kode',
         'tanggal',
+        'poli_id',
         'pasien_id',
         'dokter_id',
-        'poli_id',
         'konsultasi_berikut'
     ];
 
@@ -29,6 +29,10 @@ class RekamMedik extends Model
 
     public function poli():HasOne{
         return $this->hasOne(Poli::class , 'id', 'poli_id');
+    }
+    
+    public function pasien():HasOne{
+        return $this->hasOne(Pasien::class , 'id', 'poli_id');
     }
     
     

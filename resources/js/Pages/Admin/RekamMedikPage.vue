@@ -80,15 +80,19 @@ function deleteItem(item) {
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Nama rekammedik
+                                Tanggal
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Dokter
+                                Pasien
+                            </th>
+                            <th scope="col"
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Poli
                             </th>
                             <th scope="col"
                                 class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Keterangan
+                                Dokter
                             </th>
                             <th scope="col"
                                 class=" w-20 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
@@ -102,14 +106,18 @@ function deleteItem(item) {
                                 <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.pasien.nama }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
                             </td>
-                            <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.keterangan }}</p>
-                            </td>
+                           
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/admin/rekammedik/add/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />

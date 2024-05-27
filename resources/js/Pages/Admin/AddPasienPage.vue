@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
+import InputError from '@/Components/InputError.vue';
 
 
 const props = defineProps({
@@ -19,7 +20,7 @@ const form = useForm({
     "nama": '',
     "jk": 'pria',
     "tempat_lahir": '',
-    "tanggal_lahir": new Date(),
+    "tanggal_lahir":null,
     "kontak": '',
     "alamat": '',
 }
@@ -51,13 +52,15 @@ const save = () => {
                 form.reset();
             },
             onError: (err) => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: "Periksa Kembali Data Anda , atau hubungi administrator ",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     } else {
@@ -72,7 +75,15 @@ const save = () => {
                 });
             },
             onError: (err) => {
-                console.log(err);
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         });
     }
@@ -110,11 +121,13 @@ onMounted(() => {
                                 <label class="mb-2">Kode</label>
                                 <input type="text" v-model="form.kode"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                    <InputError :message="form.errors['kode']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Pasien</label>
                                 <input type="text" v-model="form.nama"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    <InputError :message="form.errors['nama']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Jenis Kelamin</label>
@@ -123,11 +136,13 @@ onMounted(() => {
                                     <option value="pria">Laki-Laki</option>
                                     <option value="wanita">Perempuan</option>
                                 </select>
+                                <InputError :message="form.errors['jk']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Tempat Lahir</label>
                                 <input type="text" v-model="form.tempat_lahir"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                    <InputError :message="form.errors['tempat_lahir']"/>
                             </div>
                         </div>
                         <div>
@@ -136,16 +151,19 @@ onMounted(() => {
                                 <label class="mb-2">Tanggal Lahir</label>
                                 <input type="date" v-model="form.tanggal_lahir"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                    <InputError :message="form.errors['tanggal_lahir']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kotak</label>
                                 <input type="text" v-model="form.kontak"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                    <InputError :message="form.errors['kontak']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Alamat</label>
                                 <textarea v-model="form.alamat"
                                     class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
+                                    <InputError :message="form.errors['alamat']"/>
                             </div>
                         </div>
                     </div>
@@ -159,6 +177,9 @@ onMounted(() => {
                 </form>
             </div>
         </div>
+
+
+      
     </Layout>
 
 </template>

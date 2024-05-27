@@ -28,4 +28,14 @@ class PegawaiRequest extends FormRequest
             'bagian' => ['required']
         ];
     }
+
+
+
+
+    public function messages()
+    {
+       return [
+            'jk.required' => 'The jenis kelamin field is required.',
+        ];
+    }
 }

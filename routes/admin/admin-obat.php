@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Requests\ObatRequest;
 use App\services\ObatService;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,7 +31,8 @@ Route::post('/admin/obat', function (ObatRequest $obatRequest, ObatService $obat
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Ditambah !"]);
     }
 })->name('admin.obat.post');
 
@@ -41,7 +43,8 @@ Route::put('/admin/obat/{id}', function (ObatRequest $obatRequest, ObatService $
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Diubah !"]);
     }
 })->name('admin.obat.put');
 
@@ -52,6 +55,7 @@ Route::delete('/admin/obat/{id}', function (ObatService $obatService, $id) {
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Dihapus !"]);
     }
 })->name('admin.obat.delete');

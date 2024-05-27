@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Requests\DokterRequest;
 use App\services\DokterService;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,7 +31,8 @@ Route::post('/admin/dokter', function (DokterRequest $DokterRequest, DokterServi
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors("error", $th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Disimpan !"]);
     }
 })->name('admin.dokter.post');
 
@@ -41,7 +43,8 @@ Route::put('/admin/dokter/{id}', function (DokterRequest $DokterRequest, DokterS
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Diubah !"]);
     }
 })->name('admin.dokter.put');
 
@@ -52,6 +55,7 @@ Route::delete('/admin/dokter/{id}', function (DokterService $dokterService, $id)
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        Log::error($th->getMessage());
+        return Redirect::back()->withErrors(['message' => "Data Tidak Berhasil Dihapus !"]);
     }
 })->name('admin.dokter.delete');

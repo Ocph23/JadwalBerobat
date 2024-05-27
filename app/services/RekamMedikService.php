@@ -5,6 +5,7 @@ namespace App\services;
 use App\Http\Requests\RekamMedikRequest;
 use App\Models\RekamMedik;
 use Error;
+use Illuminate\Support\Facades\Log;
 
 class RekamMedikService
 {
@@ -21,6 +22,8 @@ class RekamMedikService
         $result = RekamMedik::all();
         foreach ($result as $key => $rekamMedik) {
             $rekamMedik->dokter;
+            $rekamMedik->poli;
+            $rekamMedik->pasien;
         }
         return $result;
     }
@@ -37,12 +40,17 @@ class RekamMedikService
         try {
             $result =  RekamMedik::create([
                 'kode' => $req['kode'],
-                'nama' => $req['nama'],
-                'keterangan' => $req['keterangan'],
+                'tanggal' => $req['tanggal'],
+                'poli_id' => $req['poli_id'],
+                'pasien_id' => $req['pasien_id'],
                 'dokter_id' => $req['dokter_id'],
+                'konsultasi_berikut' => $req['konsultasi_berikut'],
             ]);
+
+            Log::info("success insert".$result->id);
             return $result;
         } catch (\Throwable $th) {
+            Log::info( $th->getMessage());
             throw new Error($th->getMessage());
         }
     }

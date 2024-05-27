@@ -26,9 +26,17 @@ class PasienRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'jk' => ['required'],
             'tempat_lahir' => ['required'],
-            'tanggal_lahir' => ['required'],
+            'tanggal_lahir' => ['required', 'date'],
             'kontak' => ['required'],
             'alamat' => ['required'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'jk' => 'the jenis kelamin field is required'
+
         ];
     }
 }

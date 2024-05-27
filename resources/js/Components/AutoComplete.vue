@@ -1,24 +1,28 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 
 
 const props = defineProps({
-    items: {
+    pasiens: {
         type: Array
-    }, 
+    },
     value: 0
 })
 
+
+
+
+const emit = defineEmits(['onSelectPasien'])
 
 
 let searchTerm = ref('')
 let selected = ref(null);
 
 const selectedItem = (item) => {
-    selected.value = item;
     searchTerm.value = item.nama;
-    props.value = item.id;
+    selected.value =item;
+    emit('onSelectPasien', item);
 }
 
 const searchCountries = computed(() => {
@@ -28,7 +32,7 @@ const searchCountries = computed(() => {
 
     let matches = 0
     selected.value = null;
-    return props.items.filter(item => {
+    return props.pasiens.filter(item => {
         if (
             item.nama.toLowerCase().includes(searchTerm.value.toLowerCase())
             && matches < 10
@@ -38,14 +42,22 @@ const searchCountries = computed(() => {
         }
     })
 });
+
+onMounted(() => {
+    console.log(props.pasiens)
+    setTimeout(() => {
+        var data = props.pasiens.find(x => x.id == props.value);
+        if (data) {
+            selectedItem(data);
+        }
+    }, 500);
+})
 </script>
-
-
 
 <template>
     <input type="text" placeholder="Type here..." v-model="searchTerm" id="search" class="bg-transparent">
-    <ul v-if="searchCountries.length && selected == null">
-        <li v-on:click="selectedItem(item)" v-for="item in searchCountries" :key="item.id"
+    <ul v-if="selected == null">
+        <li v-on:click="selectedItem(item)" v-for="(item) in searchCountries" 
             class=" p-2 bg-zinc-400  opacity-95">
             {{ item.nama }}
         </li>

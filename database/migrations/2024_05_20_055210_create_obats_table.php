@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('merek');
             $table->string('dosis');
-            $table->string('deskripsi');
             $table->string('kemasan');
+            $table->string('deskripsi')->nullable();
             $table->date('exp');
          
         });

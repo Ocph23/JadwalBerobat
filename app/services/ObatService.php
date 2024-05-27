@@ -41,9 +41,6 @@ class ObatService
                 'kemasan' => $req['kemasan'],
                 'exp' => $req['exp'],
             ]);
-
-            
-
             return $result;
         } catch (\Throwable $th) {
             throw new Error($th->getMessage());

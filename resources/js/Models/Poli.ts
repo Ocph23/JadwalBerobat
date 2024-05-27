@@ -1,6 +1,6 @@
 import Dokter from "./Dokter";
 
-class  Obat  {
+class  Poli  {
     id:number;
     kode: String;
     nama: String;
@@ -9,4 +9,4 @@ class  Obat  {
     dokter_id:number;
 }
 
-export default Obat;
+export default Poli;

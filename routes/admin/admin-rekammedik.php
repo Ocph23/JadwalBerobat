@@ -18,19 +18,27 @@ Route::get('/admin/rekammedik', function (RekamMedikService $rekamMedikService) 
 })->name('admin.rekammedik');
 
 Route::get('/admin/rekammedik/add', function (PoliService $poliService, DokterService $dokterService, PasienService $pasienService) {
-    return Inertia::render('Admin/AddRekamMedikPage', ['polis'=>$poliService->all(),'dokters'=>$dokterService->all(),'pasiens'=>$pasienService->all()]);
+    return Inertia::render('Admin/AddRekamMedikPage', ['polis' => $poliService->all(), 'dokters' => $dokterService->all(), 'pasiens' => $pasienService->all()]);
 })->name('admin.rekammedik.add');
 
 
-Route::get('/admin/rekammedik/add/{id}', function (RekamMedikService $rekamMedikService, DokterService $dokterService, $id) {
-    return Inertia::render('Admin/AddRekamMedikPage', ["dokters" =>$dokterService->all() , "poli" => $rekamMedikService->getById($id)]);
+Route::get('/admin/rekammedik/add/{id}', function (RekamMedikService $rekamMedikService, PoliService $poliService, DokterService $dokterService, PasienService $pasienService, $id) {
+    return Inertia::render(
+        'Admin/AddRekamMedikPage',
+        [
+            "dokters" => $dokterService->all(),
+            "pasiens" => $pasienService->all(),
+            "polis" => $poliService->all(),
+            "rekammedik" => $rekamMedikService->getById($id)
+        ]
+    );
 })->name('admin.rekammedik.add');
 
 Route::post('/admin/rekammedik', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService) {
     try {
         $result = $rekamMedikService->post($rekamMedikRequest);
         if ($result) {
-            return Redirect::back()->with('success');
+            return Redirect::route('admin.rekammedik.add', $result->id);
         }
     } catch (\Throwable $th) {
         return Redirect::back()->withErrors("error", $th->getMessage());
@@ -44,7 +52,7 @@ Route::put('/admin/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequ
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors($th->getMessage());
+        return Redirect::back()->withErrors(["msg"=> "Data Tidak Berhasil Disimpan/ Diubah ! "]);
     }
 })->name('admin.rekammedik.put');
 

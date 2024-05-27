@@ -2,8 +2,10 @@
 import Layout from '@/dashboard/Layout.vue';
 import { useForm } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
-import { onMounted } from 'vue';
+import { onMounted, } from 'vue';
 import AutoComplete from '@/Components/AutoComplete.vue';
+import RekamMedik from '@/Models/RekamMedik';
+import Pasien from '@/Models/Pasien';
 
 
 const props = defineProps({
@@ -14,35 +16,50 @@ const props = defineProps({
         type: Array
     },
     pasiens: {
-        type: Array
-    }
+        type: Array,
+    },
+    rekammedik: RekamMedik
 })
+
 
 
 const form = useForm({
     "id": 0,
     "kode": '',
     "nama": '',
-    "keterangan": '',
     "dokter_id": '',
+    "pasien_id": '',
+    "poli_id": 0,
+    "tanggal": new Date().toISOString().split('T')[0]
 }
 )
 
 
 function addNewItem() {
     console.log("siap");
-    window.location = "/admin/poli/add";
+    window.location = "/admin/rekammedik/add";
 }
 
 
 function backAction(params) {
-    window.location = "/admin/poli";
+    window.location = "/admin/rekammedik";
 }
+
+function onChange(event) {
+
+    if (props.rekammediks) {
+        var poli = props.rekammediks.find(x => x.id == event.target.value);
+        if (poli) {
+            form.dokter_id = poli.dokter_id;
+        }
+    }
+}
+
 
 const save = () => {
 
     if (form.id <= 0) {
-        form.post(route('admin.poli.post'), {
+        form.post(route('admin.rekammedik.post'), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -54,11 +71,17 @@ const save = () => {
                 form.reset();
             },
             onError: (err) => {
-                console.log(err);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: err,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         });
     } else {
-        form.put(route('admin.poli.put', form.id), {
+        form.put(route('admin.rekammedik.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -69,22 +92,35 @@ const save = () => {
                 });
             },
             onError: (err) => {
-                console.log(err);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: err.msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         });
     }
 }
 
 
-onMounted(() => {
-    if (props.poli) {
-        form.id = props.poli.id;
-        form.kode = props.poli.kode;
-        form.nama = props.poli.nama;
-        form.keterangan = props.poli.keterangan;
-        form.dokter_id = props.poli.dokter_id;
-    }
+const selectPasien = (pasien) => {
+    form.pasien_id = pasien.id;
+}
 
+
+onMounted(() => {
+
+
+    if (props.rekammedik) {
+        form.id = props.rekammedik.id;
+        form.kode = props.rekammedik.kode;
+        form.pasien_id = props.rekammedik.pasien_id;
+        form.dokter_id = props.rekammedik.dokter_id;
+        form.poli_id = props.rekammedik.poli_id;
+        form.tanggal = props.rekammedik.tanggal;
+    }
 })
 
 </script>
@@ -107,11 +143,15 @@ onMounted(() => {
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
-                              <AutoComplete :value="form.pasien_id" :items="pasiens"></AutoComplete>
+                                <AutoComplete v-on:on-select-pasien="selectPasien" :value="form.pasien_id"
+                                    :pasiens="props.pasiens"></AutoComplete>
                             </div>
+
+                        </div>
+                        <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
-                                <select type="text" v-model="form.poli_id"
+                                <select type="text" v-model="form.poli_id" @change="onChange($event)"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
                                     <option :value="item.id" v-for="item in polis">{{ item.nama }}</option>
                                 </select>
@@ -123,11 +163,6 @@ onMounted(() => {
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
                             </div>
-                            <div class="flex flex-col p-3">
-                                <label class="mb-2">Keterangan</label>
-                                <textarea v-model="form.keterangan"
-                                    class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
-                            </div>
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"
                                     class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
@@ -136,11 +171,18 @@ onMounted(() => {
 
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>
         </div>
+
+        <div v-if="form.id > 0">
+            <div class="p-5 mt-5 flex justify-between">
+                <h1 class="text-2xl">KELUHAN</h1>
+            </div>
+
+        </div>
+
     </Layout>
 
 </template>
