@@ -128,6 +128,12 @@ onMounted(() => {
                                 <InputError :message="form.errors['nama']" />
                             </div>
                             <div class="flex flex-col p-3">
+                                <label class="mb-2">Penyakit</label>
+                                <input type="text" v-model="form.penyakit" required
+                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                <InputError :message="form.errors['nama']" />
+                            </div>
+                            <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
                                 <select type="text" v-model="form.dokter_id" required
                                     class="rounded-lg bg-transparent  text-neutral-400">

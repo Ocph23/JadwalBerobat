@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('pasien_id');
             $table->integer('dokter_id');
             $table->integer('poli_id');
+            $table->json('keluhan')->nullable();
+            $table->json('penanganan')->nullable();
+            $table->json('resep')->nullable();
             $table->date('konsultasi_berikut')->nullable();
             $table->timestamps();
         });

@@ -63,9 +63,14 @@ class RekamMedikService
                 throw new Error("Data RekamMedik Tidak Ditemukan!");
             }
             $data->kode = $req['kode'];
-            $data->nama = $req['nama'];
-            $data->keterangan = $req['keterangan'];
+            $data->tanggal = $req['tanggal'];
+            $data->poli_id = $req['poli_id'];
             $data->dokter_id = $req['dokter_id'];
+            $data->pasien_id = $req['pasien_id'];
+            $data->konsultasi_berikut = $req['konsultasi_berikut'];
+            $data->keluhan = $req['keluhan'];
+            $data->penanganan = $req['penanganan'];
+            $data->resep = $req['resep'];
             $data->save();
             return true;
         } catch (\Throwable $th) {

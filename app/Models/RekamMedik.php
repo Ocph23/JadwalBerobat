@@ -19,7 +19,10 @@ class RekamMedik extends Model
         'poli_id',
         'pasien_id',
         'dokter_id',
-        'konsultasi_berikut'
+        'konsultasi_berikut', 
+        'keluhan',
+        'resep  ',
+        'penanganan',
     ];
 
 

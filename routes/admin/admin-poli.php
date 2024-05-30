@@ -25,9 +25,9 @@ Route::get('/admin/poli/add/{id}', function (PoliService $poliService, DokterSer
     return Inertia::render('Admin/AddPoliPage', ["dokters" =>$dokterService->all() , "poli" => $poliService->getById($id)]);
 })->name('admin.poli.add');
 
-Route::post('/admin/poli', function (PoliRequest $PoliRequest, PoliService $poliService) {
+Route::post('/admin/poli', function (PoliRequest $poliRequest, PoliService $poliService) {
     try {
-        $result = $poliService->post($PoliRequest);
+        $result = $poliService->post($poliRequest);
         if ($result) {
             return Redirect::back()->with('success');
         }

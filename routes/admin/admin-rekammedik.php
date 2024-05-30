@@ -5,6 +5,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Requests\RekamMedikRequest;
 use App\services\DokterService;
+use App\services\ObatService;
 use App\services\PasienService;
 use App\services\PoliService;
 use App\services\RekamMedikService;
@@ -22,13 +23,21 @@ Route::get('/admin/rekammedik/add', function (PoliService $poliService, DokterSe
 })->name('admin.rekammedik.add');
 
 
-Route::get('/admin/rekammedik/add/{id}', function (RekamMedikService $rekamMedikService, PoliService $poliService, DokterService $dokterService, PasienService $pasienService, $id) {
+Route::get('/admin/rekammedik/add/{id}', function (
+    RekamMedikService $rekamMedikService,
+    PoliService $poliService,
+    DokterService $dokterService,
+    ObatService $obatService,
+    PasienService $pasienService,
+    $id
+) {
     return Inertia::render(
         'Admin/AddRekamMedikPage',
         [
             "dokters" => $dokterService->all(),
             "pasiens" => $pasienService->all(),
             "polis" => $poliService->all(),
+            "obats" => $obatService->all(),
             "rekammedik" => $rekamMedikService->getById($id)
         ]
     );
@@ -52,7 +61,7 @@ Route::put('/admin/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequ
             return Redirect::back()->with('success');
         }
     } catch (\Throwable $th) {
-        return Redirect::back()->withErrors(["msg"=> "Data Tidak Berhasil Disimpan/ Diubah ! "]);
+        return Redirect::back()->withErrors(["msg" => "Data Tidak Berhasil Disimpan/ Diubah ! "]);
     }
 })->name('admin.rekammedik.put');
 
