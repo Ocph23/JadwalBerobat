@@ -1,9 +1,12 @@
 <script setup>
 import Layout from '@/dashboard/Layout.vue';
-import EditIcon from '@/Icons/EditIcon.vue';
+import DetailListIcon from '@/Icons/DetailListIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
 import { useForm } from '@inertiajs/vue3'
+import DokterLayout from '@/Layouts/DokterLayout.vue';
+import Search from '@/Components/Search.vue';
+import { ref, computed } from 'vue';
 
 
 const props = defineProps({
@@ -50,16 +53,42 @@ function deleteItem(item) {
 }
 
 
+
+const onChangeSearch = (text) => {
+    searchTerm.value=text;
+}
+
+const searchTerm=ref('');
+
+
+const searchPasien =  computed(() => {
+    if (searchTerm.value === '') {
+        return props.data;
+    }
+
+    let matches = 0
+    return props.data.filter(item => {
+        if (
+            item.nama.toLowerCase().includes(searchTerm.value.toLowerCase())
+            && matches < 10
+        ) {
+            matches++
+            return item
+        }
+    })
+});
+
+
 </script>
 
 
 
 <template>
 
-    <Layout>
+    <DokterLayout>
         <div class=" mt-5 flex justify-between">
             <h1 class="text-2xl">DATA PASIEN</h1>
-
+            <Search v-on:on-search="onChangeSearch"></Search>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -97,7 +126,7 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data">
+                        <tr v-for="item in searchPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
                             </td>
@@ -118,8 +147,8 @@ function deleteItem(item) {
                                 <p class="whitespace-nowrap text-white">{{ item.alamat }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm flex">
-                                <a :href="'/admin/pasien/add/' + item.id" class=" text-amber-500 hover:text-amber-700">
-                                    <EditIcon class=" w-5" />
+                                <a :href="'/dokter/pasien/' + item.id" class=" text-cyan-500 hover:text-cyan-700">
+                                    <DetailListIcon class=" w-5" />
                                 </a>
                             </td>
                         </tr>
@@ -128,6 +157,6 @@ function deleteItem(item) {
                 </table>
             </div>
         </div>
-    </Layout>
+    </DokterLayout>
 
 </template>

@@ -94,6 +94,10 @@ function deleteItem(item) {
                                 Spesialisasi
                             </th>
                             <th scope="col"
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Email
+                            </th>
+                            <th scope="col"
                                 class=" w-28 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Kontak
                             </th>
@@ -116,6 +120,9 @@ function deleteItem(item) {
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.spesialis }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.email }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.kontak }}</p>

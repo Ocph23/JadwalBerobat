@@ -2,9 +2,12 @@
 
 namespace App\services;
 
-use App\Http\Requests\DokterRequest;
-use App\Models\Dokter;
 use Error;
+use App\Models\User;
+use App\Models\Dokter;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\DokterRequest;
+use Illuminate\Support\Facades\Hash;
 
 class DokterService
 {
@@ -31,19 +34,33 @@ class DokterService
 
     public function post(DokterRequest $req)
     {
+        DB::beginTransaction();
         try {
+
+            //create User As Dokter
+
+
+            $user = User::create([
+                'name' => $req->nama,
+                'email' => $req->email,
+                'password' => Hash::make("Password@123"),
+                'role' => 'dokter',
+            ]);
+
             $result =  Dokter::create([
                 'kode' => $req['kode'],
                 'nama' => $req['nama'],
+                'email' => $req['email'],
                 'jk' => $req['jk'],
                 'spesialis' => $req['spesialis'],
                 'kontak' => $req['kontak'],
+                'user_id' => $user['id'],
             ]);
-
             
-
+            DB::commit();
             return $result;
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw new Error($th->getMessage());
         }
     }

@@ -19,6 +19,7 @@ const form = useForm({
     "kode": '',
     "nama": '',
     "jk": '',
+    "email": '',
     "spesialis": '',
     "kontak": '',
 }
@@ -120,7 +121,7 @@ onMounted(() => {
                                 <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Nama dokter</label>
+                                <label class="mb-2">Nama Dokter</label>
                                 <input type="text" v-model="form.nama"
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
                                 <InputError :message="form.errors['nama']" />
@@ -141,6 +142,12 @@ onMounted(() => {
                                 <InputError :message="form.errors['spesialis']" />
                             </div>
                             <div class="flex flex-col p-3">
+                                <label class="mb-2">Email</label>
+                                <input type="email" v-model="form.email"
+                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                <InputError :message="form.errors['email']" />
+                            </div>
+                            <div class="flex flex-col p-3">
                                 <label class="mb-2">Kotak</label>
                                 <input type="text" v-model="form.kontak"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
@@ -153,6 +160,9 @@ onMounted(() => {
                                     class=" mx-1 rounded-full border  border-sky-500 px-5 py-1  text-white bg-sky-700">Simpan</button>
 
                             </div>
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                 </form>

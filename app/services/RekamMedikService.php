@@ -31,9 +31,25 @@ class RekamMedikService
     public function getById($id)
     {
         $result = RekamMedik::find($id);
+        $result->poli;
+        $result->dokter;
+        $result->pasien;
+
         return $result;
     }
 
+
+
+    public function getByPasienId($id)
+    {
+        $result = RekamMedik::Where("pasien_id", $id)->get();
+        foreach ($result as $key => $rekamMedik) {
+            $rekamMedik->poli;
+            $rekamMedik->dokter;
+        }
+
+        return $result;
+    }
 
     public function post(RekamMedikRequest $req)
     {

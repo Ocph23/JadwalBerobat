@@ -5,6 +5,6 @@ import Layout from "@/dashboard/Layout.vue";
 
 <template>
    <Layout>
-        <h1>Index</h1>
+        <h1>Index ss</h1>
    </Layout>
 </template>

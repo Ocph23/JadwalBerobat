@@ -1,22 +1,33 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ObatController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Requests\ObatRequest;
-use App\services\ObatService;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use Inertia\Inertia;
+use App\services\ObatService;
+use App\Http\Requests\ObatRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ObatController;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+
+    if (Auth::check()) {
+        switch (Auth::user()->role) {
+            case 'admin':
+                return redirect()->intended(route('admin.index', absolute: false));
+            case 'dokter':
+                return redirect()->intended(route('dokter.index', absolute: false));
+            case 'pegawai':
+                return redirect()->intended(route('pegawai.index', absolute: false));
+            default:
+                return redirect()->intended(route('admin.index', absolute: false));
+        }
+    } else {
+        return Redirect::route('login');
+    }
 });
 
 Route::get('/dashboard', function () {

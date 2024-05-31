@@ -11,11 +11,13 @@ use Inertia\Inertia;
 
 
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
-include 'admin-obat.php';
-include 'admin-poli.php';
-include 'admin-dokter.php';
-include 'admin-pegawai.php';
-include 'admin-pasien.php';
-include 'admin-rekammedik.php';
+Route::group(['middleware' => 'role:admin'], function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    include 'admin-obat.php';
+    include 'admin-poli.php';
+    include 'admin-dokter.php';
+    include 'admin-pegawai.php';
+    include 'admin-pasien.php';
+    include 'admin-rekammedik.php';
+});

@@ -14,16 +14,10 @@ import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
 
 <template>
   <div>
-    <SidebarItemSection name="Apps">
-      <SidebarItem title="All Apps" to="/">
+    <SidebarItemSection>
+      <SidebarItem title="Dashboard" to="/admin">
         <AllAppIcon />
       </SidebarItem>
-      <SidebarItem title="Updates" to="/admin/updates">
-        <UpdatesIcon />
-      </SidebarItem>
-    </SidebarItemSection>
-
-    <SidebarItemSection  name="Categories">
       <SidebarItem title="Obat" to="/admin/obat">
         <PhotographyIcon />
       </SidebarItem>

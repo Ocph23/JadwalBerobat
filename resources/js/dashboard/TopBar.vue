@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { openSidebar } from "./store";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
+
 </script>
 
 <template>
@@ -8,98 +11,43 @@ import { openSidebar } from "./store";
       <div class="relative flex w-full items-center pl-1 sm:ml-0 sm:pr-2">
         <div class="container relative left-0 flex w-3/4">
           <div class="group relative flex h-full w-12 items-center">
-            <button
-              type="button"
-              aria-expanded="false"
-              aria-label="Toggle sidenav"
-              class="text-4xl text-white focus:outline-none lg:hidden"
-              @click="openSidebar"
-            >
+            <button type="button" aria-expanded="false" aria-label="Toggle sidenav"
+              class="text-4xl text-white focus:outline-none lg:hidden" @click="openSidebar">
               &#8801;
             </button>
           </div>
-          <div
-            class="group relative hidden h-full w-full items-center md:flex lg:w-64"
-          >
-            <div
-              class="absolute flex cursor-pointer items-center justify-center p-3 pr-2 text-sm uppercase text-gray-500 sm:hidden"
-            >
-              <svg
-                fill="none"
-                class="relative h-5 w-5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <svg
-              class="pointer-events-none absolute left-0 ml-4 hidden h-4 w-4 fill-current text-gray-500 group-hover:text-gray-400 sm:block"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
-              />
-            </svg>
-            <input
-              type="text"
-              class="block w-full rounded-2xl bg-gray-100 py-1.5 pl-10 pr-4 leading-normal text-gray-400 opacity-90 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Search"
-            />
-            <div
-              class="absolute right-0 mr-2 hidden h-auto rounded-2xl border border-gray-300 px-2 py-1 text-xs text-gray-400 md:block"
-            >
-              +
+        </div>
+        <div class="relative ml-5 flex w-9/12 items-center justify-end p-1 sm:right-auto sm:mr-0 md:w-1/4">
+          <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Settings Dropdown -->
+            <div class="ms-3 relative">
+              <Dropdown align="right" width="48">
+                <template #trigger>
+                  <span class="inline-flex rounded-md">
+                    <button type="button"
+                      class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                      {{ $page.props.auth.user.name }}
+                      <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </span>
+                </template>
+
+                <template #content class="flex flex-col">
+                  <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                  <DropdownLink :href="route('logout')" method="post" as="button">
+                    Log Out
+                  </DropdownLink>
+                </template>
+              </Dropdown>
             </div>
           </div>
-        </div>
-        <div
-          class="relative ml-5 flex w-9/12 items-center justify-end p-1 sm:right-auto sm:mr-0 md:w-1/4"
-        >
-          <a class="block pr-1 text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"
-              />
-            </svg>
-          </a>
-          <a href="#" class="relative block rounded px-3 py-2 text-white">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-                />
-              </svg>
-            </span>
-            <span
-              class="absolute right-0 top-0 rounded-full bg-blue-700 px-2 py-0.5 text-xs font-bold"
-            >
-              3
-            </span>
-          </a>
-          <a href="#" class="relative block pl-5">
-            <img
-              alt="Enoch Ndika"
-              src="../../images/1.jpg"
-              class="mx-auto h-10 w-10 rounded-full object-cover"
-            />
-          </a>
+
+
         </div>
       </div>
     </div>

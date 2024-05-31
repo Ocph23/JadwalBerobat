@@ -45,14 +45,14 @@ watch(route, () => {
 
 <style scoped>
 .background {
-  background-image: url("./mac.webp");
+  background-image: url("../../images/background.jpg");
   background-position: center;
   background-size: cover;
 }
 
 .content {
   background-color: rgba(16 18 27 / 40%);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(5px);
 }
 
 .main {

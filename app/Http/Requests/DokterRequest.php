@@ -24,6 +24,7 @@ class DokterRequest extends FormRequest
         return [
             'kode' => ['required', 'string', 'max:255'],
             'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
             'jk' => ['required'],
             'spesialis' => ['required']
         ];

@@ -15,7 +15,9 @@ class Dokter extends Model
         'id',
         'kode',
         'nama',
+        'email',
         'spesialis',
-        'kontak'
+        'kontak',
+        'user_id',
     ];
 }
