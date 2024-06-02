@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('polis', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->string('nama');
+            $table->string('penyakit');
             $table->string('keterangan');
             $table->foreignId('dokter_id');
         });

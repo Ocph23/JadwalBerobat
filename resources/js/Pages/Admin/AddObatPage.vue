@@ -5,6 +5,7 @@ import Obat from '@/Models/Obat';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import InputError from '@/Components/InputError.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -94,7 +95,7 @@ const save = () => {
 onMounted(() => {
     if (props.obat) {
         form.id = props.obat.id;
-        form.kode = props.obat.kode;
+        form.kode = Helper.getKode(props.obat.id, Obat);
         form.nama = props.obat.nama;
         form.merek = props.obat.merek;
         form.dosis = props.obat.dosis;
@@ -120,9 +121,8 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode" required
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
-                                <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Obat</label>
@@ -136,27 +136,22 @@ onMounted(() => {
                                     class="rounded-lg bg-transparent  text-neutral-400">
                                 <InputError :message="form.errors['merek']" />
                             </div>
+
+                        </div>
+                        <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dosis</label>
                                 <input type="text" v-model="form.dosis" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                 <InputError :message="form.errors['dosis']" />
                             </div>
-                        </div>
-                        <div>
-
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kemasan</label>
                                 <input type="text" v-model="form.kemasan" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                 <InputError :message="form.errors['kemasan']" />
                             </div>
-                            <div class="flex flex-col p-3">
-                                <label class="mb-2">Expire</label>
-                                <input type="date" v-model="form.exp" required  
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
-                                    <InputError :message="form.errors['exp']"/>
-                            </div>
+
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Deskripsi</label>
                                 <textarea v-model="form.deskripsi"

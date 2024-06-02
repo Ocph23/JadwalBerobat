@@ -17,16 +17,14 @@ defineProps({
 
 <template>
 
-<NavLink :href="to">
-    <span
-    class="my-1 flex w-full items-center justify-start p-3 text-white"
-    >
-    <span>
-      <slot />
+  <NavLink :href="to">
+    <span class="my-1 flex w-full items-center justify-start text-white">
+      <span>
+        <slot />
+      </span>
+      <span class="mx-4 text-sm">
+        {{ title }}
+      </span>
     </span>
-    <span class="mx-4 text-sm">
-      {{ title }}
-    </span>
-  </span>
-</NavLink>
+  </NavLink>
 </template>

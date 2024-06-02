@@ -22,7 +22,6 @@ class PegawaiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode' => ['required', 'string', 'max:255'],
             'nama' => ['required', 'string', 'max:255'],
             'jk' => ['required'],
             'bagian' => ['required']

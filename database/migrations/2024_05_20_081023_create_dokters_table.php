@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('dokters', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->string('nid');
             $table->string('nama');
             $table->enum('jk',['pria','wanita']);
             $table->string('email');
             $table->string('spesialis');
             $table->string('kontak');
+            $table->foreignId('user_id');
         });
     }
     /**

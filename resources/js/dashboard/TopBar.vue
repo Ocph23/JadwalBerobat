@@ -46,8 +46,6 @@ import DropdownLink from "@/Components/DropdownLink.vue";
               </Dropdown>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

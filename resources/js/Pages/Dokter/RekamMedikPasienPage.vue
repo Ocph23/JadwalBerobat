@@ -12,7 +12,10 @@ import DeleteIcon from '@/Icons/DeleteIcon.vue';
 
 
 const props = defineProps({
-    rekammedik: RekamMedik
+    rekammedik: RekamMedik,
+    obats: {
+        type:Array
+    }
 })
 
 const selectedTab = reactive({ id: 1 });

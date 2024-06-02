@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Kode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,6 @@ class Pasien extends Model
 
     public $fillable = [
         'id',
-        'kode',
         'nama',
         'jenis_kelamin',
         'status',
@@ -21,4 +21,5 @@ class Pasien extends Model
         'kontak', 
         'alamat'
     ];
+
 }

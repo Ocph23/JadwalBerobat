@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->string('nama');
             $table->enum('jk',['pria','wanita']);
             $table->string('tempat_lahir');

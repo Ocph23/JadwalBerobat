@@ -36,8 +36,8 @@ class PoliService
     {
         try {
             $result =  Poli::create([
-                'kode' => $req['kode'],
                 'nama' => $req['nama'],
+                'penyakit' => $req['penyakit'],
                 'keterangan' => $req['keterangan'],
                 'dokter_id' => $req['dokter_id'],
             ]);
@@ -54,8 +54,8 @@ class PoliService
             if (!$data) {
                 throw new Error("Data Poli Tidak Ditemukan!");
             }
-            $data->kode = $req['kode'];
             $data->nama = $req['nama'];
+            $data->penyakit = $req['penyakit'];
             $data->keterangan = $req['keterangan'];
             $data->dokter_id = $req['dokter_id'];
             $data->save();

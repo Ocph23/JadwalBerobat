@@ -9,6 +9,7 @@ import RekamMedik from '@/Models/RekamMedik';
 import Pasien from '@/Models/Pasien';
 import AddIcon from '@/Icons/AddIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -150,7 +151,7 @@ function addResep() {
     if (!form.resep) {
         form.resep = [];
     }
-    form.resep.push({ obat_id: 0, catatan:'' });
+    form.resep.push({ obat_id: 0, catatan: '' });
 }
 
 
@@ -163,11 +164,12 @@ function deleteResep(item) {
 onMounted(() => {
     if (props.rekammedik) {
         form.id = props.rekammedik.id;
-        form.kode = props.rekammedik.kode;
+        form.kode = Helper.getKode(props.rekammedik.id, RekamMedik);
         form.pasien_id = props.rekammedik.pasien_id;
         form.dokter_id = props.rekammedik.dokter_id;
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
+        form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
         form.resep = JSON.parse(props.rekammedik.resep);
@@ -206,7 +208,7 @@ const selectTab = (param) => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode"
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
@@ -264,7 +266,7 @@ const selectTab = (param) => {
             <div v-if="selectedTab.id == 2">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">PENANGANAN</h1>
-                    <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addPenanganan()" />
+                    <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addPenanganan()" /> -->
                 </div>
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.penanganan" class="flex gap-1">
@@ -281,7 +283,7 @@ const selectTab = (param) => {
             <div v-if="selectedTab.id == 3">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">RESEP</h1>
-                    <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" />
+                    <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
                 </div>
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">
@@ -302,24 +304,13 @@ const selectTab = (param) => {
             </div>
             <div v-if="selectedTab.id == 4">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
-                    <h1 class="text-2xl">JADWAL BEROBAT</h1>
-                    <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" />
+                    <h1 class="text-2xl">JADWAL BEROBAT BERIKUT</h1>
                 </div>
-                <ul class="p-5 mt-5 shadow-md">
-                    <li v-for="(item, key) in form.resep" class="flex gap-1">
-                        <input type="text" :value="key + 1" disabled
-                            class="w-12 rounded-lg bg-transparent  text-neutral-400">
-                        <select type="text" v-model="item.obat_id"
-                            class=" w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                            <option :value="obat.id" v-for="obat in obats">{{ obat.nama }} {{ obat.dosis }} ({{
-                                obat.kemasan }}) </option>
-                        </select>
-                        <input type="text" v-model="item.catatan"
-                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                        <DeleteIcon @click="deleteResep(item)" class="w-7 text-red-500" />
-                    </li>
-
-                </ul>
+                <div class="flex flex-col p-3">
+                    <label class="mb-2">Tanggal</label>
+                    <input type="date" v-model="form.konsultasi_berikut" disabled
+                        class=" rounded-lg bg-transparent  text-neutral-400">
+                </div>
 
             </div>
         </div>

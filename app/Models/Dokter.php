@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Kode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,11 +14,12 @@ class Dokter extends Model
 
     public $fillable = [
         'id',
-        'kode',
+        'nid',
         'nama',
         'email',
         'spesialis',
         'kontak',
         'user_id',
     ];
+   
 }

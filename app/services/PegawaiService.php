@@ -33,7 +33,6 @@ class PegawaiService
     {
         try {
             $result =  Pegawai::create([
-                'kode' => $req['kode'],
                 'nama' => $req['nama'],
                 'jk' => $req['jk'],
                 'bagian' => $req['bagian'],
@@ -53,7 +52,6 @@ class PegawaiService
                 throw new Error("Data Pegawai Tidak Ditemukan!");
             }
 
-            $data->kode = $req['kode'];
             $data->nama = $req['nama'];
             $data->jk = $req['jk'];
             $data->bagian = $req['bagian'];

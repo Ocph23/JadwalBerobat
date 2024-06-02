@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import Pegawai from '@/Models/Pegawai';
 import InputError from '@/Components/InputError.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -16,7 +17,6 @@ const props = defineProps({
 
 const form = useForm({
     "id": 0,
-    "kode": '',
     "nama": '',
     "jk": '',
     "bagian": '',
@@ -91,7 +91,7 @@ const save = () => {
 onMounted(() => {
     if (props.pegawai) {
         form.id = props.pegawai.id;
-        form.kode = props.pegawai.kode;
+        form.kode = Helper.getKode(props.pegawai.id,Pegawai);
         form.nama = props.pegawai.nama;
         form.jk = props.pegawai.jk;
         form.bagian = props.pegawai.bagian;
@@ -115,9 +115,8 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode"
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
-                                <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Pegawai</label>

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
 import InputError from '@/Components/InputError.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -93,7 +94,7 @@ const save = () => {
 onMounted(() => {
     if (props.pasien) {
         form.id = props.pasien.id;
-        form.kode = props.pasien.kode;
+        form.kode = Helper.getKode(props.pasien.id,Pasien);
         form.nama = props.pasien.nama;
         form.jk = props.pasien.jk;
         form.tempat_lahir = props.pasien.tempat_lahir;
@@ -119,9 +120,8 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode"
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
-                                    <InputError :message="form.errors['kode']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Pasien</label>

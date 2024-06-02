@@ -5,6 +5,7 @@ import Dokter from '@/Models/Dokter';
 import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import InputError from '@/Components/InputError.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -16,7 +17,7 @@ const props = defineProps({
 
 const form = useForm({
     "id": 0,
-    "kode": '',
+    "nid": '',
     "nama": '',
     "jk": '',
     "email": '',
@@ -92,7 +93,8 @@ const save = () => {
 onMounted(() => {
     if (props.dokter) {
         form.id = props.dokter.id;
-        form.kode = props.dokter.kode;
+        form.kode = Helper.getKode(props.dokter.id, Dokter);
+        form.nid = props.dokter.nid;
         form.nama = props.dokter.nama;
         form.jk = props.dokter.jk;
         form.spesialis = props.dokter.spesialis;
@@ -115,10 +117,14 @@ onMounted(() => {
                     <div class=" grid grid-cols-2">
                         <div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">NID</label>
-                                <input type="text" v-model="form.kode"
+                                <label class="mb-2">Kode</label>
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
-                                <InputError :message="form.errors['kode']" />
+                            </div>
+                            <div class="flex flex-col p-3">
+                                <label class="mb-2">NID</label>
+                                <input type="text" v-model="form.nid"
+                                    class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Dokter</label>
@@ -135,6 +141,10 @@ onMounted(() => {
                                 </select>
                                 <InputError :message="form.errors['jk']" />
                             </div>
+
+
+                        </div>
+                        <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Spesialis</label>
                                 <input type="text" v-model="form.spesialis"
@@ -153,17 +163,15 @@ onMounted(() => {
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                 <InputError :message="form.errors['kontak']" />
                             </div>
-                            <div class="m-2 flex justify-end">
-                                <button type="button" @click="backAction()"
-                                    class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
-                                <button type="submit"
-                                    class=" mx-1 rounded-full border  border-sky-500 px-5 py-1  text-white bg-sky-700">Simpan</button>
-
-                            </div>
                         </div>
-                        <div>
 
-                        </div>
+                    </div>
+                    <div class="m-2 flex justify-end">
+                        <button type="button" @click="backAction()"
+                            class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
+                        <button type="submit"
+                            class=" mx-1 rounded-full border  border-sky-500 px-5 py-1  text-white bg-sky-700">Simpan</button>
+
                     </div>
                 </form>
             </div>

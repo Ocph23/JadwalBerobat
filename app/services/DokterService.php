@@ -48,7 +48,7 @@ class DokterService
             ]);
 
             $result =  Dokter::create([
-                'kode' => $req['kode'],
+                'nid' => $req['nid'],
                 'nama' => $req['nama'],
                 'email' => $req['email'],
                 'jk' => $req['jk'],
@@ -73,7 +73,7 @@ class DokterService
                 throw new Error("Data Dokter Tidak Ditemukan!");
             }
 
-            $data->kode = $req['kode'];
+            $data->nid = $req['nid'];
             $data->nama = $req['nama'];
             $data->jk = $req['jk'];
             $data->spesialis = $req['spesialis'];

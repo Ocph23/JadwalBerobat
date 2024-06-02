@@ -34,7 +34,6 @@ class PasienService
     {
         try {
             $result =  Pasien::create([
-                'kode' => $req['kode'],
                 'nama' => $req['nama'],
                 'jk' => $req['jk'],
                 'tempat_lahir' => $req['tempat_lahir'],
@@ -58,7 +57,6 @@ class PasienService
                 throw new Error("Data Pasien Tidak Ditemukan!");
             }
 
-            $data->kode = $req['kode'];
             $data->nama = $req['nama'];
             $data->jk = $req['jk'];
             $data->tempat_lahir = $req['tempat_lahir'];

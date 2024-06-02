@@ -33,13 +33,11 @@ class ObatService
     {
         try {
             $result =  Obat::create([
-                'kode' => $req['kode'],
                 'nama' => $req['nama'],
                 'merek' => $req['merek'],
                 'dosis' => $req['dosis'],
                 'deskripsi' => $req['deskripsi'],
                 'kemasan' => $req['kemasan'],
-                'exp' => $req['exp'],
             ]);
             return $result;
         } catch (\Throwable $th) {
@@ -55,13 +53,11 @@ class ObatService
                 throw new Error("Data Obat Tidak Ditemukan!");
             }
 
-            $data->kode = $req['kode'];
             $data->nama = $req['nama'];
             $data->merek = $req['merek'];
             $data->dosis = $req['dosis'];
             $data->kemasan = $req['kemasan'];
             $data->deskripsi = $req['deskripsi'];
-            $data->exp = $req['exp'];
             $data->save();
             return true;
         } catch (\Throwable $th) {

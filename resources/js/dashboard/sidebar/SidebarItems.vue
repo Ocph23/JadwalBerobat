@@ -10,11 +10,14 @@ import SidebarItemSection from "./SidebarItemSection.vue";
 import PhotographyIcon from "./icons/PhotographyIcon.vue";
 import IllustrationIcon from "./icons/IllustrationIcon.vue";
 import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
+import DoctorIcon from "@/Icons/DoctorIcon.vue";
+import PatientIcon from "@/Icons/PatientIcon.vue";
+import DetailListIcon from "@/Icons/DetailListIcon.vue";
 </script>
 
 <template>
   <div>
-    <SidebarItemSection>
+    <SidebarItemSection name="APP ADMIN" :subname="$page.props.auth.user.name">
       <SidebarItem title="Dashboard" to="/admin">
         <AllAppIcon />
       </SidebarItem>
@@ -25,16 +28,19 @@ import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
         <GraphicDesignIcon />
       </SidebarItem>
       <SidebarItem title="Dokter" to="/admin/dokter">
-        <VideoIcon />
+        <DoctorIcon class=" w-5  h-auto" />
       </SidebarItem>
       <SidebarItem title="Pegawai" to="/admin/pegawai">
         <IllustrationIcon />
       </SidebarItem>
       <SidebarItem title="Pasien" to="/admin/pasien">
-        <UxIcon />
+        <PatientIcon class="w-5 h-auto" />
       </SidebarItem>
       <SidebarItem title="Rekam Medik" to="/admin/rekammedik">
         <ArIcon />
+      </SidebarItem>
+      <SidebarItem title="Laporan Jadwal Berobat" to="/admin/jadwalberobat">
+        <DetailListIcon class="w-5" />
       </SidebarItem>
     </SidebarItemSection>
   

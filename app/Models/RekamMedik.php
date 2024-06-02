@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Kode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,6 +27,14 @@ class RekamMedik extends Model
     ];
 
 
+
+    protected function casts(): array
+    {
+        return [
+            'kode' => Kode::class,
+        ];
+    }
+
     public function dokter():HasOne{
         return  $this->hasOne(Dokter::class,'id',"dokter_id");
     }
@@ -38,20 +47,5 @@ class RekamMedik extends Model
         return $this->hasOne(Pasien::class , 'id', 'poli_id');
     }
     
-    
-    public function keluhan():BelongsToMany{
-        return $this->belongsToMany(Keluhan::class , 'rekam_medik_id');
-    }
-
-    public function penanganan():BelongsToMany{
-        return $this->belongsToMany(Penanganan::class , 'rekam_medik_id');
-    }
-
-
-    public function resep():BelongsToMany{
-        return $this->belongsToMany(Resep::class , 'rekam_medik_id');
-    }
-
-
 
 }

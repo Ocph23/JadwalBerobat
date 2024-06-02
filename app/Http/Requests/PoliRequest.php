@@ -22,8 +22,8 @@ class PoliRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode' => ['required', 'string', 'max:255'],
             'nama' => ['required', 'string', 'max:255'],
+            'penyakit' => ['required', 'string', 'max:255'],
             'dokter_id' => ['required'],
             'keterangan' => ['required', 'string', 'max:255'],
         ];

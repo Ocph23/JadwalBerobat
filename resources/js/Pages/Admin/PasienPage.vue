@@ -4,7 +4,11 @@ import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
 import {useForm} from '@inertiajs/vue3'
-
+import { ref,computed } from 'vue';
+import Search from '@/Components/Search.vue';
+import AddIcon from '@/Icons/AddIcon.vue';
+import Helper from '@/heper';
+import Pasien from '@/Models/Pasien';
 
 const props = defineProps({
     data: {
@@ -57,20 +61,40 @@ function deleteItem(item) {
 }
 
 
+const onSearchText = (text) => {
+    searchTerm.value = text;
+};
+
+const searchTerm =  ref('');
+const filterDataPasien = computed(() => {
+    if (searchTerm.value === '') {
+        return props.data;
+    }
+
+    let matches = 0
+    return props.data.filter(item => {
+        if (
+            item.nama.toLowerCase().includes(searchTerm.value.toLowerCase())
+            && matches < 10
+        ) {
+            matches++
+            return item
+        }
+    })
+});
 </script>
 
 
-
 <template>
-
     <Layout>
         <div class=" mt-5 flex justify-between">
             <h1 class="text-2xl">DATA PASIEN</h1>
-            <button @click="addNewItem()"
-                class="shrink-0 rounded-lg bg-gray-600 px-4 py-2 text-base font-semibold text-white shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
-                type="submit">
-                Tambah
-            </button>
+            <div class="flex">
+                <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
+            </div>
+        </div>
+        <div>
+            <Search v-on:on-search="onSearchText"></Search>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -108,9 +132,9 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data">
+                        <tr v-for="item in filterDataPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
+                                <p class="whitespace-nowrap text-white">{{Helper.getKode(item.id,Pasien) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

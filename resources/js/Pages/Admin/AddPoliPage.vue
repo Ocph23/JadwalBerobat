@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { onMounted } from 'vue';
 import Dokter from '@/Models/Dokter';
 import InputError from '@/Components/InputError.vue';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -20,8 +21,8 @@ const props = defineProps({
 
 const form = useForm({
     "id": 0,
-    "kode": '',
     "nama": '',
+    "penyakit": '',
     "keterangan": '',
     "dokter_id": '',
 }
@@ -56,7 +57,7 @@ const save = () => {
                 if (err.message) {
                     Swal.fire({
                         position: "top-end",
-                        icon: "err",
+                        icon: "error",
                         title: err.message,
                         showConfirmButton: false,
                         timer: 1500
@@ -94,8 +95,9 @@ const save = () => {
 onMounted(() => {
     if (props.poli) {
         form.id = props.poli.id;
-        form.kode = props.poli.kode;
+        form.kode = Helper.getKode(props.poli.id,Poli);
         form.nama = props.poli.nama;
+        form.penyakit = props.poli.penyakit;
         form.keterangan = props.poli.keterangan;
         form.dokter_id = props.poli.dokter_id;
     }
@@ -117,9 +119,8 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode" required
+                                <input type="text" v-model="form.kode" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
-                                <InputError :message="form.errors['kode']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
@@ -131,7 +132,7 @@ onMounted(() => {
                                 <label class="mb-2">Penyakit</label>
                                 <input type="text" v-model="form.penyakit" required
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
-                                <InputError :message="form.errors['nama']" />
+                                <InputError :message="form.errors['penyakit']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>

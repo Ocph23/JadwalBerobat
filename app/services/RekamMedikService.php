@@ -39,6 +39,19 @@ class RekamMedikService
     }
 
 
+    public function getByDate($date)
+    {
+        $results = RekamMedik::where('konsultasi_berikut', $date)->get();
+        foreach ($results as $key => $rekamMedik) {
+            $rekamMedik->poli;
+            $rekamMedik->dokter;
+            $rekamMedik->pasien;
+        }
+        return $results->toJson();
+    }
+
+
+
 
     public function getByPasienId($id)
     {
@@ -51,11 +64,25 @@ class RekamMedikService
         return $result;
     }
 
+
+    public function getByDokterId($id)
+    {
+        $result = RekamMedik::Where("dokter_id", $id)
+        ->orderBy('tanggal')
+        ->get();
+        foreach ($result as $key => $rekamMedik) {
+            $rekamMedik->poli;
+            $rekamMedik->dokter;
+            $rekamMedik->pasien;
+        }
+
+        return $result;
+    }
+
     public function post(RekamMedikRequest $req)
     {
         try {
             $result =  RekamMedik::create([
-                'kode' => $req['kode'],
                 'tanggal' => $req['tanggal'],
                 'poli_id' => $req['poli_id'],
                 'pasien_id' => $req['pasien_id'],
@@ -78,7 +105,6 @@ class RekamMedikService
             if (!$data) {
                 throw new Error("Data RekamMedik Tidak Ditemukan!");
             }
-            $data->kode = $req['kode'];
             $data->tanggal = $req['tanggal'];
             $data->poli_id = $req['poli_id'];
             $data->dokter_id = $req['dokter_id'];

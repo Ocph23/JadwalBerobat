@@ -7,6 +7,8 @@ import { useForm } from '@inertiajs/vue3'
 import DokterLayout from '@/Layouts/DokterLayout.vue';
 import Search from '@/Components/Search.vue';
 import { ref, computed } from 'vue';
+import Helper from '@/heper';
+import Pasien from '@/Models/Pasien';
 
 
 const props = defineProps({
@@ -128,7 +130,7 @@ const searchPasien =  computed(() => {
                     <tbody>
                         <tr v-for="item in searchPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,Pasien) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
