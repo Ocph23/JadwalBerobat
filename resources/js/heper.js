@@ -2,6 +2,14 @@ export default class Helper {
    static apiUrl = "http://127.0.0.1:8000/api";
 
 
+
+   static getResepKode(id){
+      var str = "" + 1
+      var pad = "000000"
+      var ans = pad.substring(0, pad.length - str.length) + str;
+      return "RS"+ans;
+   }
+
    static getKode = (id, obj) => {
       var str = "" + 1
       var pad = "000000"

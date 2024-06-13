@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
 import { onMounted, watch } from "vue";
-
 import TopBar from "@/dashboard/TopBar.vue";
 import Overlay from "@/dashboard/Overlay.vue";
-import Sidebar from "./DokterSidebar.vue";
+import DokterSidebar from "./DokterSidebar.vue";
 import { closeSidebar, sidebarOpen } from "@/dashboard/store";
+import Poli from "@/Models/Poli";
 
-// const route = useRoute();
+
+const props = defineProps({
+  poli: { type: Poli }
+})
+
 
 onMounted(() => {
   // set the html tag attribute overflow to hidden when component is mounted
@@ -29,10 +32,8 @@ watch(route, () => {
     <div class="content relative h-screen overflow-hidden lg:rounded-2xl">
       <div class="flex items-start">
         <Overlay />
-        <Sidebar mobile-orientation="end" />
-        <div
-          class="flex h-screen w-full flex-col pl-0 lg:w-[calc(100%-16rem)] lg:space-y-4"
-        >
+        <DokterSidebar :poli="poli" mobile-orientation="end" />
+        <div class="flex h-screen w-full flex-col pl-0 lg:w-[calc(100%-16rem)] lg:space-y-4">
           <TopBar />
           <main class="main h-screen px-2 pb-36 pt-4 md:px-4 md:pb-8 lg:px-6">
             <slot />

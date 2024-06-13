@@ -10,6 +10,8 @@ import Pasien from '@/Models/Pasien';
 import AddIcon from '@/Icons/AddIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Helper from '@/heper';
+import PrinterIcon from '@/Icons/PrinterIcon.vue';
+import PrintResep from '@/Components/PrintResep.vue';
 
 
 const props = defineProps({
@@ -151,7 +153,7 @@ function addResep() {
     if (!form.resep) {
         form.resep = [];
     }
-    form.resep.push({ obat_id: 0, catatan: '' });
+    form.resep.push({ obat_id: 0, dosis: '', catatan: '' });
 }
 
 
@@ -189,7 +191,11 @@ const selectTab = (param) => {
     selectedTab.id = param.id;
 };
 
-
+const printResep = () => {
+    if (form.resep) {
+        window.print();
+    }
+}
 
 
 
@@ -197,7 +203,7 @@ const selectTab = (param) => {
 
 <template>
 
-    <Layout>
+    <Layout class="noprint">
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-2xl">TAMBAH/EDIT REKAM MEDIK</h1>
         </div>
@@ -284,6 +290,7 @@ const selectTab = (param) => {
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">RESEP</h1>
                     <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
+                    <PrinterIcon class=" w-6 cursor-pointer text-amber-500" @click="printResep()"></PrinterIcon>
                 </div>
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">
@@ -294,9 +301,10 @@ const selectTab = (param) => {
                             <option :value="obat.id" v-for="obat in obats">{{ obat.nama }} {{ obat.dosis }} ({{
                                 obat.kemasan }}) </option>
                         </select>
-                        <input type="text" v-model="item.catatan"
+                        <input type="text" v-model="item.dosis" placeholder="dosis"
                             class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                        <DeleteIcon @click="deleteResep(item)" class="w-7 text-red-500" />
+                        <input type="text" v-model="item.catatan" placeholder="durasi"
+                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
                     </li>
 
                 </ul>
@@ -314,7 +322,10 @@ const selectTab = (param) => {
 
             </div>
         </div>
-
     </Layout>
+
+
+
+    <PrintResep v-if="rekammedik.resep" :obats="props.obats" :rekammedik="props.rekammedik"></PrintResep>
 
 </template>

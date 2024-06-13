@@ -6,14 +6,18 @@ import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
 import DetailListIcon from '@/Icons/DetailListIcon.vue';
 import EditIcon from '@/Icons/EditIcon.vue';
+import Poli from '@/Models/Poli';
 
 
 const props = defineProps({
+    poli: {
+        type: Poli
+    },
     pasien: {
-        type:Pasien
-    }, 
-    rekammediks:{
-        type:Array
+        type: Pasien
+    },
+    rekammediks: {
+        type: Array
     }
 })
 
@@ -24,7 +28,7 @@ const form = useForm({
     "nama": '',
     "jk": 'pria',
     "tempat_lahir": '',
-    "tanggal_lahir":null,
+    "tanggal_lahir": null,
     "kontak": '',
     "alamat": '',
 }
@@ -95,7 +99,7 @@ const save = () => {
 
 
 onMounted(() => {
-  
+
 
 })
 
@@ -103,7 +107,7 @@ onMounted(() => {
 
 <template>
 
-    <DokterLayout>
+    <DokterLayout :poli="props.poli">
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-2xl">Detail Pasien</h1>
         </div>
@@ -114,13 +118,13 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
-                                <input type="text" :value="pasien.kode + ' - ' +pasien.nama" 
-                                   disabled class=" rounded-lg bg-transparent  text-neutral-400">
+                                <input type="text" :value="pasien.kode + ' - ' + pasien.nama" disabled
+                                    class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
-                          
+
                         </div>
                     </div>
-                  
+
                 </form>
             </div>
         </div>
@@ -146,7 +150,7 @@ onMounted(() => {
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Tanggal
                             </th>
-                          
+
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Poli
@@ -182,9 +186,10 @@ onMounted(() => {
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.konsultasi_berikut }}</p>
                             </td>
-                           
+
                             <td class="border-b border-gray-200  p-3 text-sm flex">
-                                <a  :href="'/dokter/rekammedik/'+item.id" class=" cursor-pointer text-cyan-600 hover:text-cyan-900">
+                                <a :href="'/dokter/rekammedik/' + item.id"
+                                    class=" cursor-pointer text-cyan-600 hover:text-cyan-900">
                                     <DetailListIcon class=" w-5" />
                                 </a>
                             </td>
@@ -194,7 +199,7 @@ onMounted(() => {
                 </table>
             </div>
         </div>
-      
+
     </DokterLayout>
 
 </template>

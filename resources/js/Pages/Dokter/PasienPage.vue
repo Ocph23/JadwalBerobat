@@ -9,12 +9,14 @@ import Search from '@/Components/Search.vue';
 import { ref, computed } from 'vue';
 import Helper from '@/heper';
 import Pasien from '@/Models/Pasien';
+import Poli from '@/Models/Poli';
 
 
 const props = defineProps({
     data: {
         type: Array
-    }
+    },
+    poli: { type: Poli }
 })
 
 const form = useForm({
@@ -57,13 +59,13 @@ function deleteItem(item) {
 
 
 const onChangeSearch = (text) => {
-    searchTerm.value=text;
+    searchTerm.value = text;
 }
 
-const searchTerm=ref('');
+const searchTerm = ref('');
 
 
-const searchPasien =  computed(() => {
+const searchPasien = computed(() => {
     if (searchTerm.value === '') {
         return props.data;
     }
@@ -87,7 +89,7 @@ const searchPasien =  computed(() => {
 
 <template>
 
-    <DokterLayout>
+    <DokterLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-2xl">DATA PASIEN</h1>
             <Search v-on:on-search="onChangeSearch"></Search>
@@ -130,7 +132,7 @@ const searchPasien =  computed(() => {
                     <tbody>
                         <tr v-for="item in searchPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,Pasien) }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, Pasien) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Dokter;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DokterRequest;
+use App\Models\Poli;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class DokterService
@@ -29,6 +31,13 @@ class DokterService
     {
         $result = Dokter::find($id);
         return $result;
+    }
+
+    public function getPoli(){
+        $user  =  Auth::user();
+        $dokter = Dokter::where("user_id", $user->id)->first();
+        $poli = Poli::where("dokter_id", $dokter->id)->first();
+        return $poli;
     }
 
 

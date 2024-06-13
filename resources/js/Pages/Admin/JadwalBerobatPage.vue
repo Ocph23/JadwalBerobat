@@ -11,6 +11,8 @@ import Helper from '@/heper';
 import AddIcon from '@/Icons/AddIcon.vue';
 import PrinterIcon from '@/Icons/PrinterIcon.vue';
 import Search from '@/Components/Search.vue';
+import LogoKota from '@/Icons/LogoKota.vue';
+import LogoPuskesmas from '@/Icons/LogoPuskesmas.vue';
 
 
 const props = defineProps({
@@ -40,33 +42,12 @@ const printReport = () => {
 
 }
 
+
 </script>
-<style>
-#print {
-    display: none;
-}
 
-
-@media print {
-    #test {
-        display: none;
-    }
-
-    #print {
-        display: block;
-    }
-
-
-    th,
-    td {
-        border: 1px solid;
-    }
-
-}
-</style>
 
 <template>
-    <Layout id="test">
+    <Layout class="noprint">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-2xl">DATA REKAM MEDIK</h1>
             <div class="flex">
@@ -141,10 +122,10 @@ const printReport = () => {
     </Layout>
 
 
-    <div id="print">
+    <div class="print">
         <div>
             <div class=" w-full flex justify-between border-b-2 border-gray-900">
-                <LogoKota></LogoKota>
+                <LogoKota class=" w-16 h-16" ></LogoKota>
                 <div class=" text-center">
                     <h2>PEMERINTAH KOTA JAYAPURA</h2>
                     <h2>DINAS KESEHATAN</h2>
@@ -153,7 +134,7 @@ const printReport = () => {
                     <div class=" text-sm">Kode Pos : 99531, NO Telp 081248227115</div>
                     <div class=" text-sm">email : puskesmayoka@gmail.com</div>
                 </div>
-                <LogoKota></LogoKota>
+                <LogoPuskesmas class=" w-16 h-16"></LogoPuskesmas>
             </div>
             <hr />
 

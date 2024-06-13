@@ -5,6 +5,7 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Requests\rekammedikRequest;
 use App\Models\Dokter;
+use App\services\DokterService;
 use App\services\ObatService;
 use App\services\rekammedikService;
 use Illuminate\Foundation\Application;
@@ -13,20 +14,26 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/dokter/rekammedik', function (rekammedikService $rekammedikService) {
+Route::get('/dokter/rekammedik', function (rekammedikService $rekammedikService, DokterService $dokterService) {
     $user = Auth::user();
     $dokter = Dokter::where("user_id", $user->id)->first();
-    return Inertia::render('Dokter/RekamMedikPage', ['data' => $rekammedikService->getByDokterId($dokter->id)]);
+    return Inertia::render('Dokter/RekamMedikPage', ['poli' => $dokterService->getPoli(), 'data' => $rekammedikService->getByDokterId($dokter->id)]);
 })->name('dokter.rekammedik');
 
 
 
 
-Route::get('/dokter/rekammedik/{id}', function (ObatService $obatService, RekamMedikService $rekammedikService, $id) {
+Route::get('/dokter/rekammedik/{id}', function (
+    ObatService $obatService,
+    DokterService $dokterService,
+    RekamMedikService $rekammedikService,
+    $id
+) {
     return Inertia::render(
         'Dokter/RekamMedikPasienPage',
         [
-            "obats"=> $obatService->all(),
+            'poli' => $dokterService->getPoli(),
+            "obats" => $obatService->all(),
             "rekammedik" => $rekammedikService->getById($id),
         ],
     );

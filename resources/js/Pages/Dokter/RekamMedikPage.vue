@@ -3,15 +3,17 @@ import DokterLayout from '@/Layouts/DokterLayout.vue';
 import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
-import {useForm} from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
+import Poli from '@/Models/Poli';
 
 
 const props = defineProps({
     data: {
         type: Array
-    }
+    },
+    poli: { type: Poli }
 })
 
 const form = useForm({
@@ -62,7 +64,7 @@ function deleteItem(item) {
 
 <template>
 
-    <DokterLayout>
+    <DokterLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-2xl">DATA REKAM MEDIK</h1>
         </div>
@@ -100,7 +102,7 @@ function deleteItem(item) {
                     <tbody>
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,RekamMedik) }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, RekamMedik) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
@@ -114,7 +116,7 @@ function deleteItem(item) {
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
                             </td>
-                           
+
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/dokter/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />

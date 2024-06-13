@@ -19,7 +19,7 @@ defineProps({
 
   <NavLink :href="to">
     <span class="my-1 flex w-full items-center justify-start text-white">
-      <span>
+      <span class=" w-6" >
         <slot />
       </span>
       <span class="mx-4 text-sm">

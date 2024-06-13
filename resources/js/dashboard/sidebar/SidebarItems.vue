@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import UxIcon from "./icons/UxIcon.vue";
 import ArIcon from "./icons/ArIcon.vue";
-import DocIcon from "./icons/DocIcon.vue";
 import SidebarItem from "./SidebarItem.vue";
-import VideoIcon from "./icons/VideoIcon.vue";
 import AllAppIcon from "./icons/AllAppIcon.vue";
-import UpdatesIcon from "./icons/UpdatesIcon.vue";
 import SidebarItemSection from "./SidebarItemSection.vue";
-import PhotographyIcon from "./icons/PhotographyIcon.vue";
-import IllustrationIcon from "./icons/IllustrationIcon.vue";
-import GraphicDesignIcon from "./icons/GraphicDesignIcon.vue";
 import DoctorIcon from "@/Icons/DoctorIcon.vue";
 import PatientIcon from "@/Icons/PatientIcon.vue";
 import DetailListIcon from "@/Icons/DetailListIcon.vue";
+import CapsulesIcon from "@/Icons/CapsulesIcon.vue";
+import HospitalIcon from "@/Icons/HospitalIcon.vue";
+import UsersIcon from "@/Icons/UsersIcon.vue";
 </script>
 
 <template>
@@ -22,16 +18,16 @@ import DetailListIcon from "@/Icons/DetailListIcon.vue";
         <AllAppIcon />
       </SidebarItem>
       <SidebarItem title="Obat" to="/admin/obat">
-        <PhotographyIcon />
+        <CapsulesIcon color="white" class="w-5 h-5"/>
       </SidebarItem>
       <SidebarItem title="Poli" to="/admin/poli">
-        <GraphicDesignIcon />
+        <HospitalIcon color="white" class="w-5 h-5"/>
       </SidebarItem>
       <SidebarItem title="Dokter" to="/admin/dokter">
         <DoctorIcon class=" w-5  h-auto" />
       </SidebarItem>
       <SidebarItem title="Pegawai" to="/admin/pegawai">
-        <IllustrationIcon />
+        <UsersIcon class="w-5 h-5" />
       </SidebarItem>
       <SidebarItem title="Pasien" to="/admin/pasien">
         <PatientIcon class="w-5 h-auto" />

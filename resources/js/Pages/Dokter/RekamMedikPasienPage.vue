@@ -9,12 +9,16 @@ import RekamMedik from '@/Models/RekamMedik';
 import Pasien from '@/Models/Pasien';
 import AddIcon from '@/Icons/AddIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
+import Poli from '@/Models/Poli';
 
 
 const props = defineProps({
     rekammedik: RekamMedik,
     obats: {
-        type:Array
+        type: Array
+    },
+    poli: {
+        type: Poli
     }
 })
 
@@ -80,7 +84,7 @@ const save = () => {
                 });
             }
         });
-    } 
+    }
 }
 
 
@@ -119,7 +123,7 @@ function addResep() {
     if (!form.resep) {
         form.resep = [];
     }
-    form.resep.push({ obat_id: 0, catatan: '' });
+    form.resep.push({ obat_id: 0, dosis: '', catatan: '' });
 }
 
 
@@ -161,7 +165,7 @@ const selectTab = (param) => {
 
 <template>
 
-    <DokterLayout>
+    <DokterLayout :poli="props.poli">
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-2xl">DETAIL REKAM MEDIK</h1>
         </div>
@@ -254,7 +258,9 @@ const selectTab = (param) => {
                             <option :value="obat.id" v-for="obat in obats">{{ obat.nama }} {{ obat.dosis }} ({{
                                 obat.kemasan }}) </option>
                         </select>
-                        <input type="text" v-model="item.catatan"
+                        <input type="text" v-model="item.dosis" placeholder="dosis"
+                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
+                        <input type="text" v-model="item.catatan" placeholder="durasi"
                             class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
                         <DeleteIcon @click="deleteResep(item)" class="w-7 text-red-500" />
                     </li>

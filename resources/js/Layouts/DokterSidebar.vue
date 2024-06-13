@@ -3,9 +3,11 @@
 const prop = defineProps({
   poli: {
     type: Poli,
-    default:''
+    default: ''
   }
-})
+});
+
+const emit = defineEmits(['titleChange']);
 
 import SidebarItemSection from '@/dashboard/sidebar/SidebarItemSection.vue';
 import SidebarItem from '@/dashboard/sidebar/SidebarItem.vue';
@@ -14,13 +16,19 @@ import UpdatesIcon from '@/dashboard/sidebar/icons/UpdatesIcon.vue';
 import PatientIcon from '@/Icons/PatientIcon.vue';
 import MedicalIcon from '@/Icons/MedicalIcon.vue';
 import Poli from '@/Models/Poli';
+import { onMounted } from 'vue';
+
+onMounted(() => {
+    emit('titleChange', prop.poli.nama);
+})
+
 
 </script>
 <template>
   <div>
     <SidebarItemSection name="APLIKASI DOKTER" :subname="prop.poli.nama">
       <SidebarItem title="Dashboard" to="/dokter">
-        <DoctorIcon />
+        <AllAppIcon />
       </SidebarItem>
       <SidebarItem title="Pasien" to="/dokter/pasien">
         <PatientIcon class="w-5 h-5  text-slate-200" />
