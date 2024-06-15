@@ -10,7 +10,7 @@ import Pasien from '@/Models/Pasien';
 import AddIcon from '@/Icons/AddIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Poli from '@/Models/Poli';
-
+import axios from 'axios';
 
 const props = defineProps({
     rekammedik: RekamMedik,
@@ -31,7 +31,7 @@ const form = useForm({
     "dokter_id": '',
     "pasien_id": '',
     "poli_id": 0,
-    "konsultasi_berikut": null,
+    "konsultasi_berikut": new Date(),
     "tanggal": new Date().toISOString().split('T')[0],
     'keluhan': [],
     'penanganan': [],
@@ -63,6 +63,37 @@ function onChange(event) {
 
 const save = () => {
 
+    let headers = {
+        'Content-Type': 'application/json'
+    };
+    axios.post("https://console.zenziva.net/wareguler/api/sendWA/", {
+        "userkey": '1a82d6a37985',
+        "passkey": "534a6cd809f01c281382d741",
+        "to": props.rekammedik.pasien.kontak,
+        "message": "INI PESAN"
+    }, headers).then(res => {
+
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Nerhasil Kirim ",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }, err => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: err.msg,
+            showConfirmButton: false,
+            timer: 1500
+        });
+
+    });
+
+
+
+
     if (form.id > 0) {
         form.put(route('dokter.rekammedik.put', form.id), {
             onSuccess: (res) => {
@@ -73,6 +104,8 @@ const save = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+
+
             },
             onError: (err) => {
                 Swal.fire({
@@ -274,7 +307,7 @@ const selectTab = (param) => {
                 </div>
                 <div class="flex flex-col p-3">
                     <label class="mb-2">Tanggal</label>
-                    <input type="date" v-model="form.konsultasi_berikut"
+                    <input type="datetime-local" v-model="form.konsultasi_berikut"
                         class=" rounded-lg bg-transparent  text-neutral-400">
                 </div>
 
