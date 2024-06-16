@@ -63,37 +63,6 @@ function onChange(event) {
 
 const save = () => {
 
-    let headers = {
-        'Content-Type': 'application/json'
-    };
-    axios.post("https://console.zenziva.net/wareguler/api/sendWA/", {
-        "userkey": '1a82d6a37985',
-        "passkey": "534a6cd809f01c281382d741",
-        "to": props.rekammedik.pasien.kontak,
-        "message": "INI PESAN"
-    }, headers).then(res => {
-
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Nerhasil Kirim ",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }, err => {
-        Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: err.msg,
-            showConfirmButton: false,
-            timer: 1500
-        });
-
-    });
-
-
-
-
     if (form.id > 0) {
         form.put(route('dokter.rekammedik.put', form.id), {
             onSuccess: (res) => {
@@ -174,7 +143,7 @@ onMounted(() => {
         form.dokter_id = props.rekammedik.dokter_id;
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
-        form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
+        form.konsultasi_berikut =  props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
         form.resep = JSON.parse(props.rekammedik.resep);

@@ -3,6 +3,7 @@
 namespace App\services;
 
 use App\Http\Requests\ObatRequest;
+use App\Jobs\ProcessJadwalBerobat;
 use App\Models\Obat;
 use Error;
 
@@ -18,7 +19,9 @@ class ObatService
 
     public function all()
     {
+        
         $result = Obat::all();
+      //  ProcessJadwalBerobat::dispatch($result);
         return $result;
     }
 

@@ -4,7 +4,9 @@ namespace App\services;
 
 use App\Http\Requests\RekamMedikRequest;
 use App\Models\RekamMedik;
+use Carbon\Carbon;
 use Error;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class RekamMedikService
@@ -68,8 +70,8 @@ class RekamMedikService
     public function getByDokterId($id)
     {
         $result = RekamMedik::Where("dokter_id", $id)
-        ->orderBy('tanggal')
-        ->get();
+            ->orderBy('tanggal')
+            ->get();
         foreach ($result as $key => $rekamMedik) {
             $rekamMedik->poli;
             $rekamMedik->dokter;
@@ -90,10 +92,10 @@ class RekamMedikService
                 'konsultasi_berikut' => $req['konsultasi_berikut'],
             ]);
 
-            Log::info("success insert".$result->id);
+            Log::info("success insert" . $result->id);
             return $result;
         } catch (\Throwable $th) {
-            Log::info( $th->getMessage());
+            Log::info($th->getMessage());
             throw new Error($th->getMessage());
         }
     }
@@ -114,6 +116,7 @@ class RekamMedikService
             $data->penanganan = $req['penanganan'];
             $data->resep = $req['resep'];
             $data->save();
+            $this->infoKunjunganBerikut();
             return true;
         } catch (\Throwable $th) {
             throw new Error($th->getMessage());
@@ -131,6 +134,67 @@ class RekamMedikService
             return true;
         } catch (\Throwable $th) {
             throw new Error($th->getMessage());
+        }
+    }
+
+
+    public function infoKunjunganBerikut()
+    {
+        try {
+            $data = RekamMedik::where('konsultasi_berikut', "<>", null)
+            ->where(function ($q) {
+                $q->where('kirimpesan1', null)
+                    ->orWhere('kirimpesan2', null);
+            })->get();
+
+            $sekarang =  Carbon::create(date("Y/m/d H:s"));
+            $sekarang->setTimezone("Asia/Jayapura");
+
+            foreach ($data as $key => $rm) {
+                $rm->konsultasi_berikut->setTimezone('Asia/Jayapura');
+                $diff  = date_diff($sekarang, $rm->konsultasi_berikut);
+                if ($diff->h <= 24 && !$rm->kirimpesan1) {
+                    $sended = $this->sendWA($rm);
+                    if ($sended) {
+                        $rm->kirimpesan1 = $sekarang;
+                        $rm->save();
+                    }
+                } else if ($diff->h <= 3 && !$rm->kirimpesan2) {
+                    $sended = $this->sendWA($rm);
+                    if ($sended) {
+                        $rm->kirimpesan2 = $sekarang;
+                        $rm->save();
+                    }
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function sendWA($rm)
+    {
+        return true;
+        try {
+            $pasien = $rm->pasien;
+            $poli = $rm->poli;
+            $pesan = 'Selamat Pagi/Siang, Bapak ' . $pasien->nama . ' Kami mengingatkan kembali untuk jadwal konsultasi pemeriksaan '
+                . $poli->penyakit . ' akan dilakukan hari ini tanggal ' . $rm->konsultasi_berikut . '\r\n terimakasih';
+            $data = [
+                "userkey" => env('ZIVA_USERKEY', ''),
+                "passkey" => env('ZIVA_PASSKEY'),
+                "to" => $pasien->kontak,
+                "message" => $pesan
+            ];
+            $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/');
+            if ($response->ok()) {
+                $users = $response->json();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 }

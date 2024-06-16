@@ -24,6 +24,8 @@ class RekamMedik extends Model
         'keluhan',
         'resep  ',
         'penanganan',
+        'kirimpesan1', 
+        'kirimpesan2', 
     ];
 
 
@@ -32,6 +34,9 @@ class RekamMedik extends Model
     {
         return [
             'kode' => Kode::class,
+            'konsultasi_berikut' => 'date:Y-m-d H:s',
+            'kirimpesan1' => 'datetime',
+            'kirimpesan2' => 'datetime',
         ];
     }
 
