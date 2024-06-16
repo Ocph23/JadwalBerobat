@@ -141,8 +141,6 @@ class RekamMedikService
     public function infoKunjunganBerikut()
     {
         try {
-
-            Log::info("Kunjungan Fire");
             $data = RekamMedik::where('konsultasi_berikut', "<>", null)
             ->where(function ($q) {
                 $q->where('kirimpesan1', null)
@@ -151,11 +149,9 @@ class RekamMedikService
 
             $sekarang =  Carbon::create(date("Y/m/d H:s"));
             $sekarang->setTimezone("Asia/Jayapura");
-
             foreach ($data as $key => $rm) {
                 $rm->konsultasi_berikut->setTimezone('Asia/Jayapura');
                 $diff  = date_diff($sekarang, $rm->konsultasi_berikut);
-                Log::error('selisih '.$diff->h);
                 if ($diff->h <= 24 && !$rm->kirimpesan1) {
                     $sended = $this->sendWA($rm);
                     if ($sended) {
