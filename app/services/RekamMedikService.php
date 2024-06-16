@@ -155,6 +155,7 @@ class RekamMedikService
             foreach ($data as $key => $rm) {
                 $rm->konsultasi_berikut->setTimezone('Asia/Jayapura');
                 $diff  = date_diff($sekarang, $rm->konsultasi_berikut);
+                Log::error('selisih '.$diff->h);
                 if ($diff->h <= 24 && !$rm->kirimpesan1) {
                     $sended = $this->sendWA($rm);
                     if ($sended) {
