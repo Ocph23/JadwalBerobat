@@ -3,18 +3,18 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Requests\rekammedikRequest;
+use App\Http\Requests\RekamMedikRequest;
 use App\Models\Dokter;
 use App\services\DokterService;
 use App\services\ObatService;
-use App\services\RekammedikService;
+use App\services\RekamMedikService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/dokter/rekammedik', function (rekammedikService $rekammedikService, DokterService $dokterService) {
+Route::get('/dokter/rekammedik', function (RekamMedikService $rekammedikService, DokterService $dokterService) {
     $user = Auth::user();
     $dokter = Dokter::where("user_id", $user->id)->first();
     return Inertia::render('Dokter/RekamMedikPage', ['poli' => $dokterService->getPoli(), 'data' => $rekammedikService->getByDokterId($dokter->id)]);
