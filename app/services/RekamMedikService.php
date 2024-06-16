@@ -194,7 +194,8 @@ class RekamMedikService
                 Log::info("sended " . $users);
                 return true;
             } else {
-                Log::info("error sended ");
+                $users = $response->json();
+                Log::info("error sended ", $users);
                 return false;
             }
         } catch (\Throwable $th) {
