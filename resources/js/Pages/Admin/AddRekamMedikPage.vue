@@ -174,7 +174,7 @@ onMounted(() => {
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
-        form.resep = JSON.parse(props.rekammedik.resep);
+     //   form.resep = JSON.parse(props.rekammedik.resep);
     }
 });
 
