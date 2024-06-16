@@ -207,7 +207,7 @@ const printResep = () => {
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-2xl">TAMBAH/EDIT REKAM MEDIK</h1>
         </div>
-        <div class="p-5">
+        <!-- <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
                 <form @submit.prevent="save">
                     <div class=" grid grid-cols-2">
@@ -321,7 +321,7 @@ const printResep = () => {
                 </div>
 
             </div>
-        </div>
+        </div> -->
     </Layout>
 
 
