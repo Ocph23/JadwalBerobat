@@ -141,6 +141,8 @@ class RekamMedikService
     public function infoKunjunganBerikut()
     {
         try {
+
+            Log::info("Kunjungan Fire");
             $data = RekamMedik::where('konsultasi_berikut', "<>", null)
             ->where(function ($q) {
                 $q->where('kirimpesan1', null)
@@ -188,8 +190,10 @@ class RekamMedikService
             $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/');
             if ($response->ok()) {
                 $users = $response->json();
+                Log::info("sended ");
                 return true;
             } else {
+                Log::info("error sended ");
                 return false;
             }
         } catch (\Throwable $th) {
