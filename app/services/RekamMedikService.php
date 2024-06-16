@@ -180,8 +180,8 @@ class RekamMedikService
         try {
             $pasien = $rm->pasien;
             $poli = $rm->poli;
-            $pesan = 'Selamat Pagi/Siang, Bapak ' . $pasien->nama . ' Kami mengingatkan kembali untuk jadwal konsultasi pemeriksaan '
-                . $poli->penyakit . ' akan dilakukan hari ini tanggal ' . $rm->konsultasi_berikut . '\r\n terimakasih';
+            $pesan = 'Bapak/Ibu ' . $pasien->nama . ' Kami mengingatkan kembali untuk jadwal konsultasi pemeriksaan '
+                . $poli->penyakit . ' akan dilakukan hari ini tanggal ' . $rm->konsultasi_berikut . '. terimakasih.';
             $data = [
                 "userkey" => env('ZIVA_USERKEY', ''),
                 "passkey" => env('ZIVA_PASSKEY'),
@@ -189,10 +189,9 @@ class RekamMedikService
                 "message" => $pesan
             ];
 
-
-
             $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/', $data);
-            if ($response->ok()) {
+          
+            if ($response->successful()) {
                 $users = $response->json();
                 Log::info("sended " . $users);
                 return true;
