@@ -292,7 +292,7 @@ const printResep = () => {
                     <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
                     <PrinterIcon class=" w-6 cursor-pointer text-amber-500" @click="printResep()"></PrinterIcon>
                 </div>
-                <ul class="p-5 mt-5 shadow-md">
+                <!-- <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
                             class="w-12 rounded-lg bg-transparent  text-neutral-400">
@@ -307,7 +307,7 @@ const printResep = () => {
                             class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
                     </li>
 
-                </ul>
+                </ul> -->
 
             </div>
             <div v-if="selectedTab.id == 4">
