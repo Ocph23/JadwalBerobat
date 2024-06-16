@@ -52,11 +52,11 @@ const getUmur=(tgl)=>{
             <div>
                 <div class="flex">
                     <div class="w-28 text-sm">Nama Poli</div>
-                    <div class="text-sm">: {{ rekammedik.poli.nama }}</div>
+                    <div class="text-sm">: {{ props.rekammedik.poli.nama }}</div>
                 </div>
                 <div class="flex">
                     <div class=" w-28 text-sm">Penyakit</div>
-                    <div class="text-sm">: {{ rekammedik.poli.penyakit }}</div>
+                    <div class="text-sm">: {{ props.rekammedik.poli.penyakit }}</div>
                 </div>
             </div>
             <div>
@@ -66,7 +66,7 @@ const getUmur=(tgl)=>{
                 </div>
                 <div class="flex">
                     <div class=" w-28 text-sm">Tanggal</div>
-                    <div class="text-sm">: {{ rekammedik.tanggal}}</div>
+                    <div class="text-sm">: {{ props.rekammedik.tanggal}}</div>
                 </div>
             </div>
         </div>
@@ -77,15 +77,15 @@ const getUmur=(tgl)=>{
             <div>
                 <div class="flex">
                     <div class=" w-28 text-sm">Nama Pasien</div>
-                    <div class="text-sm">: {{ rekammedik.pasien.nama }}</div>
+                    <div class="text-sm">: {{ props.rekammedik.pasien.nama }}</div>
                 </div>
                 <div class="flex">
                     <div class=" w-28 text-sm">TTL</div>
-                    <div class="text-sm">: {{ rekammedik.pasien.tempat_lahir }}, {{ rekammedik.pasien.tanggal_lahir }}</div>
+                    <div class="text-sm">: {{ props.rekammedik.pasien.tempat_lahir }}, {{ props.rekammedik.pasien.tanggal_lahir }}</div>
                 </div>
                 <div class="flex">
                     <div class=" w-28 text-sm">Jenis Kelamin</div>
-                    <div class="text-sm">: {{ rekammedik.pasien.jk }}</div>
+                    <div class="text-sm">: {{ props.rekammedik.pasien.jk }}</div>
                 </div>
             </div>
             <div>
@@ -95,7 +95,7 @@ const getUmur=(tgl)=>{
                 </div>
                 <div class="flex">
                     <div class=" w-28 text-sm">Alamat</div>
-                    <div class="text-sm">: {{ rekammedik.pasien.alamat}}</div>
+                    <div class="text-sm">: {{ props.rekammedik.pasien.alamat}}</div>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@ const getUmur=(tgl)=>{
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, key) in JSON.parse(rekammedik.resep)">
+                <tr v-for="(item, key) in JSON.parse(props.rekammedik.resep)">
                     <td>
                         <p class="whitespace-nowrap text-sm text-center">{{ key + 1 }}</p>
                     </td>
