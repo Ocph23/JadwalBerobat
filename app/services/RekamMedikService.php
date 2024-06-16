@@ -190,7 +190,7 @@ class RekamMedikService
             $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/');
             if ($response->ok()) {
                 $users = $response->json();
-                Log::info("sended ");
+                Log::info("sended " . $users);
                 return true;
             } else {
                 Log::info("error sended ");

@@ -8,8 +8,13 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 
-Artisan::command('inspire', function (RekamMedikService $rekamMedikService) {
+// Artisan::command('inspire', function (RekamMedikService $rekamMedikService) {
 
+//    $rekamMedikService->infoKunjunganBerikut();
+
+// })->purpose('Display an inspiring quote')-> everyTenSeconds();
+
+
+Artisan::command('wa', function (RekamMedikService $rekamMedikService) {
    $rekamMedikService->infoKunjunganBerikut();
-
-})->purpose('Display an inspiring quote')-> everyTenMinutes();
+})->everyFiveMinutes();
