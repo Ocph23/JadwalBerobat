@@ -14,7 +14,7 @@ class Pasien extends Model
     public $fillable = [
         'id',
         'nama',
-        'jenis_kelamin',
+        'jk',
         'status',
         'tempat_lahir',
         'tanggal_lahir',

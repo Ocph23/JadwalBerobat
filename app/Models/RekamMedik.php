@@ -49,7 +49,7 @@ class RekamMedik extends Model
     }
     
     public function pasien():HasOne{
-        return $this->hasOne(Pasien::class , 'id', 'poli_id');
+        return $this->hasOne(Pasien::class , 'id', 'pasien_id');
     }
     
 

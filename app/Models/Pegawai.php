@@ -15,6 +15,7 @@ class Pegawai extends Model
         'id',
         'kode',
         'nama',
+        'jk',
         'bagian',
         'kontak'
     ];

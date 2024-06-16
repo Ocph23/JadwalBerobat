@@ -326,6 +326,6 @@ const printResep = () => {
 
 
 
-    <PrintResep v-if="rekammedik.resep" :obats="props.obats" :rekammedik="props.rekammedik"></PrintResep>
+    <PrintResep v-if="rekammedik && rekammedik.resep" :obats="props.obats" :rekammedik="props.rekammedik"></PrintResep>
 
 </template>

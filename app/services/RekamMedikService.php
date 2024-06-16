@@ -168,13 +168,12 @@ class RekamMedikService
                 }
             }
         } catch (\Throwable $th) {
-            //throw $th;
+           Log::error($th->getMessage());
         }
     }
 
     public function sendWA($rm)
     {
-        return true;
         try {
             $pasien = $rm->pasien;
             $poli = $rm->poli;

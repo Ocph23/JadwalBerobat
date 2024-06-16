@@ -19,6 +19,7 @@ class Dokter extends Model
         'email',
         'spesialis',
         'kontak',
+        'jk',
         'user_id',
     ];
    
