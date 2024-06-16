@@ -11,6 +11,7 @@ import AddIcon from '@/Icons/AddIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Poli from '@/Models/Poli';
 import axios from 'axios';
+import Helper from '@/heper';
 
 const props = defineProps({
     rekammedik: RekamMedik,
@@ -178,7 +179,7 @@ const selectTab = (param) => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
-                                <input type="text" v-model="rekammedik.kode"
+                                <input type="text" :value="Helper.getKode(rekammedik.id,'rekammedik')"
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
                             <div class="flex flex-col p-3">
