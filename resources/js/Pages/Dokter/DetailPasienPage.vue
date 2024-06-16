@@ -7,6 +7,7 @@ import Pasien from '@/Models/Pasien';
 import DetailListIcon from '@/Icons/DetailListIcon.vue';
 import EditIcon from '@/Icons/EditIcon.vue';
 import Poli from '@/Models/Poli';
+import Helper from '@/heper';
 
 
 const props = defineProps({
@@ -118,7 +119,7 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
-                                <input type="text" :value="pasien.kode + ' - ' + pasien.nama" disabled
+                                <input type="text" :value="Helper.getKode(pasien.id,'pasien') + ' - ' + pasien.nama" disabled
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
 
@@ -172,7 +173,7 @@ onMounted(() => {
                     <tbody>
                         <tr v-for="item in rekammediks">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,'rekammedik') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>

@@ -7,7 +7,7 @@ use App\Http\Requests\rekammedikRequest;
 use App\Models\Dokter;
 use App\services\DokterService;
 use App\services\ObatService;
-use App\services\rekammedikService;
+use App\services\RekammedikService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
