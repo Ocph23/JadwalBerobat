@@ -105,7 +105,7 @@ function deleteItem(item) {
                     <tbody>
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,Pegawai) }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,'Pegawai') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

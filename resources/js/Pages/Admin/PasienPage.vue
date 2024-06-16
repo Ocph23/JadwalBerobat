@@ -134,7 +134,7 @@ const filterDataPasien = computed(() => {
                     <tbody>
                         <tr v-for="item in filterDataPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{Helper.getKode(item.id,Pasien) }}</p>
+                                <p class="whitespace-nowrap text-white">{{Helper.getKode(item.id,'Pasien') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

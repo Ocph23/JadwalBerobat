@@ -91,7 +91,7 @@ const save = () => {
 onMounted(() => {
     if (props.pegawai) {
         form.id = props.pegawai.id;
-        form.kode = Helper.getKode(props.pegawai.id,Pegawai);
+        form.kode = Helper.getKode(props.pegawai.id,'Pegawai');
         form.nama = props.pegawai.nama;
         form.jk = props.pegawai.jk;
         form.bagian = props.pegawai.bagian;

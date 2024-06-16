@@ -166,7 +166,7 @@ function deleteResep(item) {
 onMounted(() => {
     if (props.rekammedik) {
         form.id = props.rekammedik.id;
-        form.kode = Helper.getKode(props.rekammedik.id, RekamMedik);
+        form.kode = Helper.getKode(props.rekammedik.id, 'RekamMedik');
         form.pasien_id = props.rekammedik.pasien_id;
         form.dokter_id = props.rekammedik.dokter_id;
         form.poli_id = props.rekammedik.poli_id;

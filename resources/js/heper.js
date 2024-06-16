@@ -14,20 +14,20 @@ export default class Helper {
       var str = "" + 1
       var pad = "000000"
       var ans = pad.substring(0, pad.length - str.length) + str
-      switch (obj.name) {
-         case 'Poli':
+      switch (obj.toLowerCase()) {
+         case 'poli':
             return "PL" + ans;
-         case 'Obat':
+         case 'obat':
             return "OB" + ans;
-         case 'Dokter':
+         case 'dokter':
             return "DT" + ans;
-         case 'Pasien':
+         case 'pasien':
             return "PS" + ans;
-         case 'Penyakit':
+         case 'penyakit':
             return "PK" + ans;
-         case 'RekamMedik':
+         case 'rekammedik':
             return "RM" + ans;
-         case 'Pegawai':
+         case 'pegawai':
             return "PG" + ans;
          default:
             return "";

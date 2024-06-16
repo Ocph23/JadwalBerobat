@@ -93,7 +93,7 @@ const save = () => {
 onMounted(() => {
     if (props.dokter) {
         form.id = props.dokter.id;
-        form.kode = Helper.getKode(props.dokter.id, Dokter);
+        form.kode = Helper.getKode(props.dokter.id, 'Dokter');
         form.nid = props.dokter.nid;
         form.nama = props.dokter.nama;
         form.jk = props.dokter.jk;
