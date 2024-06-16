@@ -174,7 +174,7 @@ onMounted(() => {
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
-     //   form.resep = JSON.parse(props.rekammedik.resep);
+        form.resep = JSON.parse(props.rekammedik.resep);
     }
 });
 
@@ -207,7 +207,7 @@ const printResep = () => {
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-2xl">TAMBAH/EDIT REKAM MEDIK</h1>
         </div>
-        <!-- <div class="p-5">
+        <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
                 <form @submit.prevent="save">
                     <div class=" grid grid-cols-2">
@@ -292,7 +292,7 @@ const printResep = () => {
                     <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
                     <PrinterIcon class=" w-6 cursor-pointer text-amber-500" @click="printResep()"></PrinterIcon>
                 </div>
-                <!-- <ul class="p-5 mt-5 shadow-md">
+                <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
                             class="w-12 rounded-lg bg-transparent  text-neutral-400">
@@ -307,7 +307,7 @@ const printResep = () => {
                             class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
                     </li>
 
-                </ul> -->
+                </ul>
 
             </div>
             <div v-if="selectedTab.id == 4">
@@ -321,9 +321,11 @@ const printResep = () => {
                 </div>
 
             </div>
-        </div> -->
+        </div>
     </Layout>
 
 
+
+    <PrintResep v-if="rekammedik && rekammedik.resep" :obats="props.obats" :rekammedik="props.rekammedik"></PrintResep>
 
 </template>
