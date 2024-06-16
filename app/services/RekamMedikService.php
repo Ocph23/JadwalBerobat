@@ -188,7 +188,10 @@ class RekamMedikService
                 "to" => $pasien->kontak,
                 "message" => $pesan
             ];
-            $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/');
+
+
+
+            $response = Http::post('https://console.zenziva.net/wareguler/api/sendWA/', $data);
             if ($response->ok()) {
                 $users = $response->json();
                 Log::info("sended " . $users);
