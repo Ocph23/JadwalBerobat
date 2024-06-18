@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Log;
 
 Artisan::command('wa', function (RekamMedikService $rekamMedikService) {
    $rekamMedikService->infoKunjunganBerikut();
-})->everyFiveMinutes();
+})->everyMinute();
