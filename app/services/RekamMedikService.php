@@ -141,7 +141,7 @@ class RekamMedikService
     public function infoKunjunganBerikut()
     {
         try {
-            Log::info('Start Check Kunjungan :'. today()->getTimestamp());
+            Log::info('Start Check Kunjungan ');
             $data = RekamMedik::where('konsultasi_berikut', "<>", null)
             ->where(function ($q) {
                 $q->where('kirimpesan1', null)

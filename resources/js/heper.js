@@ -11,8 +11,8 @@ export default class Helper {
    }
 
    static getKode = (id, obj) => {
-      var str = "" + 1
-      var pad = "000000"
+      var str = "" + id;
+      var pad = "000000";
       var ans = pad.substring(0, pad.length - str.length) + str
       switch (obj.toLowerCase()) {
          case 'poli':
