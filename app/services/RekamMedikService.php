@@ -41,13 +41,20 @@ class RekamMedikService
     }
 
 
-    public function getByDate($date)
+    public function getByPoliAndDate($poliId, $date)
     {
-        $results = RekamMedik::where('konsultasi_berikut', $date)->get();
-        foreach ($results as $key => $rekamMedik) {
-            $rekamMedik->poli;
-            $rekamMedik->dokter;
-            $rekamMedik->pasien;
+        $start = Carbon::create($date);
+        $end = $start->addDay(1);
+
+
+        $results = RekamMedik::
+        where('poli_id',$poliId)
+        ->whereDate('konsultasi_berikut','=', $date)
+        ->get();
+        foreach ($results as $key => $result) {
+            $result->poli;
+            $result->dokter;
+            $result->pasien;
         }
         return $results->toJson();
     }
@@ -178,7 +185,7 @@ class RekamMedikService
             $pasien = $rm->pasien;
             $poli = $rm->poli;
             $pesan = 'Bapak/Ibu ' . $pasien->nama . ' Kami mengingatkan kembali untuk jadwal konsultasi pemeriksaan '
-                . $poli->penyakit . ' akan dilakukan hari ini tanggal ' . $rm->konsultasi_berikut . '. terimakasih.';
+                . $poli->penyakit . ' akan dilakukan pada tanggal ' . $rm->konsultasi_berikut . '. terimakasih.';
             $data = [
                 "userkey" => env('ZIVA_USERKEY', ''),
                 "passkey" => env('ZIVA_PASSKEY'),

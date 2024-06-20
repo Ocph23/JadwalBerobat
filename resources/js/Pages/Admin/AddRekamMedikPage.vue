@@ -316,7 +316,7 @@ const printResep = () => {
                 </div>
                 <div class="flex flex-col p-3">
                     <label class="mb-2">Tanggal</label>
-                    <input type="date" v-model="form.konsultasi_berikut" disabled
+                    <input type="datetime-local" v-model="form.konsultasi_berikut" disabled
                         class=" rounded-lg bg-transparent  text-neutral-400">
                 </div>
 

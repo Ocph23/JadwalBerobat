@@ -21,16 +21,17 @@ const props = defineProps({
     }
 })
 
-
-
-const data = reactive({ rekamMedik: Array, poli:{} });
+const data = reactive({ rekamMedik: Array, poli: {} });
 
 const onChangeDate = (date) => {
-    axios
-        .get(Helper.apiUrl + '/jadwalberobat/' + date)
-        .then((response) => {
-            data.rekamMedik = response.data;
-        })
+    if (data.poli && data.poli.id > 0) {
+        axios
+            .get(Helper.apiUrl + '/jadwalberobat/' + data.poli.id + '/' + date)
+            .then((response) => {
+                data.rekamMedik = response.data;
+            })
+    }
+
 
 };
 
@@ -57,7 +58,7 @@ const printReport = () => {
         <div class="flex items-center">
             <label class="mx-2">Poli</label>
             <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-400">
-                <option class=" p-2":value="item" v-for="item in polis">{{ item.nama }}</option>
+                <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
             </select>
             <label class="mx-2 ml-10">Tanggal</label>
             <DatePicker v-on:on-change-date="onChangeDate"></DatePicker>
@@ -125,7 +126,7 @@ const printReport = () => {
     <div class="print">
         <div>
             <div class=" w-full flex justify-between border-b-2 border-gray-900">
-                <LogoKota class=" w-16 h-16" ></LogoKota>
+                <LogoKota class=" w-16 h-16"></LogoKota>
                 <div class=" text-center">
                     <h2>PEMERINTAH KOTA JAYAPURA</h2>
                     <h2>DINAS KESEHATAN</h2>

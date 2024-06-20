@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/jadwalberobat/{date}', function (RekamMedikService $rekamMedik, $date) {
-    $result =  $rekamMedik->getByDate($date);
+Route::get('/jadwalberobat/{poliid}/{date}', function (RekamMedikService $rekamMedik, $poliid, $date) {
+    $result =  $rekamMedik->getByPoliAndDate($poliid, $date);
     return $result;
 });

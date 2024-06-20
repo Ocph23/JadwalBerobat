@@ -22,6 +22,8 @@ Route::get('/', function () {
                 return redirect()->intended(route('dokter.index', absolute: false));
             case 'pegawai':
                 return redirect()->intended(route('pegawai.index', absolute: false));
+            case 'pasien':
+                return redirect()->intended(route('pasien.index', absolute: false));
             default:
                 return redirect()->intended(route('admin.index', absolute: false));
         }
@@ -39,11 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-   
+
     //ADMIN
+    include 'pasien.php';
     include 'admin/admin.php';
     include 'dokter/dokter.php';
-
-
 });
 require __DIR__ . '/auth.php';

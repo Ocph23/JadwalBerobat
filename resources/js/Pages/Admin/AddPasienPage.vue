@@ -17,7 +17,8 @@ const props = defineProps({
 
 const form = useForm({
     "id": 0,
-    "kode": '',
+    "nik": '',
+    "email": '',
     "nama": '',
     "jk": 'pria',
     "tempat_lahir": '',
@@ -95,7 +96,9 @@ onMounted(() => {
     if (props.pasien) {
         form.id = props.pasien.id;
         form.kode = Helper.getKode(props.pasien.id,'Pasien');
+        form.nik = props.pasien.nik;
         form.nama = props.pasien.nama;
+        form.email = props.pasien.email;
         form.jk = props.pasien.jk;
         form.tempat_lahir = props.pasien.tempat_lahir;
         form.tanggal_lahir = props.pasien.tanggal_lahir;
@@ -119,15 +122,22 @@ onMounted(() => {
                     <div class=" grid grid-cols-2">
                         <div>
                             <div class="flex flex-col p-3">
-                                <label class="mb-2">Kode</label>
-                                <input type="text" v-model="form.kode" disabled
+                                <label class="mb-2">NIK</label>
+                                <input type="text" v-model="form.nik" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
+                                    <InputError :message="form.errors['nik']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Pasien</label>
-                                <input type="text" v-model="form.nama"
+                                <input type="text" v-model="form.nama" required
                                     class=" rounded-lg bg-transparent  text-neutral-400 ">
                                     <InputError :message="form.errors['nama']"/>
+                            </div>
+                            <div class="flex flex-col p-3">
+                                <label class="mb-2">Email</label>
+                                <input type="text" v-model="form.email" required
+                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    <InputError :message="form.errors['email']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Jenis Kelamin</label>
@@ -140,7 +150,7 @@ onMounted(() => {
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Tempat Lahir</label>
-                                <input type="text" v-model="form.tempat_lahir"
+                                <input type="text" v-model="form.tempat_lahir" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                     <InputError :message="form.errors['tempat_lahir']"/>
                             </div>
@@ -149,13 +159,13 @@ onMounted(() => {
 
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Tanggal Lahir</label>
-                                <input type="date" v-model="form.tanggal_lahir"
+                                <input type="date" v-model="form.tanggal_lahir" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                     <InputError :message="form.errors['tanggal_lahir']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kotak</label>
-                                <input type="text" v-model="form.kontak"
+                                <input type="text" v-model="form.kontak" required
                                     class=" rounded-lg bg-transparent  text-neutral-400">
                                     <InputError :message="form.errors['kontak']"/>
                             </div>

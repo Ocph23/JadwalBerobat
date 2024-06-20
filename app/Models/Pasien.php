@@ -13,13 +13,16 @@ class Pasien extends Model
 
     public $fillable = [
         'id',
+        'nik',
+        'email',
         'nama',
         'jk',
         'status',
         'tempat_lahir',
         'tanggal_lahir',
         'kontak', 
-        'alamat'
+        'alamat',
+        'user_id'
     ];
 
 }

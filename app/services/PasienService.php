@@ -4,7 +4,10 @@ namespace App\services;
 
 use App\Http\Requests\PasienRequest;
 use App\Models\Pasien;
+use App\Models\User;
 use Error;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class PasienService
@@ -32,20 +35,38 @@ class PasienService
 
     public function post(PasienRequest $req)
     {
+        DB::beginTransaction();
         try {
+
+            //create User As Dokter
+
+
+            $user = User::create([
+                'name' => $req['nama'],
+                'email' => $req->email,
+                'password' => Hash::make('Password@123'),
+                'role' => 'pasien',
+            ]);
+            
+            
             $result =  Pasien::create([
                 'nama' => $req['nama'],
+                'nik' => $req['nik'],
+                'email' => $req->email,
                 'jk' => $req['jk'],
                 'tempat_lahir' => $req['tempat_lahir'],
                 'tanggal_lahir' => $req['tanggal_lahir'],
                 'alamat' => $req['alamat'],
-                'alamat' => $req['alamat'],
                 'kontak' => $req['kontak'],
+                'user_id' => $user['id'],
             ]);
+
+
+            DB::commit();
             return $result;
         } catch (\Throwable $th) {
-            Log::info($th->getMessage());
-            throw new Error($th->getMessage());
+            DB::rollBack();
+            throw new  Error($th->getMessage());
         }
     }
 
@@ -58,6 +79,7 @@ class PasienService
             }
 
             $data->nama = $req['nama'];
+            $data->nik = $req['nik'];
             $data->jk = $req['jk'];
             $data->tempat_lahir = $req['tempat_lahir'];
             $data->tanggal_lahir = $req['tanggal_lahir'];

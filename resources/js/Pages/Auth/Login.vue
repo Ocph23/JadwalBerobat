@@ -40,6 +40,7 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
+            <InputLabel class="my-3  text-xl"  value="Login" />
             <div>
                 <InputLabel for="email" value="Email" />
 
@@ -58,11 +59,18 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block m-4 ">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
                 </label>
+                <div>
+                    <Link :href="route('pasien.register')"
+                    class="!my-5 underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                Not Have Account ?, Register
+                </Link>
+                </div>
+              
             </div>
 
             <div class="flex items-center justify-end mt-4">

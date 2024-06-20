@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pasien;
 use App\Models\User;
+use Error;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
@@ -32,7 +35,80 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect('/');
+    }
+
+
+    public function pasienCreate(): Response
+    {
+        return Inertia::render('Auth/PasienRegister');
+    }
+
+
+    public function pasienStore(Request $req): RedirectResponse
+    {
+
+        DB::beginTransaction();
+        try {
+
+            //create User As Dokter
+
+
+            $user = User::create([
+                'name' => $req['nama'],
+                'email' => $req->email,
+                'password' => Hash::make($req->password),
+                'role' => 'pasien',
+            ]);
+            
+            
+            $result =  Pasien::create([
+                'nama' => $req['nama'],
+                'nik' => $req['nik'],
+                'email' => $req->email,
+                'jk' => $req['jk'],
+                'tempat_lahir' => $req['tempat_lahir'],
+                'tanggal_lahir' => $req['tanggal_lahir'],
+                'alamat' => $req['alamat'],
+                'kontak' => $req['kontak'],
+                'user_id' => $user['id'],
+            ]);
+
+
+            DB::commit();
+            event(new Registered($user));
+            Auth::login($user);
+            return redirect("/");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new  Error($th->getMessage());
+        }
+
+
+
+
+
+
+
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

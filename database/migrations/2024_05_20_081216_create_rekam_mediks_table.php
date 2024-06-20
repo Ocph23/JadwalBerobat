@@ -21,8 +21,8 @@ return new class extends Migration
             $table->json('penanganan')->nullable();
             $table->json('resep')->nullable();
             $table->dateTime('konsultasi_berikut')->nullable();
-            $table->dateTime('kirimpesan1');
-            $table->dateTime('kirimpesan2');
+            $table->dateTime('kirimpesan1')->nullable();
+            $table->dateTime('kirimpesan2')->nullable();
             $table->timestamps();
         });
     }
