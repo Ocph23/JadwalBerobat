@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DokterController;
+use App\Models\Dokter;
 use App\services\RekamMedikService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,3 +15,6 @@ Route::get('/jadwalberobat/{poliid}/{date}', function (RekamMedikService $rekamM
     $result =  $rekamMedik->getByPoliAndDate($poliid, $date);
     return $result;
 });
+
+Route::get('/dokter/jadwalberobatbydate/{dokterId}/{date}', [DokterController::class, 'jadwalberobatByDate'])->name('admin.jadwalberobatByDate');
+   

@@ -88,7 +88,7 @@ const filterDataPasien = computed(() => {
 <template>
     <Layout>
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-2xl">DATA PASIEN</h1>
+            <h1 class="text-xl">DATA PASIEN</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
             </div>

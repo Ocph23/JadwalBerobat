@@ -91,7 +91,7 @@ const searchPasien = computed(() => {
 
     <DokterLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-2xl">DATA PASIEN</h1>
+            <h1 class="text-xl">DATA PASIEN</h1>
             <Search v-on:on-search="onChangeSearch"></Search>
         </div>
         <div class="py-5">

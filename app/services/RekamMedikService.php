@@ -91,12 +91,13 @@ class RekamMedikService
     public function post(RekamMedikRequest $req)
     {
         try {
+            $kel = json_encode($req['keluhan']);
             $result =  RekamMedik::create([
                 'tanggal' => $req['tanggal'],
                 'poli_id' => $req['poli_id'],
                 'pasien_id' => $req['pasien_id'],
                 'dokter_id' => $req['dokter_id'],
-                'konsultasi_berikut' => $req['konsultasi_berikut'],
+                'keluhan' => $kel,
             ]);
 
             Log::info("success insert" . $result->id);

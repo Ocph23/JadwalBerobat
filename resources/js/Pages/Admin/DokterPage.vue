@@ -68,7 +68,7 @@ function deleteItem(item) {
 
     <Layout>
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-2xl">DATA DOKTER</h1>
+            <h1 class="text-xl">DATA DOKTER</h1>
             <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
         </div>
         <div class="py-5">
@@ -109,7 +109,7 @@ function deleteItem(item) {
                     <tbody>
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item, 'Dokter') }}</p>
+                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'Dokter') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

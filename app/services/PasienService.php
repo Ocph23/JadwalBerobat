@@ -3,9 +3,12 @@
 namespace App\services;
 
 use App\Http\Requests\PasienRequest;
+use App\Models\Dokter;
 use App\Models\Pasien;
+use App\Models\RekamMedik;
 use App\Models\User;
 use Error;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -15,15 +18,29 @@ class PasienService
     /**
      * Create a new class instance.
      */
-    public function __construct()
+
+    
+    public function __construct(RekamMedikService $rm)
     {
-        //
+       
     }
 
     public function all()
     {
         $result = Pasien::all();
         return $result;
+    }
+
+    public function getByDokterId($dokterId)
+    {
+        $data = RekamMedik::Where("dokter_id", $dokterId)
+        ->orderBy('tanggal')
+        ->get();
+        $pasien = [];
+        foreach ($data as $key => $rm) {
+           $pasien[]=$rm->pasien;
+        }
+        return $pasien;
     }
 
     public function getById($id)
@@ -47,8 +64,8 @@ class PasienService
                 'password' => Hash::make('Password@123'),
                 'role' => 'pasien',
             ]);
-            
-            
+
+
             $result =  Pasien::create([
                 'nama' => $req['nama'],
                 'nik' => $req['nik'],

@@ -68,7 +68,7 @@ function deleteItem(item) {
 
     <Layout>
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-2xl">DATA PEGAWAI</h1>
+            <h1 class="text-xl">DATA PEGAWAI</h1>
             <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
         </div>
         <div class="py-5">

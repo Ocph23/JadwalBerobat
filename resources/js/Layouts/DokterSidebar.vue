@@ -17,6 +17,8 @@ import PatientIcon from '@/Icons/PatientIcon.vue';
 import MedicalIcon from '@/Icons/MedicalIcon.vue';
 import Poli from '@/Models/Poli';
 import { onMounted } from 'vue';
+import SidebarHeader from '@/dashboard/sidebar/SidebarHeader.vue';
+import DetailListIcon from '@/Icons/DetailListIcon.vue';
 
 onMounted(() => {
     emit('titleChange', prop.poli.nama);
@@ -26,7 +28,8 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <SidebarItemSection name="APLIKASI DOKTER" :subname="prop.poli.nama">
+ <SidebarHeader></SidebarHeader>
+    <SidebarItemSection name="APP DOKTER" :subname="prop.poli.nama">
       <SidebarItem title="Dashboard" to="/dokter">
         <AllAppIcon />
       </SidebarItem>
@@ -35,6 +38,9 @@ onMounted(() => {
       </SidebarItem>
       <SidebarItem title="Rekam Medik" to="/dokter/rekammedik">
         <MedicalIcon class="w-5 h-5  text-slate-200" />
+      </SidebarItem>
+      <SidebarItem title="Laporan Jadwal Berobat" to="/dokter/jadwalberobat">
+        <DetailListIcon class="w-5" />
       </SidebarItem>
     </SidebarItemSection>
   </div>

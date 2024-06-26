@@ -5,10 +5,14 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
+
+const props = defineProps({errors: {}})
+
 
 const form = useForm({
     nama: '',
-    nama: 'nik',
+    nama: '',
     email: '',
     jk: '',
     tempat_lahir: '',
@@ -22,8 +26,28 @@ const form = useForm({
 
 const submit = () => {  
     form.post(route('pasien.register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+            onSuccess: (res) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Data Berhasil Disimpan ",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                form.reset();
+            },
+            onError: (err) => {
+                if (err.message) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        });
 };
 </script>
 

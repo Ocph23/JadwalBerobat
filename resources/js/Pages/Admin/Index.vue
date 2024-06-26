@@ -48,7 +48,7 @@ const props = defineProps({
          <DashboarItem :count="props.pegawai" title="jumlah pegawai" bgicon="bg-blue-500">
             <UsersIcon color="white" class="w-10 h-10 "></UsersIcon>
          </DashboarItem>
-         <DashboarItem :count="props.rekammedik" title="jumlah pegawai" bgicon="bg-violet-500">
+         <DashboarItem :count="props.rekammedik" title="rekam medik" bgicon="bg-violet-500">
             <ArIcon color="white" class="w-10 h-10 "></ArIcon>
          </DashboarItem>
       </div>

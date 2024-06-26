@@ -7,11 +7,13 @@ use App\Models\Pasien;
 use App\Models\User;
 use Error;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -59,22 +61,16 @@ class RegisteredUserController extends Controller
     }
 
 
-    public function pasienStore(Request $req): RedirectResponse
+    public function pasienStore(Request $req)
     {
-
         DB::beginTransaction();
         try {
-
-            //create User As Dokter
-
-
             $user = User::create([
                 'name' => $req['nama'],
                 'email' => $req->email,
                 'password' => Hash::make($req->password),
                 'role' => 'pasien',
             ]);
-            
             
             $result =  Pasien::create([
                 'nama' => $req['nama'],
@@ -87,41 +83,34 @@ class RegisteredUserController extends Controller
                 'kontak' => $req['kontak'],
                 'user_id' => $user['id'],
             ]);
-
-
             DB::commit();
             event(new Registered($user));
             Auth::login($user);
             return redirect("/");
-        } catch (\Throwable $th) {
+        } catch (\PDOException $th) {
             DB::rollBack();
-            throw new  Error($th->getMessage());
+            if($th->errorInfo[0] =="23505"){
+                return Redirect::back()->withErrors(["message"=>"user ".$req->email . ' sudah digunakan']);
+            }
+            return Redirect::back()->withErrors($th->getMessage());
         }
 
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
 
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        // ]);
 
+        // event(new Registered($user));
 
+        // Auth::login($user);
 
-
-
-
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('login', absolute: false));
+        // return redirect(route('login', absolute: false));
     }
 }

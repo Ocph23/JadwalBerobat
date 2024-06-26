@@ -41,6 +41,7 @@ const form = useForm({
     "pasien_id": '',
     "poli_id": 0,
     "tanggal": new Date().toISOString().split('T')[0],
+    'konsultasi_berikut': null,
     'keluhan': [],
     'penanganan': [],
     'resep': [],
@@ -205,7 +206,7 @@ const printResep = () => {
 
     <Layout class="noprint">
         <div class="p-5 mt-5 flex justify-between">
-            <h1 class="text-2xl">TAMBAH/EDIT REKAM MEDIK</h1>
+            <h1 class="text-xl">TAMBAH/EDIT REKAM MEDIK</h1>
         </div>
         <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">
@@ -251,7 +252,7 @@ const printResep = () => {
                 </form>
             </div>
         </div>
-        <div class="p-5" v-if="form.id > 0">
+        <div class="p-5" >
             <Tab class="px-5" :items="tabs" :tabActive="selectedTab.id" @onClickTab="selectTab" />
             <div v-if="selectedTab.id == 1">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
@@ -290,7 +291,7 @@ const printResep = () => {
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">RESEP</h1>
                     <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
-                    <PrinterIcon class=" w-6 cursor-pointer text-amber-500" @click="printResep()"></PrinterIcon>
+                    <PrinterIcon v-if="form.resep && form.resep.length" class=" w-6 cursor-pointer text-amber-500" @click="printResep()"></PrinterIcon>
                 </div>
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">

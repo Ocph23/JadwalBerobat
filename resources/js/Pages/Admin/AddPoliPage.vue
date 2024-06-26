@@ -110,7 +110,7 @@ onMounted(() => {
 
     <Layout>
         <div class="p-5 mt-5 flex justify-between">
-            <h1 class="text-2xl"> DATA POLI</h1>
+            <h1 class="text-xl"> DATA POLI</h1>
         </div>
         <div class="p-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow ">

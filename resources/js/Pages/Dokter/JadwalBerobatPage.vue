@@ -1,5 +1,5 @@
 <script setup>
-import Layout from '@/dashboard/Layout.vue';
+import DokterLayout from '@/Layouts/DokterLayout.vue';
 import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
@@ -13,24 +13,22 @@ import PrinterIcon from '@/Icons/PrinterIcon.vue';
 import Search from '@/Components/Search.vue';
 import LogoKota from '@/Icons/LogoKota.vue';
 import LogoPuskesmas from '@/Icons/LogoPuskesmas.vue';
-
+import Dokter from '@/Models/Dokter';
 
 const props = defineProps({
-    polis: {
-        type: Array
+    dokter: {
+        type: Dokter
     }
 })
 
 const data = reactive({ rekamMedik: Array, poli: {} });
 
 const onChangeDate = (date) => {
-    if (data.poli && data.poli.id > 0) {
-        axios
-            .get(Helper.apiUrl + '/jadwalberobat/' + data.poli.id + '/' + date)
-            .then((response) => {
-                data.rekamMedik = response.data;
-            })
-    }
+    axios
+        .get(Helper.apiUrl + `/dokter/jadwalberobatbydate/${props.dokter.id}/${date}`)
+        .then((response) => {
+            data.rekamMedik = response.data;
+        })
 
 
 };
@@ -48,7 +46,7 @@ const printReport = () => {
 
 
 <template>
-    <Layout class="noprint">
+    <DokterLayout class="noprint">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">LAPORAN JADWAL BEROBAT</h1>
             <div class="flex">
@@ -56,10 +54,6 @@ const printReport = () => {
             </div>
         </div>
         <div class="flex items-center">
-            <label class="mx-2">Poli</label>
-            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-400">
-                <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
-            </select>
             <label class="mx-2 ml-10">Tanggal</label>
             <DatePicker v-on:on-change-date="onChangeDate"></DatePicker>
         </div>
@@ -120,7 +114,7 @@ const printReport = () => {
                 </table>
             </div>
         </div>
-    </Layout>
+    </DokterLayout>
 
 
     <div class="print">
