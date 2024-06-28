@@ -1,7 +1,6 @@
 export default class Helper {
-   static apiUrl = "http://127.0.0.1:8000/api";
-
-
+   //static apiUrl = "http://127.0.0.1:8000/api";
+   static apiUrl = "/api";
 
    static getResepKode(id){
       var str = "" + 1
