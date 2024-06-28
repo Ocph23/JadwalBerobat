@@ -3,6 +3,7 @@
 namespace App\services;
 
 use App\Http\Requests\RekamMedikRequest;
+use App\Models\Poli;
 use App\Models\RekamMedik;
 use Carbon\Carbon;
 use Error;
@@ -47,10 +48,28 @@ class RekamMedikService
         $end = $start->addDay(1);
 
 
-        $results = RekamMedik::
-        where('poli_id',$poliId)
-        ->whereDate('konsultasi_berikut','=', $date)
-        ->get();
+        $results = RekamMedik::where('poli_id', $poliId)
+            ->whereDate('konsultasi_berikut', '=', $date)
+            ->get();
+        foreach ($results as $key => $result) {
+            $result->poli;
+            $result->dokter;
+            $result->pasien;
+        }
+        return $results->toJson();
+    }
+
+
+    
+    public function getByPoliAndTanggal($poliId, $date)
+    {
+        $start = Carbon::create($date);
+        $end = $start->addDay(1);
+
+
+        $results = RekamMedik::where('poli_id', $poliId)
+            ->whereDate('tanggal', '=', $date)
+            ->get();
         foreach ($results as $key => $result) {
             $result->poli;
             $result->dokter;
@@ -91,9 +110,17 @@ class RekamMedikService
     public function post(RekamMedikRequest $req)
     {
         try {
+            $sekarang =  Carbon::create(date("Y/m/d"));
+            $sekarang->setTimezone("Asia/Jayapura");
+
+            $data = RekamMedik::where('tanggal', $sekarang)->count();
+
+            $poli = Poli::find($req['poli_id']);
+            $antrian = $poli->kode.'-'. $sekarang->format('dmY').'-' . str_pad($data+1, 3, '0', STR_PAD_LEFT);
             $kel = json_encode($req['keluhan']);
             $result =  RekamMedik::create([
                 'tanggal' => $req['tanggal'],
+                'antrian' => $antrian,
                 'poli_id' => $req['poli_id'],
                 'pasien_id' => $req['pasien_id'],
                 'dokter_id' => $req['dokter_id'],
@@ -151,10 +178,10 @@ class RekamMedikService
         try {
             Log::info('Start Check Kunjungan ');
             $data = RekamMedik::where('konsultasi_berikut', "<>", null)
-            ->where(function ($q) {
-                $q->where('kirimpesan1', null)
-                    ->orWhere('kirimpesan2', null);
-            })->get();
+                ->where(function ($q) {
+                    $q->where('kirimpesan1', null)
+                        ->orWhere('kirimpesan2', null);
+                })->get();
 
             $sekarang =  Carbon::create(date("Y/m/d H:s"));
             $sekarang->setTimezone("Asia/Jayapura");
@@ -176,7 +203,7 @@ class RekamMedikService
                 }
             }
         } catch (\Throwable $th) {
-           Log::error($th->getMessage());
+            Log::error($th->getMessage());
         }
     }
 

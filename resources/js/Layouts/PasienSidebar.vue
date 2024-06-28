@@ -31,6 +31,9 @@ onMounted(() => {
       <SidebarItem title="Rekam Medik" to="/pasien">
         <AllAppIcon />
       </SidebarItem>
+      <SidebarItem title="Daftar" to="/pasien/rekammedik/add">
+        <PatientIcon class="w-5 h-5  text-slate-200" />
+      </SidebarItem>
     </SidebarItemSection>
   </div>
 </template>

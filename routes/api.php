@@ -15,6 +15,10 @@ Route::get('/jadwalberobat/{poliid}/{date}', function (RekamMedikService $rekamM
     $result =  $rekamMedik->getByPoliAndDate($poliid, $date);
     return $result;
 });
+Route::get('/rekammedik/{poliid}/{date}', function (RekamMedikService $rekamMedik, $poliid, $date) {
+    $result =  $rekamMedik->getByPoliAndTanggal($poliid, $date);
+    return $result;
+});
 
 Route::get('/dokter/jadwalberobatbydate/{dokterId}/{date}', [DokterController::class, 'jadwalberobatByDate'])->name('admin.jadwalberobatByDate');
    

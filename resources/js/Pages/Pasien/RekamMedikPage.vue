@@ -1,50 +1,19 @@
 <script setup>
-import Layout from '@/dashboard/Layout.vue';
 import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
 import { useForm } from '@inertiajs/vue3'
-import { ref, computed, reactive } from 'vue';
+import { ref, computed } from 'vue';
 import Search from '@/Components/Search.vue';
 import AddIcon from '@/Icons/AddIcon.vue';
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
-import DatePicker from '@/Components/DatePicker.vue';
-
+import PasienLayout from '@/Layouts/PasienLayout.vue';
 const props = defineProps({
     data: {
         type: Array
-    }, polis: {
-        type: Array
     }
 })
-
-var date = new Date();
-let tgl = date.getFullYear() +"-"+ Helper.getPadNumber(date.getMonth()+1)+"-"+Helper.getPadNumber(date.getDate());
-const data = reactive({ rekamMedik: Array, poli: null });
-
-const onChangeDate = (date) => {
-    if (data.poli==null) {
-        Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: 'pilih poli',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    } else
-
-        if (data.poli && data.poli.id > 0) {
-            axios
-                .get(Helper.apiUrl + '/rekammedik/' + data.poli.id + '/' + date)
-                .then((response) => {
-                    data.rekamMedik = response.data;
-                })
-        }
-
-
-};
-
 
 const form = useForm({
     id: 0
@@ -97,7 +66,6 @@ const onSearchText = (text) => {
     searchTerm.value = text;
 };
 
-
 const searchTerm = ref('');
 const filterDataRekamMedik = computed(() => {
     if (searchTerm.value === '') {
@@ -108,11 +76,11 @@ const filterDataRekamMedik = computed(() => {
     return props.data.filter(item => {
         if (
             (item.dokter.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-                item.poli.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-                item.pasien.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-                item.kode.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-                item.tanggal.toLowerCase().includes(searchTerm.value.toLowerCase())
-            )
+            item.poli.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+            item.pasien.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+            item.kode.toLowerCase().includes(searchTerm.value.toLowerCase())||
+            item.tanggal.toLowerCase().includes(searchTerm.value.toLowerCase())
+         )
             && matches < 10
         ) {
             matches++
@@ -125,21 +93,16 @@ const filterDataRekamMedik = computed(() => {
 
 <template>
 
-    <Layout>
+    <PasienLayout>
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
-
+                
             </div>
         </div>
-        <div class="flex items-center">
-            <label class="mx-2">Poli</label>
-            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-400">
-                <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
-            </select>
-            <label class="mx-2 ml-10">Tanggal</label>
-            <DatePicker v-on:on-change-date="onChangeDate"></DatePicker>
+        <div>
+            <Search v-on:on-search="onSearchText"></Search> 
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -148,7 +111,7 @@ const filterDataRekamMedik = computed(() => {
                         <tr>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Kode Antrian
+                                Kode
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
@@ -173,7 +136,7 @@ const filterDataRekamMedik = computed(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data.rekamMedik">
+                        <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.antrian }}</p>
                             </td>
@@ -205,6 +168,6 @@ const filterDataRekamMedik = computed(() => {
                 </table>
             </div>
         </div>
-    </Layout>
+    </PasienLayout>
 
 </template>

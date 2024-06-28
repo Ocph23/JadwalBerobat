@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/admin/rekammedik', function (RekamMedikService $rekamMedikService) {
-    return Inertia::render('Admin/RekamMedikPage', [ 'data' => $rekamMedikService->all()]);
+Route::get('/admin/rekammedik', function (RekamMedikService $rekamMedikService, PoliService $poliService) {
+    return Inertia::render('Admin/RekamMedikPage', [ 'data' => $rekamMedikService->all(),  "polis" => $poliService->all(),]);
 })->name('admin.rekammedik');
 
 Route::get('/admin/rekammedik/add', function (PoliService $poliService, DokterService $dokterService, PasienService $pasienService) {

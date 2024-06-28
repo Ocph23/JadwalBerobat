@@ -1,5 +1,4 @@
 <script setup>
-import Layout from '@/dashboard/Layout.vue';
 import { useForm } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 import { onMounted, reactive, } from 'vue';
@@ -12,23 +11,20 @@ import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Helper from '@/heper';
 import PrinterIcon from '@/Icons/PrinterIcon.vue';
 import PrintResep from '@/Components/PrintResep.vue';
+import PasienLayout from '@/Layouts/PasienLayout.vue';
 import InputError from '@/Components/InputError.vue';
-
+import InputLabel from '@/Components/InputLabel.vue';
 
 const props = defineProps({
-    dokters: {
-        type: Array
-    },
     polis: {
         type: Array
     },
-    pasiens: {
+    pasien: {
+        type: Pasien,
+    },
+    dokters: {
         type: Array,
     },
-    obats: {
-        type: Array,
-    },
-
     rekammedik: RekamMedik
 })
 
@@ -39,7 +35,7 @@ const form = useForm({
     "kode": '',
     "nama": '',
     "dokter_id": '',
-    "pasien_id": '',
+    "pasien_id": props.pasien.id,
     "poli_id": '',
     "tanggal": new Date().toISOString().split('T')[0],
     'konsultasi_berikut': null,
@@ -57,23 +53,26 @@ function addNewItem() {
 
 
 function backAction(params) {
-    window.location = "/admin/rekammedik";
+    window.location = "/pasien";
 }
 
 function onChange(event) {
-
     if (props.rekammediks) {
         var poli = props.rekammediks.find(x => x.id == event.target.value);
         if (poli) {
             form.dokter_id = poli.dokter_id;
         }
+    } else {
+        var poli = props.polis.find(x => x.id == event.target.value);
+        form.dokter_id = poli.dokter_id;
     }
 }
 
 
 const save = () => {
+
     if (form.id <= 0) {
-        form.post(route('admin.rekammedik.post'), {
+        form.post(route('pasien.rekammedik.post'), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -86,6 +85,7 @@ const save = () => {
             },
             onError: (err) => {
                 if (err.message) {
+
                     Swal.fire({
                         position: "top-end",
                         icon: "error",
@@ -93,11 +93,13 @@ const save = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                }else{
+                    // form.errors = err;
                 }
             }
         });
     } else {
-        form.put(route('admin.rekammedik.put', form.id), {
+        form.put(route('pasien.rekammedik.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -112,10 +114,12 @@ const save = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "error",
-                        title: err,
+                        title: err.msg,
                         showConfirmButton: false,
                         timer: 1500
                     });
+                }else{
+                    // form.errors = err;
                 }
             }
         });
@@ -208,7 +212,7 @@ const printResep = () => {
 
 <template>
 
-    <Layout class="noprint">
+    <PasienLayout class="noprint">
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-xl">TAMBAH/EDIT REKAM MEDIK</h1>
         </div>
@@ -224,9 +228,8 @@ const printResep = () => {
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
-                                <AutoComplete v-on:on-select-pasien="selectPasien" :value="form.pasien_id"
-                                    :pasiens="props.pasiens"></AutoComplete>
-                                <InputError :message="form.errors['pasien_id']" />
+                                <input type="text" v-model="pasien.nama" disabled
+                                    class=" rounded-lg bg-transparent  text-neutral-400">
                             </div>
 
                         </div>
@@ -241,13 +244,12 @@ const printResep = () => {
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
-                                <select type="text" v-model="form.dokter_id" 
+                                <select disabled type="text" v-model="form.dokter_id" required
                                     class="rounded-lg bg-transparent  text-neutral-400">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
-                                <InputError :message="form.errors['dokter_id']" />
+                                <InputError  :message="form.errors['dokter_id']" />
                             </div>
-                       
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"
                                     class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
@@ -333,7 +335,7 @@ const printResep = () => {
 
             </div>
         </div>
-    </Layout>
+    </PasienLayout>
 
 
 

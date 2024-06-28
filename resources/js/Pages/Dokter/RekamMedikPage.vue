@@ -7,7 +7,8 @@ import { useForm } from '@inertiajs/vue3'
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
 import Poli from '@/Models/Poli';
-
+import { reactive } from 'vue';
+import DatePicker from '@/Components/DatePicker.vue';
 
 const props = defineProps({
     data: {
@@ -15,6 +16,25 @@ const props = defineProps({
     },
     poli: { type: Poli }
 })
+
+var date = new Date();
+let tgl = date.getFullYear() +"-"+ Helper.getPadNumber(date.getMonth()+1)+"-"+Helper.getPadNumber(date.getDate());
+const data = reactive({ tanggal:tgl, rekamMedik: Array });
+
+const onChangeDate = (date) => {
+    if (props.poli && props.poli.id > 0) {
+        axios
+            .get(Helper.apiUrl + '/rekammedik/' + props.poli.id + '/' + date)
+            .then((response) => {
+                data.rekamMedik = response.data;
+            })
+    }
+};
+
+
+
+onChangeDate(tgl);
+
 
 const form = useForm({
     id: 0
@@ -68,6 +88,10 @@ function deleteItem(item) {
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
         </div>
+        <div class="flex items-center">
+            <label class="mx-2 ml-10">Tanggal</label>
+            <DatePicker v-model="data.tanggal" v-on:on-change-date="onChangeDate"></DatePicker>
+        </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
                 <table class="w-full leading-normal">
@@ -100,7 +124,7 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data">
+                        <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'RekamMedik') }}</p>
                             </td>

@@ -16,6 +16,7 @@ class RekamMedik extends Model
     public $fillable = [
         'id',
         'kode',
+        'antrian',
         'tanggal',
         'poli_id',
         'pasien_id',

@@ -35,4 +35,11 @@ export default class Helper {
 
    }
 
+   
+   static getPadNumber = (id) => {
+      var str = "" + id;
+      var pad = "00";
+      return pad.substring(0, pad.length - str.length) + str
+   }
+
 }

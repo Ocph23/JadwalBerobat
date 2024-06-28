@@ -13,6 +13,9 @@ import ArIcon from "@/dashboard/sidebar/icons/ArIcon.vue"
 import DashboarItem from "@/Components/DashboarItem.vue";
 import PasienLayout from "@/Layouts/PasienLayout.vue";
 import Pasien from "@/Models/Pasien";
+import Helper from "@/heper";
+import EditIcon from "@/Icons/EditIcon.vue";
+import DeleteIcon from "@/Icons/DeleteIcon.vue";
 
 
 const props = defineProps({
@@ -42,15 +45,11 @@ const props = defineProps({
                         <tr>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Kode
+                                Kode Antrian
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Tanggal
-                            </th>
-                            <th scope="col"
-                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Pasien
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
@@ -67,15 +66,12 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data">
+                        <tr v-for="item in rekammedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'RekamMedik') }}</p>
+                                <p class="whitespace-nowrap text-white">{{ item.antrian }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
-                            </td>
-                            <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.pasien.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.poli.nama }}</p>
@@ -85,7 +81,7 @@ const props = defineProps({
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">
-                                <a :href="'/dokter/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
+                                <a :href="'/pasien/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />
                                 </a>
                                 <a @click="deleteItem(item)" class=" cursor-pointer text-rose-600 hover:text-rose-900">

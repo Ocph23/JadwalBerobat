@@ -22,7 +22,11 @@ class RekamMedikRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'poli_id' => ['required'],
+            'pasien_id' => ['required'],
+            'dokter_id' => ['required'],
+            'tanggal' => ['required'],
+            'keluhan' => ['required']
         ];
     }
 }
