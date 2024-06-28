@@ -63,8 +63,25 @@ class RegisteredUserController extends Controller
 
     public function pasienStore(Request $req)
     {
+        $req->validate([
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required',
+            'tempat_lahir' => 'required',
+            'alamat' => 'required',
+            'kontak' => 'required',
+            'nik' => 'required',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
         DB::beginTransaction();
+
+       
         try {
+  
+    
+    
+    
             $user = User::create([
                 'name' => $req['nama'],
                 'email' => $req->email,

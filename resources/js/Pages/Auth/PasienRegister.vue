@@ -12,7 +12,7 @@ const props = defineProps({errors: {}})
 
 const form = useForm({
     nama: '',
-    nama: '',
+    nik: '',
     email: '',
     jk: '',
     tempat_lahir: '',
@@ -25,6 +25,7 @@ const form = useForm({
 });
 
 const submit = () => {  
+
     form.post(route('pasien.register'), {
             onSuccess: (res) => {
                 Swal.fire({
@@ -70,7 +71,7 @@ const submit = () => {
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Jenis Kelamin" value="Jenis Kelamin" />
-                        <select type="text" v-model="form.jk" required
+                        <select type="text" v-model="form.jk" 
                             class="rounded-lg bg-transparent  text-neutral-400">
                             <option value="pria">Laki-Laki</option>
                             <option value="wanita">Perempuan</option>
@@ -79,19 +80,19 @@ const submit = () => {
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Email" />
-                        <input type="email" required v-model="form.email"
+                        <input type="email"  v-model="form.email"
                             class=" rounded-lg bg-transparent  text-neutral-400">
                         <InputError :message="form.errors['email']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Password" />
-                        <input type="password" required v-model="form.password"
+                        <input type="password"  v-model="form.password"
                             class=" rounded-lg bg-transparent  text-neutral-400">
                         <InputError :message="form.errors['password']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Confirm Passwrord" />
-                        <input type="password" required v-model="form.password_confirmation"
+                        <input type="password"  v-model="form.password_confirmation"
                             class=" rounded-lg bg-transparent  text-neutral-400">
                         <InputError :message="form.errors['password_confirmation']" />
                     </div>
