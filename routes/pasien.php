@@ -31,14 +31,14 @@ Route::group(['middleware' => 'role:pasien'], function () {
         return Inertia::render(
             'Pasien/AddRekamMedikPage',
             [
-                'polis' => $poliService->all(),  
+                'polis' => $poliService->all(),
                 'pasien' => $pasien,
                 'dokters' => $dokterService->all(),
                 "rekammedik" => $rekammedikService->getById($id),
             ],
         );
     })->name('pasien.rekammedik.detail');
-    
+
 
     Route::post('/pasien/rekammedik', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService) {
         try {
@@ -51,7 +51,15 @@ Route::group(['middleware' => 'role:pasien'], function () {
         }
     })->name('pasien.rekammedik.post');
 
-    
-    
-});
 
+    Route::delete('/pasien/rekammedik/{id}', function (RekamMedikService $rekamMedikService, $id) {
+        try {
+            $result = $rekamMedikService->delete($id);
+            if ($result) {
+                return Redirect::back()->with('success');
+            }
+        } catch (\Throwable $th) {
+            return Redirect::back()->withErrors($th->getMessage());
+        }
+    })->name('pasien.rekammedik.delete');
+});

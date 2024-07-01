@@ -120,11 +120,19 @@ const filterDataObat = computed(() => {
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Merek
+                            </th>
+                            <th scope="col"
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Dosis
                             </th>
                             <th scope="col"
                                 class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Kemasan
+                            </th>
+                            <th scope="col"
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Deskripsi
                             </th>
 
                             <th scope="col"
@@ -142,10 +150,17 @@ const filterDataObat = computed(() => {
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dosis }}</p>
+                                <p class="whitespace-nowrap text-white">{{ item.merek }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.dosis }}</p>
+                            </td>
+                        
+                            <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.kemasan }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.deskripsi }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

@@ -10,6 +10,7 @@ import AddIcon from '@/Icons/AddIcon.vue';
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
 import DatePicker from '@/Components/DatePicker.vue';
+import PrinterIcon from '@/Icons/PrinterIcon.vue';
 
 const props = defineProps({
     data: {
@@ -92,6 +93,14 @@ function deleteItem(item) {
 
 
 
+const printReport = () => {
+
+if (data.rekamMedik && data.rekamMedik.length > 0) {
+    window.print();
+}
+
+}
+
 
 const onSearchText = (text) => {
     searchTerm.value = text;
@@ -125,12 +134,12 @@ const filterDataRekamMedik = computed(() => {
 
 <template>
 
-    <Layout>
+    <Layout class="noprint">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
-
+                <PrinterIcon class=" cursor-pointer text-amber-600 w-12" @click="printReport()"></PrinterIcon>
             </div>
         </div>
         <div class="flex items-center">
@@ -206,5 +215,84 @@ const filterDataRekamMedik = computed(() => {
             </div>
         </div>
     </Layout>
+
+
+    <div class="print">
+        <div>
+            <div class=" w-full flex justify-between border-b-2 border-gray-900">
+                <LogoKota class=" w-16 h-16"></LogoKota>
+                <div class=" text-center">
+                    <h2>PEMERINTAH KOTA JAYAPURA</h2>
+                    <h2>DINAS KESEHATAN</h2>
+                    <h2>PUSKESMAS HEBEYBHULU</h2>
+                    <div class=" text-sm">Jln. Yoka - Arso , Kampung Yoka, DIstrik Heram, Kota Jayapura - Papua</div>
+                    <div class=" text-sm">Kode Pos : 99531, NO Telp 081248227115</div>
+                    <div class=" text-sm">email : puskesmayoka@gmail.com</div>
+                </div>
+                <LogoPuskesmas class=" w-16 h-16"></LogoPuskesmas>
+            </div>
+            <hr />
+
+            <div>
+                <div class="flex">
+                    <div class=" w-32">Nama Poli</div>
+                    <div>: {{ data.poli?.nama }}</div>
+                </div>
+                <div class="flex">
+                    <div class=" w-32">Penyakit</div>
+                    <div>: {{ data.poli?.penyakit }}</div>
+                </div>
+                <div class="flex">
+                    <div class=" w-32">Tanggal</div>
+                    <div>:</div>
+                </div>
+            </div>
+
+
+            <table class="w-full mt-3">
+                <thead>
+                    <tr>
+                        <th>
+                            Kode Antrian
+                        </th>
+                        <th>
+                           Tanggal
+                        </th>
+                        <th>
+                            Pasien
+                        </th>
+                        <th>
+                            Poli
+                        </th>
+                        <th>
+                            Dokter
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in data.rekamMedik">
+                        <td>
+                            <p class="whitespace-nowrap">{{ item.antrian }}</p>
+                        </td>
+                        <td>
+                            <p class="whitespace-nowrap">{{ item.tanggal }}</p>
+                        </td>
+                        <td>
+                            <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
+                        </td>
+                        <td>
+                            <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
+                        </td>
+                        <td>
+                            <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 
 </template>

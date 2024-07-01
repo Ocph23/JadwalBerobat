@@ -29,12 +29,9 @@ const onChangeDate = (date) => {
                 data.rekamMedik = response.data;
             })
     }
-};
-
-
+};  
 
 onChangeDate(tgl);
-
 
 const form = useForm({
     id: 0
@@ -99,7 +96,7 @@ function deleteItem(item) {
                         <tr>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
-                                Kode
+                                Antrian
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">

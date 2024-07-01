@@ -93,7 +93,7 @@ const save = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                }else{
+                } else {
                     // form.errors = err;
                 }
             }
@@ -118,7 +118,7 @@ const save = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                }else{
+                } else {
                     // form.errors = err;
                 }
             }
@@ -191,9 +191,6 @@ onMounted(() => {
 
 const tabs = [
     { id: 1, name: 'Keluhan' },
-    { id: 2, name: 'Penanganan' },
-    { id: 3, name: 'Resep' },
-    { id: 4, name: 'Jadwal Berobat' },
 ]
 
 const selectTab = (param) => {
@@ -248,7 +245,7 @@ const printResep = () => {
                                     class="rounded-lg bg-transparent  text-neutral-400">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
-                                <InputError  :message="form.errors['dokter_id']" />
+                                <InputError :message="form.errors['dokter_id']" />
                             </div>
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"
@@ -280,59 +277,6 @@ const printResep = () => {
                     </li>
 
                 </ul>
-            </div>
-            <div v-if="selectedTab.id == 2">
-                <div class="p-5 mt-5 flex justify-between shadow-md">
-                    <h1 class="text-2xl">PENANGANAN</h1>
-                    <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addPenanganan()" /> -->
-                </div>
-                <ul class="p-5 mt-5 shadow-md">
-                    <li v-for="(item, key) in form.penanganan" class="flex gap-1">
-                        <input type="text" :value="key + 1" disabled
-                            class=" w-12 rounded-lg bg-transparent  text-neutral-400">
-                        <input type="text" v-model="item.value" @change="onChangePenanganan(item)"
-                            class=" w-full rounded-lg bg-transparent  text-neutral-400">
-                        <DeleteIcon @click="deletePenanganan(item)" class="w-7 text-red-500" />
-                    </li>
-
-                </ul>
-
-            </div>
-            <div v-if="selectedTab.id == 3">
-                <div class="p-5 mt-5 flex justify-between shadow-md">
-                    <h1 class="text-2xl">RESEP</h1>
-                    <!-- <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addResep()" /> -->
-                    <PrinterIcon v-if="form.resep && form.resep.length" class=" w-6 cursor-pointer text-amber-500"
-                        @click="printResep()"></PrinterIcon>
-                </div>
-                <ul class="p-5 mt-5 shadow-md">
-                    <li v-for="(item, key) in form.resep" class="flex gap-1">
-                        <input type="text" :value="key + 1" disabled
-                            class="w-12 rounded-lg bg-transparent  text-neutral-400">
-                        <select type="text" v-model="item.obat_id"
-                            class=" w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                            <option :value="obat.id" v-for="obat in obats">{{ obat.nama }} {{ obat.dosis }} ({{
-                                obat.kemasan }}) </option>
-                        </select>
-                        <input type="text" v-model="item.dosis" placeholder="dosis"
-                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                        <input type="text" v-model="item.catatan" placeholder="durasi"
-                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
-                    </li>
-
-                </ul>
-
-            </div>
-            <div v-if="selectedTab.id == 4">
-                <div class="p-5 mt-5 flex justify-between shadow-md">
-                    <h1 class="text-2xl">JADWAL BEROBAT BERIKUT</h1>
-                </div>
-                <div class="flex flex-col p-3">
-                    <label class="mb-2">Tanggal</label>
-                    <input type="datetime-local" v-model="form.konsultasi_berikut" disabled
-                        class=" rounded-lg bg-transparent  text-neutral-400">
-                </div>
-
             </div>
         </div>
     </PasienLayout>

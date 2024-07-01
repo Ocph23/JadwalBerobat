@@ -16,7 +16,8 @@ import Pasien from "@/Models/Pasien";
 import Helper from "@/heper";
 import EditIcon from "@/Icons/EditIcon.vue";
 import DeleteIcon from "@/Icons/DeleteIcon.vue";
-
+import Swal from "sweetalert2";
+import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
    pasien: {
@@ -26,6 +27,45 @@ const props = defineProps({
       type : Array
    },
 })
+
+const form = useForm({
+    id: 0
+})
+
+
+function deleteItem(item) {
+    Swal.fire({
+        title: "Anda Yakin ?",
+        text: "Menghapus Data !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.delete(route('pasien.rekammedik.delete', item.id), {
+                onSuccess: (res) => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Data Berhasil Di hapus.",
+                        icon: "success"
+                    });
+
+                }, onError: (err) => {
+                    Swal.fire({
+                        title: "Error",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            })
+
+
+        }
+    });
+}
+
 
 
 
