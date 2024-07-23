@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
-
-
 Route::group(['middleware' => 'role:admin'], function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/jadwalberobat', [AdminController::class, 'jadwalberobat'])->name('admin.jadwalberobat');

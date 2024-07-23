@@ -82,6 +82,10 @@ function deleteItem(item) {
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                NID
+                            </th>
+                            <th scope="col"
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Nama dokter
                             </th>
                             <th scope="col"
@@ -110,6 +114,9 @@ function deleteItem(item) {
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'Dokter') }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap text-white">{{ item.nid }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap text-white">{{ item.nama }}</p>

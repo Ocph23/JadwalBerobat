@@ -34,10 +34,23 @@ Route::group(['middleware' => 'role:pasien'], function () {
                 'polis' => $poliService->all(),
                 'pasien' => $pasien,
                 'dokters' => $dokterService->all(),
+                'obats' => $obatService->all(),
                 "rekammedik" => $rekammedikService->getById($id),
             ],
         );
     })->name('pasien.rekammedik.detail');
+
+
+    Route::put('/pasien/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService, $id) {
+        try {
+            $result = $rekamMedikService->put($rekamMedikRequest, $id);
+            if ($result) {
+                return Redirect::back()->with('success');
+            }
+        } catch (\Throwable $th) {
+            return Redirect::back()->withErrors(["msg" => "Data Tidak Berhasil Disimpan/ Diubah ! "]);
+        }
+    })->name('pasien.rekammedik.put');
 
 
     Route::post('/pasien/rekammedik', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService) {
@@ -50,6 +63,7 @@ Route::group(['middleware' => 'role:pasien'], function () {
             return Redirect::back()->withErrors("error", $th->getMessage());
         }
     })->name('pasien.rekammedik.post');
+    
 
 
     Route::delete('/pasien/rekammedik/{id}', function (RekamMedikService $rekamMedikService, $id) {

@@ -25,6 +25,9 @@ const props = defineProps({
     dokters: {
         type: Array,
     },
+    obats: {
+        type: Array,
+    },
     rekammedik: RekamMedik
 })
 

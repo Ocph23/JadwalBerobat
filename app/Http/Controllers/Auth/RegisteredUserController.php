@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PasienRequest;
 use App\Models\Pasien;
 use App\Models\User;
 use Error;
@@ -61,22 +62,10 @@ class RegisteredUserController extends Controller
     }
 
 
-    public function pasienStore(Request $req)
+    public function pasienStore(PasienRequest $req)
     {
-        $req->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required',
-            'tempat_lahir' => 'required',
-            'alamat' => 'required',
-            'kontak' => 'required',
-            'nik' => 'required',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
 
         DB::beginTransaction();
-
-       
         try {
   
     

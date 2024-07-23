@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasienRequest extends FormRequest
@@ -21,13 +23,16 @@ class PasienRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'nama' => ['required', 'string', 'max:255'],
-            'jk' => ['required'],
-            'tempat_lahir' => ['required'],
-            'tanggal_lahir' => ['required', 'date'],
-            'kontak' => ['required'],
-            'alamat' => ['required'],
+        return 
+        [
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required',
+            'tempat_lahir' => 'required',
+            'alamat' => 'required',
+            'kontak' => 'required',
+            'nik' => ['required', 'numeric', 'digits:16'],
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
 
