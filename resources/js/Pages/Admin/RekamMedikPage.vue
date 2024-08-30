@@ -144,7 +144,7 @@ const filterDataRekamMedik = computed(() => {
         </div>
         <div class="flex items-center">
             <label class="mx-2">Poli</label>
-            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-400">
+            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-700">
                 <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
             </select>
             <label class="mx-2 ml-10">Tanggal</label>
@@ -184,19 +184,19 @@ const filterDataRekamMedik = computed(() => {
                     <tbody>
                         <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.antrian }}</p>
+                                <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
+                                <p class="whitespace-nowrap">{{ item.tanggal }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.pasien.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.poli.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

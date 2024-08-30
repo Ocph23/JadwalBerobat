@@ -122,18 +122,18 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
                                 <input type="text" v-model="form.kode" disabled
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Obat</label>
                                 <input type="text" v-model="form.nama" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                 <InputError :message="form.errors['nama']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Merek</label>
                                 <input type="text" v-model="form.merek" required
-                                    class="rounded-lg bg-transparent  text-neutral-400">
+                                    class="rounded-lg bg-transparent  text-neutral-700">
                                 <InputError :message="form.errors['merek']" />
                             </div>
 
@@ -142,20 +142,20 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dosis</label>
                                 <input type="text" v-model="form.dosis" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                 <InputError :message="form.errors['dosis']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kemasan</label>
                                 <input type="text" v-model="form.kemasan" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                 <InputError :message="form.errors['kemasan']" />
                             </div>
 
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Deskripsi</label>
                                 <textarea v-model="form.deskripsi"
-                                    class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
+                                    class=" rounded-lg bg-transparent  text-neutral-700"></textarea>
                             </div>
                         </div>
                     </div>

@@ -105,19 +105,19 @@ function deleteItem(item) {
                     <tbody>
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kode }}</p>
+                                <p class="whitespace-nowrap">{{ item.kode }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.penyakit }}</p>
+                                <p class="whitespace-nowrap">{{ item.penyakit }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.keterangan }}</p>
+                                <p class="whitespace-nowrap">{{ item.keterangan }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/admin/poli/add/' + item.id" class=" text-amber-500 hover:text-amber-700">

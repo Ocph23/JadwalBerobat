@@ -224,12 +224,12 @@ const printResep = () => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
                                 <input type="text" v-model="form.kode" disabled
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
                                 <input type="text" v-model="pasien.nama" disabled
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
 
                         </div>
@@ -237,7 +237,7 @@ const printResep = () => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
                                 <select type="text" v-model="form.poli_id" @change="onChange($event)"
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                     <option :value="item.id" v-for="item in polis">{{ item.nama }}</option>
                                 </select>
                                 <InputError :message="form.errors['poli_id']" />
@@ -245,7 +245,7 @@ const printResep = () => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
                                 <select disabled type="text" v-model="form.dokter_id" required
-                                    class="rounded-lg bg-transparent  text-neutral-400">
+                                    class="rounded-lg bg-transparent  text-neutral-700">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
                                 <InputError :message="form.errors['dokter_id']" />
@@ -273,9 +273,9 @@ const printResep = () => {
                     <InputError :message="form.errors['keluhan']" />
                     <li v-for="(item, key) in form.keluhan" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
-                            class=" w-12 rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-12 rounded-lg bg-transparent  text-neutral-700">
                         <input type="text" v-model="item.value" @change="onChangeKeluhan(item)"
-                            class=" w-full rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteKeluhan(item)" class="w-7 text-red-500" />
                     </li>
 

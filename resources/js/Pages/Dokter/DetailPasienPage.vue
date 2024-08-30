@@ -120,7 +120,7 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
                                 <input type="text" :value="Helper.getKode(pasien.id,'pasien') + ' - ' + pasien.nama" disabled
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
 
                         </div>
@@ -173,19 +173,19 @@ onMounted(() => {
                     <tbody>
                         <tr v-for="item in rekammediks">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,'rekammedik') }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getKode(item.id,'rekammedik') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
+                                <p class="whitespace-nowrap">{{ item.tanggal }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.poli.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.konsultasi_berikut }}</p>
+                                <p class="whitespace-nowrap">{{ item.konsultasi_berikut }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

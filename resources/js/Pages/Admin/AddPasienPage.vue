@@ -124,25 +124,25 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">NIK</label>
                                 <input type="text" v-model="form.nik" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                     <InputError :message="form.errors['nik']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Pasien</label>
                                 <input type="text" v-model="form.nama" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                     <InputError :message="form.errors['nama']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Email</label>
                                 <input type="text" v-model="form.email" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                     <InputError :message="form.errors['email']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Jenis Kelamin</label>
                                 <select type="text" v-model="form.jk" required
-                                    class="rounded-lg bg-transparent  text-neutral-400">
+                                    class="rounded-lg bg-transparent  text-neutral-700">
                                     <option value="pria">Laki-Laki</option>
                                     <option value="wanita">Perempuan</option>
                                 </select>
@@ -151,7 +151,7 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Tempat Lahir</label>
                                 <input type="text" v-model="form.tempat_lahir" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                     <InputError :message="form.errors['tempat_lahir']"/>
                             </div>
                         </div>
@@ -160,19 +160,19 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Tanggal Lahir</label>
                                 <input type="date" v-model="form.tanggal_lahir" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                     <InputError :message="form.errors['tanggal_lahir']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kotak</label>
                                 <input type="text" v-model="form.kontak" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                                     <InputError :message="form.errors['kontak']"/>
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Alamat</label>
                                 <textarea v-model="form.alamat"
-                                    class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
+                                    class=" rounded-lg bg-transparent  text-neutral-700"></textarea>
                                     <InputError :message="form.errors['alamat']"/>
                             </div>
                         </div>

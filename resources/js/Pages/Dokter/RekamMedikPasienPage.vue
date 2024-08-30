@@ -180,12 +180,12 @@ const selectTab = (param) => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
                                 <input type="text" :value="Helper.getKode(rekammedik.id,'rekammedik')"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Pasien</label>
                                 <input type="text" v-model="rekammedik.pasien.nama"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
 
                         </div>
@@ -193,12 +193,12 @@ const selectTab = (param) => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
                                 <input type="text" v-model="rekammedik.poli.nama"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
                                 <input type="text" v-model="rekammedik.dokter.nama"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"
@@ -222,9 +222,9 @@ const selectTab = (param) => {
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.keluhan" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
-                            class=" w-12 rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-12 rounded-lg bg-transparent  text-neutral-700">
                         <input type="text" v-model="item.value" @change="onChangeKeluhan(item)"
-                            class=" w-full rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteKeluhan(item)" class="w-7 text-red-500" />
                     </li>
 
@@ -238,9 +238,9 @@ const selectTab = (param) => {
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.penanganan" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
-                            class=" w-12 rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-12 rounded-lg bg-transparent  text-neutral-700">
                         <input type="text" v-model="item.value" @change="onChangePenanganan(item)"
-                            class=" w-full rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deletePenanganan(item)" class="w-7 text-red-500" />
                     </li>
 
@@ -255,16 +255,16 @@ const selectTab = (param) => {
                 <ul class="p-5 mt-5 shadow-md">
                     <li v-for="(item, key) in form.resep" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
-                            class="w-12 rounded-lg bg-transparent  text-neutral-400">
+                            class="w-12 rounded-lg bg-transparent  text-neutral-700">
                         <select type="text" v-model="item.obat_id"
-                            class=" w-1/2 rounded-lg bg-transparent  text-neutral-400">
+                            class=" w-1/2 rounded-lg bg-transparent  text-neutral-700">
                             <option :value="obat.id" v-for="obat in obats">{{ obat.nama }} {{ obat.dosis }} ({{
                                 obat.kemasan }}) </option>
                         </select>
                         <input type="text" v-model="item.dosis" placeholder="dosis"
-                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
+                            class="w-1/2 rounded-lg bg-transparent  text-neutral-700">
                         <input type="text" v-model="item.catatan" placeholder="durasi"
-                            class="w-1/2 rounded-lg bg-transparent  text-neutral-400">
+                            class="w-1/2 rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteResep(item)" class="w-7 text-red-500" />
                     </li>
 
@@ -278,7 +278,7 @@ const selectTab = (param) => {
                 <div class="flex flex-col p-3">
                     <label class="mb-2">Tanggal</label>
                     <input type="datetime-local" v-model="form.konsultasi_berikut"
-                        class=" rounded-lg bg-transparent  text-neutral-400">
+                        class=" rounded-lg bg-transparent  text-neutral-700">
                 </div>
 
             </div>

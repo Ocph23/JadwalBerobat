@@ -138,19 +138,19 @@ const filterDataRekamMedik = computed(() => {
                     <tbody>
                         <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.antrian }}</p>
+                                <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.tanggal }}</p>
+                                <p class="whitespace-nowrap">{{ item.tanggal }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.pasien.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.poli.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dokter.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

@@ -134,22 +134,22 @@ const filterDataPasien = computed(() => {
                     <tbody>
                         <tr v-for="item in filterDataPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{Helper.getKode(item.id,'Pasien') }}</p>
+                                <p class="whitespace-nowrap">{{Helper.getKode(item.id,'Pasien') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.jk }}</p>
+                                <p class="whitespace-nowrap">{{ item.jk }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.tempat_lahir }}, {{ item.tanggal_lahir }}</p>
+                                <p class="whitespace-nowrap">{{ item.tempat_lahir }}, {{ item.tanggal_lahir }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kontak }}</p>
+                                <p class="whitespace-nowrap">{{ item.kontak }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.alamat }}</p>
+                                <p class="whitespace-nowrap">{{ item.alamat }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/admin/pasien/add/' + item.id" class=" text-amber-500 hover:text-amber-700">

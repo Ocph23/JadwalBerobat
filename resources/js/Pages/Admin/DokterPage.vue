@@ -113,25 +113,25 @@ function deleteItem(item) {
                     <tbody>
                         <tr v-for="item in data">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'Dokter') }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getKode(item.id, 'Dokter') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nid }}</p>
+                                <p class="whitespace-nowrap">{{ item.nid }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.jk=='pria'?'Laki-Laki':'Perempuan' }}</p>
+                                <p class="whitespace-nowrap">{{ item.jk=='pria'?'Laki-Laki':'Perempuan' }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.spesialis }}</p>
+                                <p class="whitespace-nowrap">{{ item.spesialis }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.email }}</p>
+                                <p class="whitespace-nowrap">{{ item.email }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kontak }}</p>
+                                <p class="whitespace-nowrap">{{ item.kontak }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/admin/dokter/add/' + item.id" class=" text-amber-500 hover:text-amber-700">

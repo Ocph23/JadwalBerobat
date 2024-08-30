@@ -121,24 +121,24 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Kode</label>
                                 <input type="text" v-model="form.kode"
-                                    class=" rounded-lg bg-transparent  text-neutral-400">
+                                    class=" rounded-lg bg-transparent  text-neutral-700">
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Nama Poli</label>
                                 <input type="text" v-model="form.nama" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                 <InputError :message="form.errors['nama']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Penyakit</label>
                                 <input type="text" v-model="form.penyakit" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400 ">
+                                    class=" rounded-lg bg-transparent  text-neutral-700 ">
                                 <InputError :message="form.errors['penyakit']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
                                 <select type="text" v-model="form.dokter_id" required
-                                    class="rounded-lg bg-transparent  text-neutral-400">
+                                    class="rounded-lg bg-transparent  text-neutral-700">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
                                 <InputError :message="form.errors['dokter_id']" />
@@ -146,7 +146,7 @@ onMounted(() => {
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Keterangan</label>
                                 <textarea v-model="form.keterangan" required
-                                    class=" rounded-lg bg-transparent  text-neutral-400"></textarea>
+                                    class=" rounded-lg bg-transparent  text-neutral-700"></textarea>
                                 <InputError :message="form.errors['keterangan']" />
                             </div>
                             <div class="m-2 flex justify-end">

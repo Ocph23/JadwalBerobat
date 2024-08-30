@@ -15,28 +15,28 @@ import UsersIcon from "@/Icons/UsersIcon.vue";
   <div>
     <SidebarItemSection name="APP ADMIN" :subname="$page.props.auth.user.name">
       <SidebarItem title="Dashboard" to="/admin">
-        <AllAppIcon />
+        <AllAppIcon color="black" />
       </SidebarItem>
       <SidebarItem title="Obat" to="/admin/obat">
-        <CapsulesIcon color="white" class="w-5 h-5"/>
+        <CapsulesIcon color="black" class="w-5 h-5"/>
       </SidebarItem>
       <SidebarItem title="Poli" to="/admin/poli">
-        <HospitalIcon color="white" class="w-5 h-5"/>
+        <HospitalIcon color="black" class="w-5 h-5"/>
       </SidebarItem>
       <SidebarItem title="Dokter" to="/admin/dokter">
-        <DoctorIcon class=" w-5  h-auto" />
+        <DoctorIcon color="black" class=" w-5  h-auto" />
       </SidebarItem>
       <SidebarItem title="Pegawai" to="/admin/pegawai">
-        <UsersIcon class="w-5 h-5" />
+        <UsersIcon color="black" class="w-5 h-5" />
       </SidebarItem>
       <SidebarItem title="Pasien" to="/admin/pasien">
-        <PatientIcon class="w-5 h-auto" />
+        <PatientIcon color="black" class="w-5 h-auto" />
       </SidebarItem>
-      <SidebarItem title="Rekam Medik" to="/admin/rekammedik">
+      <SidebarItem color="black" title="Rekam Medik" to="/admin/rekammedik">
         <ArIcon />
       </SidebarItem>
       <SidebarItem title="Laporan Jadwal Berobat" to="/admin/jadwalberobat">
-        <DetailListIcon class="w-5" />
+        <DetailListIcon color="black" class="w-5" />
       </SidebarItem>
     </SidebarItemSection>
   

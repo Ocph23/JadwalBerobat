@@ -51,23 +51,23 @@ watch(route, () => {
 }
 
 .content {
-  background-color: rgba(16 18 27 / 40%);
+  background-color: rgba(49, 49, 49, 0.1);
   backdrop-filter: blur(5px);
 }
 
 .main {
-  color: #f9fafb;
-  background-color: rgba(16 18 27 / 40%);
+  color: black;
+  background-color: rgba(255, 255, 255, 1);
   overflow: auto;
 }
 
 .main::-webkit-scrollbar {
   width: 6px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .main::-webkit-scrollbar-thumb {
   background: rgb(1 2 3 / 40%);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 </style>

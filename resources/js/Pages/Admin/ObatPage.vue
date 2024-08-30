@@ -144,23 +144,23 @@ const filterDataObat = computed(() => {
                     <tbody>
                         <tr v-for="item in filterDataObat">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id,'Obat') }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getKode(item.id,'Obat') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.merek }}</p>
+                                <p class="whitespace-nowrap">{{ item.merek }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.dosis }}</p>
+                                <p class="whitespace-nowrap">{{ item.dosis }}</p>
                             </td>
                         
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kemasan }}</p>
+                                <p class="whitespace-nowrap">{{ item.kemasan }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.deskripsi }}</p>
+                                <p class="whitespace-nowrap">{{ item.deskripsi }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

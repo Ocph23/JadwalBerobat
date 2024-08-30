@@ -61,18 +61,18 @@ const submit = () => {
                 <div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="NIK" value="NIK" />
-                        <input type="text" v-model="form.nik" class=" rounded-lg bg-transparent  text-neutral-400 ">
+                        <input type="text" v-model="form.nik" class=" rounded-lg bg-transparent  text-neutral-700 ">
                         <InputError :message="form.errors['nik']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Nama Pasien" value="Nama Pasien" />
-                        <input type="text" v-model="form.nama" class=" rounded-lg bg-transparent  text-neutral-400 ">
+                        <input type="text" v-model="form.nama" class=" rounded-lg bg-transparent  text-neutral-700 ">
                         <InputError :message="form.errors['nama']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Jenis Kelamin" value="Jenis Kelamin" />
                         <select type="text" v-model="form.jk" 
-                            class="rounded-lg bg-transparent  text-neutral-400">
+                            class="rounded-lg bg-transparent  text-neutral-700">
                             <option value="pria">Laki-Laki</option>
                             <option value="wanita">Perempuan</option>
                         </select>
@@ -81,19 +81,19 @@ const submit = () => {
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Email" />
                         <input type="email"  v-model="form.email"
-                            class=" rounded-lg bg-transparent  text-neutral-400">
+                            class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['email']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Password" />
                         <input type="password"  v-model="form.password"
-                            class=" rounded-lg bg-transparent  text-neutral-400">
+                            class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['password']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Confirm Passwrord" />
                         <input type="password"  v-model="form.password_confirmation"
-                            class=" rounded-lg bg-transparent  text-neutral-400">
+                            class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['password_confirmation']" />
                     </div>
                   
@@ -102,23 +102,23 @@ const submit = () => {
                     <div class="flex flex-col p-3">
                         <InputLabel for="name" value="Tempat Lahir" />
                         <input type="text" v-model="form.tempat_lahir"
-                            class=" rounded-lg bg-transparent  text-neutral-400">
+                            class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['tempat_lahir']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Tanggal Lahir" value="Tanggal Lahir" />
                         <input type="date" v-model="form.tanggal_lahir"
-                            class=" rounded-lg bg-transparent  text-neutral-400">
+                            class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['tanggal_lahir']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Kotak" value="Kotak" />
-                        <input type="text" v-model="form.kontak" class=" rounded-lg bg-transparent  text-neutral-400">
+                        <input type="text" v-model="form.kontak" class=" rounded-lg bg-transparent  text-neutral-700">
                         <InputError :message="form.errors['kontak']" />
                     </div>
                     <div class="flex flex-col p-3">
                         <InputLabel for="Alamat" value="Alamat" />
-                        <textarea v-model="form.alamat" class=" h-32 rounded-lg bg-transparent  text-neutral-400"></textarea>
+                        <textarea v-model="form.alamat" class=" h-32 rounded-lg bg-transparent  text-neutral-700"></textarea>
                         <InputError :message="form.errors['alamat']" />
                     </div>
 

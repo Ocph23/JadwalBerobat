@@ -12,10 +12,10 @@ import DropdownLink from "@/Components/DropdownLink.vue";
         <div class="container relative left-0 flex w-3/4">
           <div class="group relative flex h-full w-full items-center">
             <button type="button" aria-expanded="false" aria-label="Toggle sidenav"
-              class="text-4xl text-white focus:outline-none lg:hidden" @click="openSidebar">
+              class="text-4xl  focus:outline-none lg:hidden" @click="openSidebar">
               &#8801;
             </button>
-            <div class="mt-5 pl-5 flex items-center h-full text-xl font-medium text-white lg:pl-6">
+            <div class="mt-5 pl-5 flex items-center h-full text-xl font-medium  lg:pl-6">
               PUSKESMAS HEBEYBHULU YOKA
             </div>
           </div>

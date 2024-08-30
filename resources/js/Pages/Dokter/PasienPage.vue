@@ -132,23 +132,23 @@ const searchPasien = computed(() => {
                     <tbody>
                         <tr v-for="item in searchPasien">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ Helper.getKode(item.id, 'Pasien') }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getKode(item.id, 'Pasien') }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.nama }}</p>
+                                <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.jk }}</p>
+                                <p class="whitespace-nowrap">{{ item.jk }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.tempat_lahir }}, {{ item.tanggal_lahir
+                                <p class="whitespace-nowrap">{{ item.tempat_lahir }}, {{ item.tanggal_lahir
                                     }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.kontak }}</p>
+                                <p class="whitespace-nowrap">{{ item.kontak }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap text-white">{{ item.alamat }}</p>
+                                <p class="whitespace-nowrap">{{ item.alamat }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/dokter/pasien/' + item.id" class=" text-cyan-500 hover:text-cyan-700">
