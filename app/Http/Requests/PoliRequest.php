@@ -25,6 +25,7 @@ class PoliRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'penyakit' => ['required', 'string', 'max:255'],
             'dokter_id' => ['required'],
+            'pegawai_id' => ['required'],
             'keterangan' => ['required', 'string', 'max:255'],
         ];
     }
@@ -33,7 +34,8 @@ class PoliRequest extends FormRequest
     public function messages()
     {
         return[
-            'dokter_id.required' => 'field dokter required'
+            'dokter_id.required' => 'field dokter required',
+            'pegawai_id.required' => 'field pegawai tidak boleh kosong'
         ];
     }
 

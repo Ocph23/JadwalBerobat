@@ -41,6 +41,7 @@ class PoliService
                 'penyakit' => $req['penyakit'],
                 'keterangan' => $req['keterangan'],
                 'dokter_id' => $req['dokter_id'],
+                'pegawai_id' => $req['pegawai_id'],
             ]);
             return $result;
         } catch (\Throwable $th) {
@@ -60,6 +61,7 @@ class PoliService
             $data->penyakit = $req['penyakit'];
             $data->keterangan = $req['keterangan'];
             $data->dokter_id = $req['dokter_id'];
+            $data->pegawai_id = $req['pegawai_id'];
             $data->save();
             return true;
         } catch (\Throwable $th) {

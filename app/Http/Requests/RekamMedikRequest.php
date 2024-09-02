@@ -26,7 +26,8 @@ class RekamMedikRequest extends FormRequest
             'pasien_id' => ['required'],
             'dokter_id' => ['required'],
             'tanggal' => ['required'],
-            'keluhan' => ['required']
+            // 'status' => ['required'],
+            // 'keluhan' => ['required']
         ];
     }
 }

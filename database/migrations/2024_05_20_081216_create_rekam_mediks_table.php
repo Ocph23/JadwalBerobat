@@ -24,6 +24,7 @@ return new class extends Migration
             $table->dateTime('konsultasi_berikut')->nullable();
             $table->dateTime('kirimpesan1')->nullable();
             $table->dateTime('kirimpesan2')->nullable();
+            $table->enum('status',['baru','admin','poli','dokter', 'batal'])->default('baru');
             $table->timestamps();
         });
     }

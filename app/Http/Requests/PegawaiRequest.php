@@ -24,6 +24,7 @@ class PegawaiRequest extends FormRequest
         return [
             'nama' => ['required', 'string', 'max:255'],
             'jk' => ['required'],
+            'email' => ['required', 'email'],
             'bagian' => ['required']
         ];
     }

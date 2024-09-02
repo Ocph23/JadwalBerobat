@@ -5,6 +5,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Requests\PoliRequest;
 use App\services\DokterService;
+use App\services\PegawaiService;
 use App\services\PoliService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
@@ -16,13 +17,13 @@ Route::get('/admin/poli', function (PoliService $poliService) {
     return Inertia::render('Admin/PoliPage', ['data' => $poliService->all()]);
 })->name('admin.poli');
 
-Route::get('/admin/poli/add', function (DokterService $dokterService) {
-    return Inertia::render('Admin/AddPoliPage', ["dokters" =>$dokterService->all() ]);
+Route::get('/admin/poli/add', function (DokterService $dokterService, PegawaiService $pegawaiService) {
+    return Inertia::render('Admin/AddPoliPage', ["dokters" =>$dokterService->all(),'pegawais'=> $pegawaiService->all() ]);
 })->name('admin.poli.add');
 
 
-Route::get('/admin/poli/add/{id}', function (PoliService $poliService, DokterService $dokterService, $id) {
-    return Inertia::render('Admin/AddPoliPage', ["dokters" =>$dokterService->all() , "poli" => $poliService->getById($id)]);
+Route::get('/admin/poli/add/{id}', function ( DokterService $dokterService,PoliService $poliService, PegawaiService $pegawaiService, $id) {
+    return Inertia::render('Admin/AddPoliPage', ["dokters" =>$dokterService->all(),  "pegawais" => $pegawaiService->all() , "poli" => $poliService->getById($id)]);
 })->name('admin.poli.add');
 
 Route::post('/admin/poli', function (PoliRequest $poliRequest, PoliService $poliService) {

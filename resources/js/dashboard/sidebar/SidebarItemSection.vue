@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="mt-6 md:pl-6">
+  <div class="mt-10 md:pl-6">
     <div>
       <div class="mb-10 flex flex-col">
         <div class="mb-4 text-lg font-medium  text-wrap">

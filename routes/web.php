@@ -21,7 +21,7 @@ Route::get('/', function () {
             case 'dokter':
                 return redirect()->intended(route('dokter.index', absolute: false));
             case 'pegawai':
-                return redirect()->intended(route('pegawai.index', absolute: false));
+                return redirect()->intended(route('poli.index', absolute: false));
             case 'pasien':
                 return redirect()->intended(route('pasien.index', absolute: false));
             default:
@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
 
     //ADMIN
     include 'pasien.php';
+    include 'poli.php';
     include 'admin/admin.php';
     include 'dokter/dokter.php';
 });

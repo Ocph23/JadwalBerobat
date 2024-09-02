@@ -19,7 +19,8 @@ class Poli extends Model
         'nama',
         'penyakit',
         'keterangan',
-        'dokter_id'
+        'dokter_id',
+        'pegawai_id'
     ];
 
 
@@ -32,6 +33,9 @@ class Poli extends Model
 
     public function dokter():HasOne{
         return  $this->hasOne(Dokter::class,'id',"dokter_id");
+    }
+    public function pegawai():HasOne{
+        return  $this->hasOne(Pegawai::class,'id',"pegawai_id");
     }
 
 }

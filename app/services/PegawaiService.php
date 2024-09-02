@@ -2,9 +2,12 @@
 
 namespace App\services;
 
-use App\Http\Requests\PegawaiRequest;
-use App\Models\Pegawai;
 use Error;
+use App\Models\User;
+use App\Models\Pegawai;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\PegawaiRequest;
 
 class PegawaiService
 {
@@ -31,15 +34,30 @@ class PegawaiService
 
     public function post(PegawaiRequest $req)
     {
+
+        DB::beginTransaction();
         try {
+
+            //create User As Pegawai
+            $user = User::create([
+                'name' => $req->nama,
+                'email' => $req->email,
+                'password' => Hash::make("Password@123"),
+                'role' => 'poli',
+            ]);
+
             $result =  Pegawai::create([
                 'nama' => $req['nama'],
                 'jk' => $req['jk'],
+                'email' => $req['email'],
                 'bagian' => $req['bagian'],
                 'kontak' => $req['kontak'],
             ]);
+            
+            DB::commit();
             return $result;
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw new Error($th->getMessage());
         }
     }

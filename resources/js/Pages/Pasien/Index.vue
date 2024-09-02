@@ -1,21 +1,10 @@
 <script setup>
 
-import DokterLayout from "@/Layouts/DokterLayout.vue";
-import Poli from "@/Models/Poli";
-import CapsulesIcon from "@/Icons/CapsulesIcon.vue";
-import MedicalIcon from "@/Icons/MedicalIcon.vue";
-import HospitalIcon from "@/Icons/HospitalIcon.vue";
-import DoctorIcon from "@/Icons/DoctorIcon.vue";
-import PatientIcon from "@/Icons/PatientIcon.vue";
-import Layout from "@/dashboard/Layout.vue";
-import UsersIcon from "@/Icons/UsersIcon.vue";
-import ArIcon from "@/dashboard/sidebar/icons/ArIcon.vue"
-import DashboarItem from "@/Components/DashboarItem.vue";
 import PasienLayout from "@/Layouts/PasienLayout.vue";
 import Pasien from "@/Models/Pasien";
-import Helper from "@/heper";
 import EditIcon from "@/Icons/EditIcon.vue";
 import DeleteIcon from "@/Icons/DeleteIcon.vue";
+import AddIcon from "@/Icons/AddIcon.vue";
 import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/vue3";
 
@@ -66,17 +55,13 @@ function deleteItem(item) {
     });
 }
 
-
-
-
-
 </script>
 
 
 <template>
      <PasienLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-2xl">DATA REKAM MEDIK</h1>
+            <h1 class="text-xl">DATA REKAM MEDIK</h1>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -100,6 +85,10 @@ function deleteItem(item) {
                                 Dokter
                             </th>
                             <th scope="col"
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Status
+                            </th>
+                            <th scope="col"
                                 class=" w-20 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Action
                             </th>
@@ -117,7 +106,10 @@ function deleteItem(item) {
                                 <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
+                                <p class="whitespace-nowrap capitalize">{{ item.dokter.nama }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap capitalize">{{ item.status }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

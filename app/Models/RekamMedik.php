@@ -23,6 +23,7 @@ class RekamMedik extends Model
         'dokter_id',
         'konsultasi_berikut', 
         'keluhan',
+        'status',
         'resep  ',
         'penanganan',
         'kirimpesan1', 

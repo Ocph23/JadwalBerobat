@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 const prop = defineProps({
-  pasien: {
-    type: Pasien,
+  poli: {
+    type: Poli,
     default: ''
   }
 });
@@ -20,19 +20,16 @@ import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
 
 onMounted(() => {
-    emit('titleChange', prop.pasien.nama);
+    emit('titleChange', prop.poli.nama);
 })
 
 
 </script>
 <template>
   <div >
-    <SidebarItemSection name="PASIEN" :subname="prop.pasien.nama">
+    <SidebarItemSection name="POLI" :subname="prop.poli.nama">
       <SidebarItem title="Rekam Medik" to="/pasien">
         <AllAppIcon class=" text-black" />
-      </SidebarItem>
-      <SidebarItem title="Daftar" to="/pasien/rekammedik/add">
-        <PatientIcon class="w-5 h-5  text-slate-200" />
       </SidebarItem>
     </SidebarItemSection>
   </div>

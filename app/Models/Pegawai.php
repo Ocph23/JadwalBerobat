@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Casts\Kode;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pegawai extends Model
 {
@@ -16,6 +17,7 @@ class Pegawai extends Model
         'kode',
         'nama',
         'jk',
+        'email',
         'bagian',
         'kontak'
     ];
@@ -26,4 +28,5 @@ class Pegawai extends Model
             'kode' => Kode::class,
         ];
     }
+   
 }

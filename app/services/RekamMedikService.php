@@ -41,6 +41,19 @@ class RekamMedikService
         return $result;
     }
 
+    public function getByPoli($poliId)
+    {
+
+        $results = RekamMedik::where('poli_id', $poliId)
+            ->get();
+        foreach ($results as $key => $result) {
+            $result->poli;
+            $result->dokter;
+            $result->pasien;
+        }
+        return $results->toJson();
+    }
+
 
     public function getByPoliAndDate($poliId, $date)
     {
@@ -124,6 +137,7 @@ class RekamMedikService
                 'poli_id' => $req['poli_id'],
                 'pasien_id' => $req['pasien_id'],
                 'dokter_id' => $req['dokter_id'],
+                'status' => 'baru',
                 'keluhan' => $kel,
             ]);
 
@@ -150,6 +164,7 @@ class RekamMedikService
             $data->keluhan = $req['keluhan'];
             $data->penanganan = $req['penanganan'];
             $data->resep = $req['resep'];
+            $data->status = $req['status'];
             $data->save();
             $this->infoKunjunganBerikut();
             return true;

@@ -5,6 +5,7 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Requests\PegawaiRequest;
 use App\services\PegawaiService;
+use App\services\PoliService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +22,7 @@ Route::get('/admin/pegawai/add', function (PegawaiService $pegawaiService) {
 
 Route::get('/admin/pegawai/add/{id}', function (PegawaiService $pegawaiService, $id) {
     return Inertia::render('Admin/AddPegawaiPage', ["pegawai" => $pegawaiService->getById($id)]);
-})->name('admin.pegawai.add');
+})->name('admin.pegawai.edit');
 
 Route::post('/admin/pegawai', function (PegawaiRequest $PegawaiRequest, PegawaiService $pegawaiService) {
     try {

@@ -19,6 +19,7 @@ const form = useForm({
     "id": 0,
     "nama": '',
     "jk": '',
+    "email": '',
     "bagian": '',
     "kontak": '',
 }
@@ -94,6 +95,7 @@ onMounted(() => {
         form.kode = Helper.getKode(props.pegawai.id,'Pegawai');
         form.nama = props.pegawai.nama;
         form.jk = props.pegawai.jk;
+        form.email = props.pegawai.email;
         form.bagian = props.pegawai.bagian;
         form.kontak = props.pegawai.kontak;
     }
@@ -133,7 +135,7 @@ onMounted(() => {
                                 </select>
                                 <InputError :message="form.errors['jk']" />
                             </div>
-                            <div class="flex flex-col p-3">
+                              <div class="flex flex-col p-3">
                                 <label class="mb-2">Email</label>
                                 <input type="email" v-model="form.email"
                                     class=" rounded-lg bg-transparent  text-neutral-700">

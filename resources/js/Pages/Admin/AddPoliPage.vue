@@ -7,14 +7,18 @@ import { onMounted } from 'vue';
 import Dokter from '@/Models/Dokter';
 import InputError from '@/Components/InputError.vue';
 import Helper from '@/heper';
+import Pegawai from '@/Models/Pegawai';
 
 
 const props = defineProps({
     dokters: {
         type: Array
     },
-    poli: {
-        type: Poli
+    pegawais: {
+        type: Pegawai
+    },
+    poli:{
+        type:Poli
     }
 })
 
@@ -26,6 +30,7 @@ const form = useForm({
     "penyakit": '',
     "keterangan": '',
     "dokter_id": '',
+    "pegawai_id": '',
 }
 )
 
@@ -101,6 +106,7 @@ onMounted(() => {
         form.penyakit = props.poli.penyakit;
         form.keterangan = props.poli.keterangan;
         form.dokter_id = props.poli.dokter_id;
+        form.pegawai_id = props.poli.pegawai_id;
     }
 
 })
@@ -142,6 +148,14 @@ onMounted(() => {
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
                                 <InputError :message="form.errors['dokter_id']" />
+                            </div>
+                            <div class="flex flex-col p-3">
+                                <label class="mb-2">Petugas</label>
+                                <select type="text" v-model="form.pegawai_id" required
+                                    class="rounded-lg bg-transparent  text-neutral-700">
+                                    <option :value="item.id" v-for="item in pegawais">{{ item.nama }}</option>
+                                </select>
+                                <InputError :message="form.errors['pegawai_id']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Keterangan</label>

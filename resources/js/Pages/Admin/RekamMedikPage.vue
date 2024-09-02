@@ -21,11 +21,11 @@ const props = defineProps({
 })
 
 var date = new Date();
-let tgl = date.getFullYear() +"-"+ Helper.getPadNumber(date.getMonth()+1)+"-"+Helper.getPadNumber(date.getDate());
+let tgl = date.getFullYear() + "-" + Helper.getPadNumber(date.getMonth() + 1) + "-" + Helper.getPadNumber(date.getDate());
 const data = reactive({ rekamMedik: Array, poli: null });
 
 const onChangeDate = (date) => {
-    if (data.poli==null) {
+    if (data.poli == null) {
         Swal.fire({
             position: "top-end",
             icon: "error",
@@ -47,8 +47,17 @@ const onChangeDate = (date) => {
 };
 
 
-const form = useForm({
-    id: 0
+let form = useForm({
+    id: 0,
+    dokter_id:0,
+    pasien_id: 0,
+    poli_id: 0,
+    tanggal: null,
+    konsultasi_berikut: null,
+    keluhan: null,
+    penanganan: null,
+    resep: null,
+    status: '',
 })
 
 function addNewItem() {
@@ -93,11 +102,59 @@ function deleteItem(item) {
 
 
 
+function approveItem(item) {
+    Swal.fire({
+        title: "Anda Yakin ?",
+        text: "Menyetujui Pendaftaran ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, approve it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.id = item.id;
+            form.dokter_id = item.dokter_id;
+            form.pasien_id = item.pasien_id;
+            form.poli_id = item.poli_id;
+            form.tanggal = item.tanggal;
+            form.konsultasi_berikut = item.konsultasi_berikut;
+            form.keluhan = item.keluhan;
+            form.penanganan = item.penanganan;
+            form.resep = item.resep;
+            form.status = 'admin';
+
+            form.put(route('admin.rekammedik.put', item.id), {
+                onSuccess: (res) => {
+                    Swal.fire({
+                        title: "Approve!",
+                        text: "Data Berhasil Di disetujui.",
+                        icon: "success"
+                    });
+
+                    item.status='admin';
+
+                }, onError: (err) => {
+                    Swal.fire({
+                        title: "Error",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            })
+
+
+        }
+    });
+}
+
+
+
 const printReport = () => {
 
-if (data.rekamMedik && data.rekamMedik.length > 0) {
-    window.print();
-}
+    if (data.rekamMedik && data.rekamMedik.length > 0) {
+        window.print();
+    }
 
 }
 
@@ -176,6 +233,10 @@ const filterDataRekamMedik = computed(() => {
                                 Dokter
                             </th>
                             <th scope="col"
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Status
+                            </th>
+                            <th scope="col"
                                 class=" w-20 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Action
                             </th>
@@ -197,6 +258,17 @@ const filterDataRekamMedik = computed(() => {
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p v-if="item.status !== 'baru'" class="whitespace-nowrap capitalize">{{ item.status }}
+                                </p>
+                                <div v-else>
+                                    <button @click="approveItem(item)"
+                                        class=" cursor-pointer p-2 px-5 rounded-md bg-teal-700   hover:bg-teal-300 text-white">
+                                        Setujui
+                                    </button>
+                                </div>
+
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">
@@ -256,7 +328,7 @@ const filterDataRekamMedik = computed(() => {
                             Kode Antrian
                         </th>
                         <th>
-                           Tanggal
+                            Tanggal
                         </th>
                         <th>
                             Pasien
@@ -267,6 +339,7 @@ const filterDataRekamMedik = computed(() => {
                         <th>
                             Dokter
                         </th>
+
 
                     </tr>
                 </thead>
@@ -287,6 +360,7 @@ const filterDataRekamMedik = computed(() => {
                         <td>
                             <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                         </td>
+
                     </tr>
                 </tbody>
             </table>
