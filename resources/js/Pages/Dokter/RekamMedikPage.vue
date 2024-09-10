@@ -9,11 +9,10 @@ import RekamMedik from '@/Models/RekamMedik';
 import Poli from '@/Models/Poli';
 import { reactive } from 'vue';
 import DatePicker from '@/Components/DatePicker.vue';
+import { computed } from 'vue';
+import { toRaw } from 'vue';
 
 const props = defineProps({
-    data: {
-        type: Array
-    },
     poli: { type: Poli }
 })
 
@@ -77,6 +76,16 @@ function deleteItem(item) {
     });
 }
 
+
+const rekamMedik = computed(()=>{
+    if(data ){
+        var data = toRaw(data.rekamMedik);
+        return data.rekamMedik.filter(x => x.status === 'poli' || x.status === 'dokter');
+    }
+    return [];
+})
+
+
 </script>
 
 <template>
@@ -120,9 +129,8 @@ function deleteItem(item) {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr
-                            v-for="item in data.rekamMedik.filter(x => x.status === 'poli' || x.status === 'dokter')">
+                    <tbody >
+                        <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
