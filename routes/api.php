@@ -1,14 +1,28 @@
 <?php
 
-use App\Http\Controllers\DokterController;
+use App\Models\Poli;
 use App\Models\Dokter;
-use App\services\RekamMedikService;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use App\services\RekamMedikService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DokterController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::get('/poli/{id}', function (Request $request, $userid) {
+    $pegawai = Pegawai::where('user_id', $userid)->first();
+    $poli = Poli::where('pegawai_id',$pegawai->id)->first();
+    return $poli;
+});
+
+
+
+
+
 
 
 Route::get('/jadwalberobat/{poliid}/{date}', function (RekamMedikService $rekamMedik, $poliid, $date) {

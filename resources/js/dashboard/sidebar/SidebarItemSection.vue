@@ -14,6 +14,7 @@ defineProps({
     <div>
       <div class="mb-10 flex flex-col">
         <div class="mb-4 text-lg font-medium  text-wrap">
+         
           {{ name }}
         </div>
         <div class="mb-4 text-lg font-medium ">

@@ -6,6 +6,7 @@ import DokterSidebar from "./DokterSidebar.vue";
 import { closeSidebar, sidebarOpen } from "@/dashboard/store";
 import Pasien from "@/Models/Pasien";
 import PasienSidebar from "./PasienSidebar.vue";
+import PoliSidebar from "./PoliSidebar.vue";
 
 
 const props = defineProps({
@@ -33,7 +34,7 @@ watch(route, () => {
     <div class="content relative h-screen overflow-hidden lg:rounded-2xl">
       <div class="flex items-start">
         <Overlay />
-        <PasienSidebar :pasien="pasien" mobile-orientation="end" />
+        <PoliSidebar :pasien="pasien" mobile-orientation="end" />
         <div class="flex h-screen w-full flex-col pl-0 lg:w-[calc(100%-16rem)] lg:space-y-4">
           <TopBar />
           <main class="main h-screen px-2 pb-36 pt-4 md:px-4 md:pb-8 lg:px-6">

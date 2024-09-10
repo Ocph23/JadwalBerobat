@@ -42,6 +42,7 @@ Route::get('/dokter/rekammedik/{id}', function (
 
 Route::put('/dokter/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService, $id) {
     try {
+        $rekamMedikRequest['status']='dokter';
         $result = $rekamMedikService->put($rekamMedikRequest, $id);
         if ($result) {
             return Redirect::back()->with('success');

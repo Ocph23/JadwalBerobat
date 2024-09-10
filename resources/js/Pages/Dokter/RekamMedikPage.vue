@@ -18,8 +18,8 @@ const props = defineProps({
 })
 
 var date = new Date();
-let tgl = date.getFullYear() +"-"+ Helper.getPadNumber(date.getMonth()+1)+"-"+Helper.getPadNumber(date.getDate());
-const data = reactive({ tanggal:tgl, rekamMedik: Array });
+let tgl = date.getFullYear() + "-" + Helper.getPadNumber(date.getMonth() + 1) + "-" + Helper.getPadNumber(date.getDate());
+const data = reactive({ tanggal: tgl, rekamMedik: Array });
 
 const onChangeDate = (date) => {
     if (props.poli && props.poli.id > 0) {
@@ -29,7 +29,7 @@ const onChangeDate = (date) => {
                 data.rekamMedik = response.data;
             })
     }
-};  
+};
 
 onChangeDate(tgl);
 
@@ -121,7 +121,8 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data.rekamMedik">
+                        <tr
+                            v-for="item in data.rekamMedik.filter(x => x.status === 'poli' || x.status === 'dokter')">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>

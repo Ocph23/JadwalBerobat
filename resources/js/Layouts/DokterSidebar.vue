@@ -29,18 +29,18 @@ onMounted(() => {
 <template>
   <div>
  <SidebarHeader></SidebarHeader>
-    <SidebarItemSection name="APP DOKTER" :subname="prop.poli.nama">
+    <SidebarItemSection name="APP DOKTER">
       <SidebarItem title="Dashboard" to="/dokter">
-        <AllAppIcon />
+        <AllAppIcon class="text-black" />
       </SidebarItem>
       <SidebarItem title="Pasien" to="/dokter/pasien">
-        <PatientIcon class="w-5 h-5  text-slate-200" />
+        <PatientIcon class="w-5 h-5" />
       </SidebarItem>
       <SidebarItem title="Rekam Medik" to="/dokter/rekammedik">
-        <MedicalIcon class="w-5 h-5  text-slate-200" />
+        <MedicalIcon class="w-5 h-5" />
       </SidebarItem>
       <SidebarItem title="Laporan Jadwal Berobat" to="/dokter/jadwalberobat">
-        <DetailListIcon class="w-5" />
+        <DetailListIcon class="w-5 text-black" />
       </SidebarItem>
     </SidebarItemSection>
   </div>

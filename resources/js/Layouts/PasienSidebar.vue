@@ -18,6 +18,7 @@ import MedicalIcon from '@/Icons/MedicalIcon.vue';
 import Poli from '@/Models/Poli';
 import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
+import SidebarHeader from '@/dashboard/sidebar/SidebarHeader.vue';
 
 onMounted(() => {
     emit('titleChange', prop.pasien.nama);
@@ -27,6 +28,7 @@ onMounted(() => {
 </script>
 <template>
   <div >
+    <SidebarHeader></SidebarHeader>
     <SidebarItemSection name="PASIEN" :subname="prop.pasien.nama">
       <SidebarItem title="Rekam Medik" to="/pasien">
         <AllAppIcon class=" text-black" />

@@ -27,7 +27,7 @@ Route::group(['middleware' => 'role:pegawai'], function () {
     ) {
         $rm = $rekammedikService->getById($id);
         $userid = Auth::user()->id;
-        $pasien = Pasien::where('user_id', $userid)->first();
+        $pasien = Pasien::where('id', $rm->pasien_id)->first();
         return Inertia::render(
             'Poli/AddRekamMedikPage',
             [
@@ -43,6 +43,7 @@ Route::group(['middleware' => 'role:pegawai'], function () {
 
     Route::put('/poli/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService, $id) {
         try {
+            $rekamMedikRequest['status']="poli";
             $result = $rekamMedikService->put($rekamMedikRequest, $id);
             if ($result) {
                 return Redirect::back()->with('success');

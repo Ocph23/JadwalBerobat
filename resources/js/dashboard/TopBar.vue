@@ -15,7 +15,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
               class="text-4xl  focus:outline-none lg:hidden" @click="openSidebar">
               &#8801;
             </button>
-            <div class="mt-5 pl-5 flex items-center h-full text-xl font-medium  lg:pl-6">
+            <div class=" mt-5 pl-5 flex items-center h-full text-white text-2xl font-medium  lg:pl-6">
               PUSKESMAS HEBEYBHULU YOKA
             </div>
           </div>

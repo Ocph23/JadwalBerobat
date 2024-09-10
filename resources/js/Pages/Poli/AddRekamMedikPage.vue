@@ -14,6 +14,7 @@ import PrintResep from '@/Components/PrintResep.vue';
 import PasienLayout from '@/Layouts/PasienLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import PoliLayout from '@/Layouts/PoliLayout.vue';
 
 const props = defineProps({
     polis: {
@@ -38,13 +39,14 @@ const form = useForm({
     "kode": '',
     "nama": '',
     "dokter_id": '',
-    "pasien_id": props.pasien.id,
+    "pasien_id": 0,
     "poli_id": '',
     "tanggal": new Date().toISOString().split('T')[0],
     'konsultasi_berikut': null,
     'keluhan': [],
     'penanganan': [],
     'resep': [],
+    "status": '',
 }
 )
 
@@ -102,7 +104,7 @@ const save = () => {
             }
         });
     } else {
-        form.put(route('pasien.rekammedik.put', form.id), {
+        form.put(route('poli.rekammedik.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
                     position: "top-end",
@@ -183,6 +185,7 @@ onMounted(() => {
         form.dokter_id = props.rekammedik.dokter_id;
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
+        form.status = props.rekammedik.status;
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
@@ -212,7 +215,7 @@ const printResep = () => {
 
 <template>
 
-    <PasienLayout class="noprint">
+    <PoliLayout class="noprint">
         <div class="p-5 mt-5 flex justify-between">
             <h1 class="text-xl">PENDAFTAR BEROBAT</h1>
         </div>
@@ -262,7 +265,7 @@ const printResep = () => {
                 </form>
             </div>
         </div>
-        <!-- <div class="p-5">
+        <div class="p-5">
             <Tab class="px-5" :items="tabs" :tabActive="selectedTab.id" @onClickTab="selectTab" />
             <div v-if="selectedTab.id == 1">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
@@ -281,8 +284,8 @@ const printResep = () => {
 
                 </ul>
             </div>
-        </div> -->
-    </PasienLayout>
+        </div>
+    </PoliLayout>
 
 
 

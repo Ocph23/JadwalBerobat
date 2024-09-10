@@ -1,11 +1,6 @@
 <script setup lang="ts">
 
-const prop = defineProps({
-  poli: {
-    type: Poli,
-    default: ''
-  }
-});
+const data=reactive({poli:{} as Poli});
 
 const emit = defineEmits(['titleChange']);
 
@@ -18,17 +13,29 @@ import MedicalIcon from '@/Icons/MedicalIcon.vue';
 import Poli from '@/Models/Poli';
 import { onMounted } from 'vue';
 import Pasien from '@/Models/Pasien';
+import Helper from '@/heper';
+import axios from 'axios';
+import { usePage } from '@inertiajs/vue3'
+import SidebarHeader from '@/dashboard/sidebar/SidebarHeader.vue';
+import { reactive } from 'vue';
+
+const page = usePage()
 
 onMounted(() => {
-    emit('titleChange', prop.poli.nama);
+    axios
+        .get(Helper.apiUrl + `/poli/`+page.props.auth.user.id)
+        .then((response) => {
+            data.poli = response.data as Poli;
+        })
 })
 
 
 </script>
 <template>
   <div >
-    <SidebarItemSection name="POLI" :subname="prop.poli.nama">
-      <SidebarItem title="Rekam Medik" to="/pasien">
+    <SidebarHeader></SidebarHeader>
+    <SidebarItemSection name="APP POLI" :subname="data.poli.nama">
+      <SidebarItem title="Rekam Medik" to="/poli">
         <AllAppIcon class=" text-black" />
       </SidebarItem>
     </SidebarItemSection>

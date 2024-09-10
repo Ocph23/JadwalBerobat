@@ -51,7 +51,7 @@ class RekamMedikService
             $result->dokter;
             $result->pasien;
         }
-        return $results->toJson();
+        return $results;
     }
 
 

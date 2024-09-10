@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/vue3";
 import Poli from '@/Models/Poli';
 import Pegawai from '@/Models/Pegawai';
+import RekamMedik from "@/Models/RekamMedik";
 
 const props = defineProps({
    pegawai: {
@@ -100,7 +101,7 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in rekammedik">
+                        <tr v-for="item in rekammedik.filter(x=>x.status ==='admin' || x.status ==='poli' || x.status ==='dokter')">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
@@ -118,7 +119,7 @@ function deleteItem(item) {
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">
-                                <a :href="'/pasien/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
+                                <a :href="'/poli/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />
                                 </a>
                                 <a @click="deleteItem(item)" class=" cursor-pointer text-rose-600 hover:text-rose-900">

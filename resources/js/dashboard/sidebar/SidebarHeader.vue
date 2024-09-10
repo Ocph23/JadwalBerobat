@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-20 items-center justify-start pl-4 lg:pl-8">
-    <div class="header h-4 w-4 rounded-full" />
+    <img src="../../../images/logopuskesmas.png" class="p-2" style="width: 70px; margin: 50px;"/>
   </div>
 </template>
 
