@@ -19,7 +19,8 @@ class Pegawai extends Model
         'jk',
         'email',
         'bagian',
-        'kontak'
+        'kontak',
+        'user_id'
     ];
 
     protected function casts(): array

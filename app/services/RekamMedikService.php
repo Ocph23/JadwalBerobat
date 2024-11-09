@@ -130,7 +130,6 @@ class RekamMedikService
 
             $poli = Poli::find($req['poli_id']);
             $antrian = $poli->kode.'-'. $sekarang->format('dmY').'-' . str_pad($data+1, 3, '0', STR_PAD_LEFT);
-            $kel = json_encode($req['keluhan']);
             $result =  RekamMedik::create([
                 'tanggal' => $req['tanggal'],
                 'antrian' => $antrian,
@@ -138,7 +137,9 @@ class RekamMedikService
                 'pasien_id' => $req['pasien_id'],
                 'dokter_id' => $req['dokter_id'],
                 'status' => 'baru',
-                'keluhan' => $kel,
+                'keluhan' => json_encode($req['keluhan']),
+                'penanganan' => json_encode($req['penanganan']),
+                'resep' => json_encode($req['resep'])
             ]);
 
             Log::info("success insert" . $result->id);

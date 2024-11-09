@@ -52,6 +52,7 @@ class PegawaiService
                 'email' => $req['email'],
                 'bagian' => $req['bagian'],
                 'kontak' => $req['kontak'],
+                'user_id' => $user->id,
             ]);
             
             DB::commit();

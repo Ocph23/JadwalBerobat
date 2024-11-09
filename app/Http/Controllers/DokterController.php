@@ -23,9 +23,8 @@ class DokterController extends Controller
         $poli = $dokterService->getPoli();
 
         $rmPasien = DB::table('rekam_mediks')
-        ->select(DB::raw('count(*) as pasien'))
         ->groupBy('pasien_id')
-        ->first();
+        ->count();
 
 
         $rmCount = DB::table('rekam_mediks')
@@ -36,7 +35,7 @@ class DokterController extends Controller
             "Dokter/Index",
             [
                 'resep' => $rmCount,
-                'pasien' => $rmPasien->pasien,
+                'pasien' => $rmPasien,
                 'rekammedik' =>$rmCount,
             ]
         );

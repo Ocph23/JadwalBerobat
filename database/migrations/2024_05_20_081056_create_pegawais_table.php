@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('bagian');
             $table->string('kontak');
+            $table->string('user_id');
         });
     }
 

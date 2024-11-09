@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rekam_mediks', function (Blueprint $table) {
             $table->id();
-            $table->json('antrian')->nullable();
+            $table->string('antrian')->nullable();
             $table->date('tanggal');
             $table->integer('pasien_id');
             $table->integer('dokter_id');

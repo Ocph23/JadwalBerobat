@@ -21,14 +21,12 @@ class PoliController extends Controller
     {
 
         $user  =  Auth::user();
-        $pegawai = Pegawai::find("user_id", $user->id);
-        dd($pegawai->id);
+        $pegawai = Pegawai::where("user_id", $user->id)->first();
         $poli = Poli::where("pegawai_id", $pegawai->id)->first();
 
         $rmPasien = DB::table('rekam_mediks')
-        ->select(DB::raw('count(*) as pasien'))
         ->groupBy('pasien_id')
-        ->first();
+        ->count();
 
         $rmCount = DB::table('rekam_mediks')
         ->where('poli_id',$poli->id)
@@ -38,7 +36,7 @@ class PoliController extends Controller
             "Poli/Index",
             [
                 'resep' => $rmCount,
-                'pasien' => $rmPasien->pasien,
+                'pasien' => $rmPasien,
                 'rekammedik' =>$rmCount,
             ]
         );

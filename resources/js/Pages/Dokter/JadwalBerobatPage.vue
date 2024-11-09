@@ -28,6 +28,7 @@ const onChangeDate = (date) => {
         .get(Helper.apiUrl + `/dokter/jadwalberobatbydate/${props.dokter.id}/${date}`)
         .then((response) => {
             data.rekamMedik = response.data;
+            console.log(data.rekamMedik);
         })
 
 
@@ -48,7 +49,7 @@ const printReport = () => {
 <template>
     <DokterLayout class="noprint">
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-xl">LAPORAN JADWAL BEROBAT</h1>
+            <h1 class="text-xl">LAPORAN KUNJUNGAN BEROBAT BERIKUT</h1>
             <div class="flex">
                 <PrinterIcon class=" cursor-pointer text-amber-600 w-12" @click="printReport()"></PrinterIcon>
             </div>

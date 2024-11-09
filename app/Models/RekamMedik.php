@@ -24,7 +24,7 @@ class RekamMedik extends Model
         'konsultasi_berikut', 
         'keluhan',
         'status',
-        'resep  ',
+        'resep',
         'penanganan',
         'kirimpesan1', 
         'kirimpesan2', 

@@ -23,6 +23,7 @@ const props = defineProps({
    },
 })
 
+console.log(props);
 const form = useForm({
     id: 0
 })
@@ -101,7 +102,7 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in rekammedik.filter(x=>x.status ==='admin' || x.status ==='poli' || x.status ==='dokter')">
+                        <tr v-for="item in rekammedik.filter(x=>x.status ==='baru' || x.status ==='poli' )">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>

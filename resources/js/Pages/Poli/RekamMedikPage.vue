@@ -15,6 +15,9 @@ const props = defineProps({
     }
 })
 
+
+console.log(props);
+
 const form = useForm({
     id: 0
 })
