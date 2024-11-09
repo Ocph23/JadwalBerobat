@@ -2,33 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Obat;
+use App\Models\Poli;
+use Inertia\Inertia;
+use App\Models\Dokter;
 use App\Models\Pasien;
 use App\Models\Pegawai;
 use App\Models\RekamMedik;
-use App\Models\Dokter;
-use App\Models\Poli;
 use App\services\DokterService;
+use Illuminate\Support\Facades\DB;
 use App\services\RekamMedikService;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
 
 class DokterController extends Controller
 {
     public function index(DokterService $dokterService)
     {
         $poli = $dokterService->getPoli();
+
+        $rmPasien = DB::table('rekam_mediks')
+        ->select(DB::raw('count(*) as pasien'))
+        ->groupBy('pasien_id')
+        ->first();
+
+
+        $rmCount = DB::table('rekam_mediks')
+        ->where('poli_id',$poli->id)
+        ->count();
+
         return Inertia::render(
             "Dokter/Index",
             [
-                'obat' => Obat::count(),
-                'pasien' => Pasien::count(),
-                'dokter' => Dokter::count(),
-                'poli' => Poli::count(),
-                'pegawai' => Pegawai::count(),
-                'rekammedik' => RekamMedik::count(),
+                'resep' => $rmCount,
+                'pasien' => $rmPasien->pasien,
+                'rekammedik' =>$rmCount,
             ]
         );
     }

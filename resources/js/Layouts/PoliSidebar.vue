@@ -35,8 +35,11 @@ onMounted(() => {
   <div >
     <SidebarHeader></SidebarHeader>
     <SidebarItemSection name="APP POLI" :subname="data.poli.nama">
-      <SidebarItem title="Rekam Medik" to="/poli">
+      <SidebarItem title="Dashboard" to="/poli">
         <AllAppIcon class=" text-black" />
+      </SidebarItem>
+      <SidebarItem title="Rekam Medik" to="/poli/rekammedik">
+        <MedicalIcon class="w-5 h-5" />
       </SidebarItem>
     </SidebarItemSection>
   </div>

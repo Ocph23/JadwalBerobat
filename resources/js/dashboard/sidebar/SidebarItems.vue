@@ -20,14 +20,15 @@ import UsersIcon from "@/Icons/UsersIcon.vue";
       <SidebarItem title="Obat" to="/admin/obat">
         <CapsulesIcon color="black" class="w-5 h-5"/>
       </SidebarItem>
-      <SidebarItem title="Poli" to="/admin/poli">
-        <HospitalIcon color="black" class="w-5 h-5"/>
+      <SidebarItem title="Pegawai" to="/admin/pegawai">
+        <UsersIcon color="black" class="w-5 h-5" />
       </SidebarItem>
       <SidebarItem title="Dokter" to="/admin/dokter">
         <DoctorIcon color="black" class=" w-5  h-auto" />
       </SidebarItem>
-      <SidebarItem title="Pegawai" to="/admin/pegawai">
-        <UsersIcon color="black" class="w-5 h-5" />
+ 
+      <SidebarItem title="Poli" to="/admin/poli">
+        <HospitalIcon color="black" class="w-5 h-5"/>
       </SidebarItem>
       <SidebarItem title="Pasien" to="/admin/pasien">
         <PatientIcon color="black" class="w-5 h-auto" />

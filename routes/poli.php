@@ -17,6 +17,7 @@ use App\Http\Controllers\PoliController;
 
 Route::group(['middleware' => 'role:pegawai'], function () {
     Route::get('/poli', [PoliController::class, 'index'])->name('poli.index');
+    Route::get('/poli/rekammedik', [PoliController::class, 'rekammedik'])->name('poli.rekammedik');
     Route::get('/poli/rekammedik/add', [PoliController::class, 'daftar'])->name('poli.rekammedik.add');
     Route::get('/poli/rekammedik/{id}', function (
         ObatService $obatService,

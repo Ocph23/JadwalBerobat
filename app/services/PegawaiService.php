@@ -43,7 +43,7 @@ class PegawaiService
                 'name' => $req->nama,
                 'email' => $req->email,
                 'password' => Hash::make("Password@123"),
-                'role' => 'poli',
+                'role' => 'pegawai',
             ]);
 
             $result =  Pegawai::create([

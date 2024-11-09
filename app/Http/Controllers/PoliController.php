@@ -2,20 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poli;
+use Inertia\Inertia;
 use App\Models\Pasien;
 use App\Models\Pegawai;
-use App\Models\Poli;
+use Illuminate\Http\Request;
+use App\services\PoliService;
 use App\services\DokterService;
 use App\services\PasienService;
-use App\services\PoliService;
+use Illuminate\Support\Facades\DB;
 use App\services\RekamMedikService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
 class PoliController extends Controller
 {
-    public function index(PasienService $pasienService, RekamMedikService $rekamMedikService)
+
+    public function index()
+    {
+
+        $user  =  Auth::user();
+        $pegawai = Pegawai::find("user_id", $user->id);
+        dd($pegawai->id);
+        $poli = Poli::where("pegawai_id", $pegawai->id)->first();
+
+        $rmPasien = DB::table('rekam_mediks')
+        ->select(DB::raw('count(*) as pasien'))
+        ->groupBy('pasien_id')
+        ->first();
+
+        $rmCount = DB::table('rekam_mediks')
+        ->where('poli_id',$poli->id)
+        ->count();
+
+        return Inertia::render(
+            "Poli/Index",
+            [
+                'resep' => $rmCount,
+                'pasien' => $rmPasien->pasien,
+                'rekammedik' =>$rmCount,
+            ]
+        );
+    }
+
+
+
+    public function rekammedik(PasienService $pasienService, RekamMedikService $rekamMedikService)
     {
         $userid = Auth::user()->id;
         $pegawai = Pegawai::where('user_id', $userid)->first();
@@ -23,7 +54,7 @@ class PoliController extends Controller
 
 
         return  Inertia::render(
-            "Poli/Index",
+            "Poli/RekamMedik",
             [
                 'pegawai' =>  $pegawai,
                 'poli' =>  $poli,

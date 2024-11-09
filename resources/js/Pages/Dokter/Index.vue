@@ -14,17 +14,12 @@ import DashboarItem from "@/Components/DashboarItem.vue";
 
 
 const props = defineProps({
-   obat: {
+   resep: {
       type: String
    },
-   poli: 0,
-   dokter: 0,
    pasien: 0,
-   pegawai: 0,
    rekammedik: 0,
 })
-
-
 
 
 </script>
@@ -33,26 +28,14 @@ const props = defineProps({
 <template>
    <DokterLayout>
       <div class="grid gap-2 lg:grid-cols-3 sm:grid-cols-2">
-
-         <DashboarItem :count="props.obat" title="jenis obat" bgicon="bg-red-500">
-            <CapsulesIcon color="white" class="w-10 h-10 "></CapsulesIcon>
-         </DashboarItem>
-
-         <DashboarItem :count="props.poli" title="jumlah poli" bgicon="bg-green-500">
-            <HospitalIcon color="white" class="w-10 h-10 "></HospitalIcon>
-         </DashboarItem>
-
-         <DashboarItem :count="props.dokter" title="jumlah dokter" bgicon="bg-teal-500">
-            <DoctorIcon color="white" class="w-10 h-10 "></DoctorIcon>
-         </DashboarItem>
          <DashboarItem :count="props.pasien" title="jumlah pasien" bgicon="bg-amber-500">
             <PatientIcon color="white" class="w-10 h-10 "></PatientIcon>
          </DashboarItem>
-         <DashboarItem :count="props.pegawai" title="jumlah pegawai" bgicon="bg-blue-500">
-            <UsersIcon color="white" class="w-10 h-10 "></UsersIcon>
-         </DashboarItem>
          <DashboarItem :count="props.rekammedik" title="jumlah rekam medik" bgicon="bg-violet-500">
             <ArIcon color="white" class="w-10 h-10 "></ArIcon>
+         </DashboarItem>
+         <DashboarItem :count="props.resep" title="Jumlah Resep" bgicon="bg-red-500">
+            <CapsulesIcon color="white" class="w-10 h-10 "></CapsulesIcon>
          </DashboarItem>
       </div>
    </DokterLayout>
