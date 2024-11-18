@@ -34,6 +34,7 @@ const form = useForm({
     "poli_id": 0,
     "konsultasi_berikut": new Date(),
     "tanggal": new Date().toISOString().split('T')[0],
+    'kondisi': { berat: 0, tinggi: 0, lingkar_badan: 0 },
     'keluhan': [],
     'penanganan': [],
     'resep': [],
@@ -145,6 +146,7 @@ onMounted(() => {
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
         form.status = props.rekammedik.status;
+        form.kondisi = JSON.parse(props.rekammedik.kondisi);
         form.konsultasi_berikut =  props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
@@ -155,7 +157,7 @@ onMounted(() => {
 
 
 const tabs = [
-    { id: 1, name: 'Keluhan' },
+    { id: 1, name: 'Kondisi dan Keluhan' },
     { id: 2, name: 'Penanganan' },
     { id: 3, name: 'Resep' },
     { id: 4, name: 'Jadwal Berobat Selanjutnya' },
@@ -217,15 +219,34 @@ const selectTab = (param) => {
             <Tab class="px-5" :items="tabs" :tabActive="selectedTab.id" @onClickTab="selectTab" />
             <div v-if="selectedTab.id == 1">
                 <div class="p-5 mt-5 flex justify-between shadow-md">
+                    <h1 class="text-2xl">KONDISI</h1>
+                </div>
+                <ul class="p-5 mt-5 shadow-md">
+                    <li class="mb-3">
+                        <div class="flex items-center">
+                            <h6>Berat Badan</h6>
+                            <input type="number" v-model="form.kondisi.berat"
+                                class="  w-20 mx-3  mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Tinggi Badan</h6>
+                            <input type="number" v-model="form.kondisi.tinggi"
+                                class=" mx-3 mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Lingkar Badan</h6>
+                            <input type="number" v-model="form.kondisi.lingkar_badan"
+                                class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
+                        </div>
+                    </li>
+                </ul>
+                <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">KELUHAN</h1>
                     <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addKeluhan()" />
                 </div>
                 <ul class="p-5 mt-5 shadow-md">
+                    <InputError :message="form.errors['keluhan']" />
                     <li v-for="(item, key) in form.keluhan" class="flex gap-1">
                         <input type="text" :value="key + 1" disabled
-                            class=" w-12 rounded-lg bg-transparent  " >
+                            class=" w-12 rounded-lg bg-transparent  text-neutral-700">
                         <input type="text" v-model="item.value" @change="onChangeKeluhan(item)"
-                            class=" w-full rounded-lg bg-transparent  " disabled>
+                            class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteKeluhan(item)" class="w-7 text-red-500" />
                     </li>
 

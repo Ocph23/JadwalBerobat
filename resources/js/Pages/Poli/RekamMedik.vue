@@ -10,6 +10,7 @@ import { useForm } from "@inertiajs/vue3";
 import Poli from '@/Models/Poli';
 import Pegawai from '@/Models/Pegawai';
 import RekamMedik from "@/Models/RekamMedik";
+import { computed } from "vue";
 
 const props = defineProps({
    pegawai: {
@@ -62,6 +63,14 @@ function deleteItem(item) {
     });
 }
 
+
+const filterDataRekamMedik = computed(() => {
+    return props.rekammedik.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+
+
+});
 </script>
 
 
@@ -102,7 +111,7 @@ function deleteItem(item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in rekammedik.filter(x=>x.status ==='baru' || x.status ==='poli' )">
+                        <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
@@ -119,7 +128,7 @@ function deleteItem(item) {
                                 <p class="whitespace-nowrap capitalize">{{ item.status }}</p>
                             </td>
 
-                            <td class="border-b border-gray-200  p-3 text-sm flex">
+                            <td class="border-b border-gray-200  p-3 text-sm flex" v-if="item.status=='baru' || item.status=='poli'">
                                 <a :href="'/poli/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />
                                 </a>

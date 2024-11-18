@@ -43,6 +43,7 @@ const form = useForm({
     "poli_id": '',
     "tanggal": new Date().toISOString().split('T')[0],
     'konsultasi_berikut': null,
+    'kondisi': { berat: 0, tinggi: 0, lingkar_badan: 0 },
     'keluhan': [],
     'penanganan': [],
     'resep': [],
@@ -187,6 +188,7 @@ onMounted(() => {
         form.tanggal = props.rekammedik.tanggal;
         form.status = props.rekammedik.status;
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
+        form.kondisi = JSON.parse(props.rekammedik.kondisi);
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
         form.resep = JSON.parse(props.rekammedik.resep);
@@ -196,7 +198,7 @@ onMounted(() => {
 
 
 const tabs = [
-    { id: 1, name: 'Keluhan' },
+    { id: 1, name: 'Kondisi dan Keluhan' },
 ]
 
 const selectTab = (param) => {
@@ -268,6 +270,24 @@ const printResep = () => {
         <div class="p-5">
             <Tab class="px-5" :items="tabs" :tabActive="selectedTab.id" @onClickTab="selectTab" />
             <div v-if="selectedTab.id == 1">
+                <div class="p-5 mt-5 flex justify-between shadow-md">
+                    <h1 class="text-2xl">KONDISI</h1>
+                </div>
+                <ul class="p-5 mt-5 shadow-md">
+                    <li class="mb-3">
+                        <div class="flex items-center">
+                            <h6>Berat Badan</h6>
+                            <input type="number" v-model="form.kondisi.berat"
+                                class="  w-20 mx-3  mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Tinggi Badan</h6>
+                            <input type="number" v-model="form.kondisi.tinggi"
+                                class=" mx-3 mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Lingkar Badan</h6>
+                            <input type="number" v-model="form.kondisi.lingkar_badan"
+                                class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
+                        </div>
+                    </li>
+                </ul>
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">KELUHAN</h1>
                     <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addKeluhan()" />

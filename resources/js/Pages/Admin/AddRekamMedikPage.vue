@@ -43,6 +43,7 @@ const form = useForm({
     "poli_id": '',
     "tanggal": new Date().toISOString().split('T')[0],
     'konsultasi_berikut': null,
+    'kondisi': { berat: 0, tinggi: 0, lingkar_badan: 0 },
     'keluhan': [],
     'penanganan': [],
     'resep': [],
@@ -186,7 +187,7 @@ onMounted(() => {
 
 
 const tabs = [
-    { id: 1, name: 'Keluhan' },
+    { id: 1, name: 'Kondisi Dan Keluhan' },
     { id: 2, name: 'Penanganan' },
     { id: 3, name: 'Resep' },
     { id: 4, name: 'Jadwal Berobat' },
@@ -241,13 +242,13 @@ const printResep = () => {
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>
-                                <select type="text" v-model="form.dokter_id" 
+                                <select type="text" v-model="form.dokter_id"
                                     class="rounded-lg bg-transparent  text-neutral-700">
                                     <option :value="item.id" v-for="item in dokters">{{ item.nama }}</option>
                                 </select>
                                 <InputError :message="form.errors['dokter_id']" />
                             </div>
-                       
+
                             <div class="m-2 flex justify-end">
                                 <button type="button" @click="backAction()"
                                     class="mx-1 rounded-full border  border-rose-300 px-5 py-1 text-white  bg-rose-500">Kembali</button>
@@ -263,6 +264,24 @@ const printResep = () => {
         <div class="p-5">
             <Tab class="px-5" :items="tabs" :tabActive="selectedTab.id" @onClickTab="selectTab" />
             <div v-if="selectedTab.id == 1">
+                <div class="p-5 mt-5 flex justify-between shadow-md">
+                    <h1 class="text-2xl">KONDISI</h1>
+                </div>
+                <ul class="p-5 mt-5 shadow-md">
+                    <li class="mb-3">
+                        <div class="flex items-center">
+                            <h6>Berat Badan</h6>
+                            <input type="number" v-model="form.kondisi.berat"
+                                class="  w-20 mx-3  mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Tinggi Badan</h6>
+                            <input type="number" v-model="form.kondisi.tinggi"
+                                class=" mx-3 mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Lingkar Badan</h6>
+                            <input type="number" v-model="form.kondisi.lingkar_badan"
+                                class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
+                        </div>
+                    </li>
+                </ul>
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">KELUHAN</h1>
                     <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addKeluhan()" />

@@ -7,6 +7,7 @@ import DeleteIcon from "@/Icons/DeleteIcon.vue";
 import AddIcon from "@/Icons/AddIcon.vue";
 import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 const props = defineProps({
    pasien: {
@@ -55,6 +56,17 @@ function deleteItem(item) {
     });
 }
 
+
+
+
+const filterDataRekamMedik = computed(() => {
+    return props.rekammedik.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+
+
+});
+
 </script>
 
 
@@ -89,13 +101,17 @@ function deleteItem(item) {
                                 Status
                             </th>
                             <th scope="col"
+                                class=" w-auto border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Kunjungan Berikut
+                            </th>
+                            <th scope="col"
                                 class=" w-20 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in rekammedik">
+                        <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
@@ -110,6 +126,9 @@ function deleteItem(item) {
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap capitalize">{{ item.status }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap capitalize">{{ item.konsultasi_berikut }}</p>
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

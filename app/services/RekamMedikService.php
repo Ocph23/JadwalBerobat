@@ -162,6 +162,7 @@ class RekamMedikService
             $data->dokter_id = $req['dokter_id'];
             $data->pasien_id = $req['pasien_id'];
             $data->konsultasi_berikut = $req['konsultasi_berikut'];
+            $data->kondisi = $req['kondisi'];
             $data->keluhan = $req['keluhan'];
             $data->penanganan = $req['penanganan'];
             $data->resep = $req['resep'];

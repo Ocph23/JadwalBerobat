@@ -69,24 +69,33 @@ const onSearchText = (text) => {
 const searchTerm = ref('');
 const filterDataRekamMedik = computed(() => {
     if (searchTerm.value === '') {
-        return props.data;
+        return props.data.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
     }
 
     let matches = 0
-    return props.data.filter(item => {
+    let results = props.data.filter(item => {
         if (
             (item.dokter.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-            item.poli.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-            item.pasien.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-            item.kode.toLowerCase().includes(searchTerm.value.toLowerCase())||
-            item.tanggal.toLowerCase().includes(searchTerm.value.toLowerCase())
-         )
+                item.poli.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+                item.pasien.nama.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+                item.kode.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+                item.tanggal.toLowerCase().includes(searchTerm.value.toLowerCase())
+            )
             && matches < 10
         ) {
             matches++
             return item
         }
     })
+
+
+    return results.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+
+
 });
 
 </script>
@@ -94,16 +103,16 @@ const filterDataRekamMedik = computed(() => {
 <template>
 
     <PasienLayout>
-        
+
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
-                
+
             </div>
         </div>
         <div>
-            <Search v-on:on-search="onSearchText"></Search> 
+            <Search v-on:on-search="onSearchText"></Search>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
