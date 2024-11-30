@@ -17,8 +17,8 @@ const props = defineProps({
     pegawais: {
         type: Pegawai
     },
-    poli:{
-        type:Poli
+    poli: {
+        type: Poli
     }
 })
 
@@ -29,6 +29,7 @@ const form = useForm({
     "nama": '',
     "penyakit": '',
     "keterangan": '',
+    "jenis": 'TB',
     "dokter_id": '',
     "pegawai_id": '',
 }
@@ -105,6 +106,7 @@ onMounted(() => {
         form.nama = props.poli.nama;
         form.penyakit = props.poli.penyakit;
         form.keterangan = props.poli.keterangan;
+        form.jenis = props.poli.jenis;
         form.dokter_id = props.poli.dokter_id;
         form.pegawai_id = props.poli.pegawai_id;
     }
@@ -140,6 +142,15 @@ onMounted(() => {
                                 <input type="text" v-model="form.penyakit" required
                                     class=" rounded-lg bg-transparent  text-neutral-700 ">
                                 <InputError :message="form.errors['penyakit']" />
+                            </div>
+                            <div class="flex flex-col p-3">
+                                <label class="mb-2">Jenis</label>
+                                <select type="text" v-model="form.jenis" required
+                                    class="rounded-lg bg-transparent  text-neutral-700">
+                                    <option value="TB">TB</option>
+                                    <option value="BB">BB</option>
+                                </select>
+                                <InputError :message="form.errors['jenis']" />
                             </div>
                             <div class="flex flex-col p-3">
                                 <label class="mb-2">Dokter</label>

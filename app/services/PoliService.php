@@ -40,6 +40,7 @@ class PoliService
                 'nama' => $req['nama'],
                 'penyakit' => $req['penyakit'],
                 'keterangan' => $req['keterangan'],
+                'jenis' => $req['jenis'],
                 'dokter_id' => $req['dokter_id'],
                 'pegawai_id' => $req['pegawai_id'],
             ]);
@@ -60,6 +61,7 @@ class PoliService
             $data->nama = $req['nama'];
             $data->penyakit = $req['penyakit'];
             $data->keterangan = $req['keterangan'];
+            $data->jenis = $req['jenis'];
             $data->dokter_id = $req['dokter_id'];
             $data->pegawai_id = $req['pegawai_id'];
             $data->save();

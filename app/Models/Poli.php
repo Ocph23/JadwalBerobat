@@ -19,6 +19,7 @@ class Poli extends Model
         'nama',
         'penyakit',
         'keterangan',
+        'jenis',
         'dokter_id',
         'pegawai_id'
     ];

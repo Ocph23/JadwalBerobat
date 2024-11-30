@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('penyakit');
             $table->string('keterangan');
+            $table->string('jenis');
             $table->foreignId('dokter_id');
             $table->foreignId('pegawai_id');
         });
