@@ -34,5 +34,11 @@ Route::get('/rekammedik/{poliid}/{date}', function (RekamMedikService $rekamMedi
     return $result;
 });
 
+
+Route::get('/rekammedik/all', function (RekamMedikService $rekamMedik) {
+    $result =  $rekamMedik->all()->toJson();
+    return $result;
+});
+
 Route::get('/dokter/jadwalberobatbydate/{dokterId}/{date}', [DokterController::class, 'jadwalberobatByDate'])->name('admin.jadwalberobatByDate');
    

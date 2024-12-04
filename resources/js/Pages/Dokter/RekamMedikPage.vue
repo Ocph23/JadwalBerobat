@@ -11,6 +11,7 @@ import { reactive } from 'vue';
 import DatePicker from '@/Components/DatePicker.vue';
 import { computed } from 'vue';
 import { toRaw } from 'vue';
+import Search from '@/Components/Search.vue';
 
 const props = defineProps({
     poli: { type: Poli }
@@ -18,7 +19,9 @@ const props = defineProps({
 
 var date = new Date();
 let tgl = date.getFullYear() + "-" + Helper.getPadNumber(date.getMonth() + 1) + "-" + Helper.getPadNumber(date.getDate());
-const data = reactive({ tanggal: tgl, rekamMedik: Array });
+const data = reactive({ tanggal: tgl, rekamMedik: Array, searchText: '' });
+
+
 
 const onChangeDate = (date) => {
     if (props.poli && props.poli.id > 0) {
@@ -28,6 +31,18 @@ const onChangeDate = (date) => {
                 data.rekamMedik = response.data;
             })
     }
+};
+const onChangeSearch = (text) => {
+    axios
+        .get(Helper.apiUrl + '/rekammedik/all')
+        .then((response) => {
+            const sText = text.toLocaleLowerCase();
+            data.rekamMedik = response.data.filter(x => x.antrian.toLowerCase().includes(sText)
+                || x.pasien.nama.toLowerCase().includes(sText)
+                || x.dokter.nama.toLowerCase().includes(sText)
+                || x.poli.nama.toLowerCase().includes(sText)
+            );
+        })
 };
 
 onChangeDate(tgl);
@@ -77,8 +92,8 @@ function deleteItem(item) {
 }
 
 
-const rekamMedik = computed(()=>{
-    if(data ){
+const rekamMedik = computed(() => {
+    if (data) {
         var data = toRaw(data.rekamMedik);
         return data.rekamMedik.filter(x => x.status === 'poli' || x.status === 'dokter');
     }
@@ -94,9 +109,15 @@ const rekamMedik = computed(()=>{
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
         </div>
-        <div class="flex items-center">
-            <label class="mx-2 ml-10">Tanggal</label>
-            <DatePicker v-model="data.tanggal" v-on:on-change-date="onChangeDate"></DatePicker>
+        <div class="mt-5 flex justify-between">
+            <div class="flex items-center">
+                <label class="mx-2 ml-10">Tanggal</label>
+                <DatePicker v-model="data.tanggal" v-on:on-change-date="onChangeDate"></DatePicker>
+            </div>
+            <div class="flex items-center">
+             
+                <Search v-on:on-search="onChangeSearch"></Search>
+            </div>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -129,7 +150,7 @@ const rekamMedik = computed(()=>{
                             </th>
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                         <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>

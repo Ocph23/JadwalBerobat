@@ -177,8 +177,10 @@ onMounted(() => {
         form.dokter_id = props.rekammedik.dokter_id;
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
+        form.hasil_lab = props.rekammedik.hasil_lab;
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
+        form.kondisi = JSON.parse(props.rekammedik.kondisi);
         form.penanganan = JSON.parse(props.rekammedik.penanganan);
         form.resep = JSON.parse(props.rekammedik.resep);
     }
@@ -279,6 +281,9 @@ const printResep = () => {
                             <h6>Lingkar Badan</h6>
                             <input type="number" v-model="form.kondisi.lingkar_badan"
                                 class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Tekanan Darah</h6>
+                            <input type="text" v-model="form.kondisi.tekanan_darah"
+                                class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
                         </div>
                     </li>
                 </ul>
@@ -294,6 +299,15 @@ const printResep = () => {
                         <input type="text" v-model="item.value" @change="onChangeKeluhan(item)"
                             class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteKeluhan(item)" class="w-7 text-red-500" />
+                    </li>
+
+                </ul>
+                <div class="p-5 mt-5 flex justify-between shadow-md">
+                    <h1 class="text-2xl">Hasil Lab</h1>
+                </div>
+                <ul class="p-5">
+                    <li class="mb-3">
+                        <img class="mt-3 w-full  h-auto" :src="`/storage/${form.hasil_lab}`" />
                     </li>
 
                 </ul>

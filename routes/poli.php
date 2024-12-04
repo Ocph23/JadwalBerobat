@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PoliController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 Route::group(['middleware' => 'role:pegawai'], function () {
     Route::get('/poli', [PoliController::class, 'index'])->name('poli.index');
@@ -44,7 +46,14 @@ Route::group(['middleware' => 'role:pegawai'], function () {
 
     Route::put('/poli/rekammedik/{id}', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService, $id) {
         try {
-            $rekamMedikRequest['status']="poli";
+            if ($rekamMedikRequest->file) {
+                $base64_image = $rekamMedikRequest->input('file'); // your base64 encoded     
+                $decodedFile = base64_decode($base64_image);
+                $filename = uniqid() . '.png'; // You can change the extension based on the file type
+                Storage::disk('public')->put($filename, $decodedFile);
+                $rekamMedikRequest['hasil_lab']  = $filename ;
+            }
+            $rekamMedikRequest['status'] = "poli";
             $result = $rekamMedikService->put($rekamMedikRequest, $id);
             if ($result) {
                 return Redirect::back()->with('success');
@@ -55,7 +64,7 @@ Route::group(['middleware' => 'role:pegawai'], function () {
     })->name('poli.rekammedik.put');
 
 
-    Route::post('/poli/rekammedik', function (RekamMedikRequest $rekamMedikRequest, RekamMedikService $rekamMedikService) {
+    Route::post('/poli/rekammedik', function (Request $rekamMedikRequest, RekamMedikService $rekamMedikService) {
         try {
             $result = $rekamMedikService->post($rekamMedikRequest);
             if ($result) {
@@ -65,8 +74,6 @@ Route::group(['middleware' => 'role:pegawai'], function () {
             return Redirect::back()->withErrors("error", $th->getMessage());
         }
     })->name('poli.rekammedik.post');
-    
-
 
     Route::delete('/poli/rekammedik/{id}', function (RekamMedikService $rekamMedikService, $id) {
         try {

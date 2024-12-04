@@ -9,6 +9,7 @@ import AddIcon from '@/Icons/AddIcon.vue';
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
 import PasienLayout from '@/Layouts/PasienLayout.vue';
+import Search from '@/Components/Search.vue';
 const props = defineProps({
     data: {
         type: Array
@@ -98,6 +99,21 @@ const filterDataRekamMedik = computed(() => {
 
 });
 
+
+
+const onChangeSearch = (text) => {
+    axios
+        .get(Helper.apiUrl + '/rekammedik/all')
+        .then((response) => {
+            const sText = text.toLocaleLowerCase();
+            data.rekamMedik = response.data.filter(x => x.antrian.toLowerCase().includes(sText)
+                || x.pasien.nama.toLowerCase().includes(sText)
+                || x.dokter.nama.toLowerCase().includes(sText)
+                || x.poli.nama.toLowerCase().includes(sText)
+            );
+        })
+};
+
 </script>
 
 <template>
@@ -105,14 +121,14 @@ const filterDataRekamMedik = computed(() => {
     <PasienLayout>
 
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-xl">DATA REKAM MEDIK</h1>
+            <h1 class="text-xl">DATA REKAM MEDIKX</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
 
             </div>
         </div>
         <div>
-            <Search v-on:on-search="onSearchText"></Search>
+            <Search v-on:on-search="onChangeSearch"></Search>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">

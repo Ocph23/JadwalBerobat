@@ -10,18 +10,19 @@ import { useForm } from "@inertiajs/vue3";
 import Poli from '@/Models/Poli';
 import Pegawai from '@/Models/Pegawai';
 import RekamMedik from "@/Models/RekamMedik";
-import { computed } from "vue";
+import { computed, onMounted, reactive } from "vue";
+import Search from "@/Components/Search.vue";
 
 const props = defineProps({
-   pegawai: {
-      type: Pegawai
-   },
-   poli: {
-      type:Poli
-   },
-   rekammedik: {
-      type : Array
-   },
+    pegawai: {
+        type: Pegawai
+    },
+    poli: {
+        type: Poli
+    },
+    rekammedik: {
+        type: Array
+    },
 })
 
 console.log(props);
@@ -29,6 +30,13 @@ const form = useForm({
     id: 0
 })
 
+
+const data = reactive({ searchText: '', rekamMedik: Array })
+onMounted(()=>{
+    data.rekamMedik = props.rekammedik.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+})
 
 function deleteItem(item) {
     Swal.fire({
@@ -65,19 +73,43 @@ function deleteItem(item) {
 
 
 const filterDataRekamMedik = computed(() => {
-    return props.rekammedik.sort(function (a, b) {
+    var datas = props.rekammedik;
+    if (data.searchText) {
+        const sText = data.searchText.toLocaleLowerCase();
+        datas = datax.filter(x => x.antrian.toLowerCase().includes(sText)
+            || x.pasien.nama.toLowerCase().includes(sText)
+            || x.dokter.nama.toLowerCase().includes(sText)
+            || x.poli.nama.toLowerCase().includes(sText)
+        );
+    }
+    return datas.sort(function (a, b) {
         return new Date(b.tanggal) - new Date(a.tanggal);
     });
 
 
 });
+
+
+const onChangeSearch = (text) => {
+    const sText = text.toLocaleLowerCase();
+    const xx = props.rekammedik.filter(x => x.antrian.toLowerCase().includes(sText)
+        || x.pasien.nama.toLowerCase().includes(sText)
+        || x.dokter.nama.toLowerCase().includes(sText)
+        || x.poli.nama.toLowerCase().includes(sText)
+    );
+    data.rekamMedik = xx.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+};
+
 </script>
 
 
 <template>
-     <PoliLayout :poli="props.poli">
+    <PoliLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
             <h1 class="text-xl">DATA REKAM MEDIK</h1>
+            <Search v-on:on-search="onChangeSearch"></Search>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -111,7 +143,7 @@ const filterDataRekamMedik = computed(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in filterDataRekamMedik">
+                        <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
@@ -128,7 +160,8 @@ const filterDataRekamMedik = computed(() => {
                                 <p class="whitespace-nowrap capitalize">{{ item.status }}</p>
                             </td>
 
-                            <td class="border-b border-gray-200  p-3 text-sm flex" v-if="item.status=='baru' || item.status=='poli'">
+                            <td class="border-b border-gray-200  p-3 text-sm flex"
+                                >
                                 <a :href="'/poli/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />
                                 </a>

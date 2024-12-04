@@ -73,7 +73,7 @@ class RekamMedikService
     }
 
 
-    
+
     public function getByPoliAndTanggal($poliId, $date)
     {
         $start = Carbon::create($date);
@@ -90,8 +90,6 @@ class RekamMedikService
         }
         return $results->toJson();
     }
-
-
 
 
     public function getByPasienId($id)
@@ -129,7 +127,7 @@ class RekamMedikService
             $data = RekamMedik::where('tanggal', $sekarang)->count();
 
             $poli = Poli::find($req['poli_id']);
-            $antrian = $poli->kode.'-'. $sekarang->format('dmY').'-' . str_pad($data+1, 3, '0', STR_PAD_LEFT);
+            $antrian = $poli->kode . '-' . $sekarang->format('dmY') . '-' . str_pad($data + 1, 3, '0', STR_PAD_LEFT);
             $result =  RekamMedik::create([
                 'tanggal' => $req['tanggal'],
                 'antrian' => $antrian,
@@ -167,6 +165,9 @@ class RekamMedikService
             $data->penanganan = $req['penanganan'];
             $data->resep = $req['resep'];
             $data->status = $req['status'];
+            if ($req['hasil_lab']) {
+                $data->hasil_lab = $req['hasil_lab'];
+            }
             $data->save();
             $this->infoKunjunganBerikut();
             return true;

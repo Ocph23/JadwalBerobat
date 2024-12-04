@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
-import { onMounted, reactive, } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import AutoComplete from '@/Components/AutoComplete.vue';
 import Tab from '@/Components/Tab.vue';
 import RekamMedik from '@/Models/RekamMedik';
@@ -15,6 +15,8 @@ import PasienLayout from '@/Layouts/PasienLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PoliLayout from '@/Layouts/PoliLayout.vue';
+import { closeSidebar } from '@/dashboard/store';
+import axios from 'axios';
 
 const props = defineProps({
     polis: {
@@ -43,11 +45,12 @@ const form = useForm({
     "poli_id": '',
     "tanggal": new Date().toISOString().split('T')[0],
     'konsultasi_berikut': null,
-    'kondisi': { berat: 0, tinggi: 0, lingkar_badan: 0 },
+    'kondisi': { berat: 0, tinggi: 0, lingkar_badan: 0, tekanan_darah: '' },
     'keluhan': [],
     'penanganan': [],
     'resep': [],
     "status": '',
+    "file": null
 }
 )
 
@@ -75,6 +78,37 @@ function onChange(event) {
 }
 
 
+function toFormData(form) {
+    const formData = new FormData();
+
+    // Append each field from the form to the FormData
+    Object.keys(form).forEach((key) => {
+        const value = form[key];
+
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+            // If the value is an object (like 'kondisi'), flatten it
+            Object.keys(value).forEach((subKey) => {
+                formData.append(`${key}[${subKey}]`, value[subKey]);
+            });
+        } else if (Array.isArray(value)) {
+            // If the value is an array (like 'keluhan', 'penanganan', 'resep')
+            value.forEach((item, index) => {
+                formData.append(`${key}[${index}]`, item);
+            });
+        } else if (key === 'file' && value) {
+            // Handle the file upload
+            formData.append(key, value);
+        } else {
+            // For other simple fields, just append them directly
+            formData.append(key, value);
+        }
+    });
+
+    return formData;
+}
+
+
+
 const save = () => {
 
     if (form.id <= 0) {
@@ -91,7 +125,6 @@ const save = () => {
             },
             onError: (err) => {
                 if (err.message) {
-
                     Swal.fire({
                         position: "top-end",
                         icon: "error",
@@ -105,6 +138,8 @@ const save = () => {
             }
         });
     } else {
+
+        // const formData = toFormData(form);
         form.put(route('poli.rekammedik.put', form.id), {
             onSuccess: (res) => {
                 Swal.fire({
@@ -128,6 +163,7 @@ const save = () => {
                     // form.errors = err;
                 }
             }
+
         });
     }
 }
@@ -187,6 +223,7 @@ onMounted(() => {
         form.poli_id = props.rekammedik.poli_id;
         form.tanggal = props.rekammedik.tanggal;
         form.status = props.rekammedik.status;
+        fileData.preview = `/storage/${props.rekammedik.hasil_lab}` ;
         form.konsultasi_berikut = props.rekammedik.konsultasi_berikut;
         form.kondisi = JSON.parse(props.rekammedik.kondisi);
         form.keluhan = JSON.parse(props.rekammedik.keluhan);
@@ -211,6 +248,28 @@ const printResep = () => {
     }
 }
 
+
+
+
+function convertFileToBase64(file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const binaryString = event.target.result;
+        const base64String = btoa(binaryString);
+        form.file = base64String;
+    };
+    reader.readAsBinaryString(file);
+}
+
+const fileX = ref(null);
+
+const fileData = reactive({ example: null, image: false, preview: null });
+const readFile = () => {
+    var file = fileX.value.files[0];
+    fileData.image=true;
+    fileData.preview =  URL.createObjectURL(file);;
+    convertFileToBase64(file).toString();
+}
 
 
 </script>
@@ -273,7 +332,7 @@ const printResep = () => {
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">KONDISI</h1>
                 </div>
-                <ul class="p-5 mt-5 shadow-md">
+                <ul class="p-5">
                     <li class="mb-3">
                         <div class="flex items-center">
                             <h6>Berat Badan</h6>
@@ -284,10 +343,15 @@ const printResep = () => {
                                 class=" mx-3 mr-10 rounded-lg bg-transparent  text-neutral-700">
                             <h6>Lingkar Badan</h6>
                             <input type="number" v-model="form.kondisi.lingkar_badan"
+                                class=" mx-3 mr-10 rounded-lg bg-transparent  text-neutral-700">
+                            <h6>Tekanan Darah</h6>
+                            <input type="text" v-model="form.kondisi.tekanan_darah"
                                 class=" mx-3 rounded-lg bg-transparent  text-neutral-700">
                         </div>
                     </li>
                 </ul>
+
+
                 <div class="p-5 mt-5 flex justify-between shadow-md">
                     <h1 class="text-2xl">KELUHAN</h1>
                     <AddIcon class=" w-7 text-teal-500 cursor-pointer" @click="addKeluhan()" />
@@ -300,6 +364,16 @@ const printResep = () => {
                         <input type="text" v-model="item.value" @change="onChangeKeluhan(item)"
                             class=" w-full rounded-lg bg-transparent  text-neutral-700">
                         <DeleteIcon @click="deleteKeluhan(item)" class="w-7 text-red-500" />
+                    </li>
+
+                </ul>
+                <div class="p-5 mt-5 flex justify-between shadow-md">
+                    <h1 class="text-2xl">Hasil Lab</h1>
+                </div>
+                <ul class="p-5">
+                    <li class="mb-3">
+                        <input type="file" ref="fileX" @change="readFile()" />
+                        <img class="mt-3 w-full  h-auto" :src="fileData.preview" />
                     </li>
 
                 </ul>

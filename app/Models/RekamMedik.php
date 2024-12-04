@@ -26,6 +26,7 @@ class RekamMedik extends Model
         'status',
         'resep',
         'penanganan',
+        'hasil_lab',
         'kirimpesan1', 
         'kirimpesan2', 
     ];

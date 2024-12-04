@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('keluhan')->nullable();
             $table->json('penanganan')->nullable();
             $table->json('resep')->nullable();
+            $table->string('hasil_lab');
             $table->dateTime('konsultasi_berikut')->nullable();
             $table->dateTime('kirimpesan1')->nullable();
             $table->dateTime('kirimpesan2')->nullable();

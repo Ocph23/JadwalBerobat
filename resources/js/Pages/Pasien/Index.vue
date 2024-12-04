@@ -7,16 +7,19 @@ import DeleteIcon from "@/Icons/DeleteIcon.vue";
 import AddIcon from "@/Icons/AddIcon.vue";
 import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { computed, onMounted, reactive } from "vue";
+import Search from "@/Components/Search.vue";
 
 const props = defineProps({
-   pasien: {
-      type: Pasien
-   },
-   rekammedik: {
-      type : Array
-   },
+    pasien: {
+        type: Pasien
+    },
+    rekammedik: {
+        type: Array
+    },
 })
+
+const data = reactive({rekamMedik:Array})
 
 const form = useForm({
     id: 0
@@ -57,23 +60,34 @@ function deleteItem(item) {
 }
 
 
-
-
-const filterDataRekamMedik = computed(() => {
-    return props.rekammedik.sort(function (a, b) {
+onMounted(()=>{
+    data.rekamMedik = props.rekammedik.sort(function (a, b) {
         return new Date(b.tanggal) - new Date(a.tanggal);
     });
 
+})
 
-});
+const onChangeSearch = (text) => {
+    const sText = text.toLocaleLowerCase();
+    const xx = props.rekammedik.filter(x => x.antrian.toLowerCase().includes(sText)
+        || x.dokter.nama.toLowerCase().includes(sText)
+        || x.poli.nama.toLowerCase().includes(sText)
+    );
+    data.rekamMedik = xx.sort(function (a, b) {
+        return new Date(b.tanggal) - new Date(a.tanggal);
+    });
+};
 
 </script>
 
 
 <template>
-     <PasienLayout :poli="props.poli">
+    <PasienLayout :poli="props.poli">
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-xl">DATA REKAM MEDIK</h1>
+            <h1 class="text-xl">DATA REKAM MEDIKX</h1>
+            <Search v-on:on-search="onChangeSearch"></Search>
+        </div>
+        <div>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
@@ -111,7 +125,7 @@ const filterDataRekamMedik = computed(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in filterDataRekamMedik">
+                        <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>

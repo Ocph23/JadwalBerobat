@@ -22,7 +22,7 @@ const props = defineProps({
 
 var date = new Date();
 let tgl = date.getFullYear() + "-" + Helper.getPadNumber(date.getMonth() + 1) + "-" + Helper.getPadNumber(date.getDate());
-const data = reactive({ rekamMedik: Array, poli: null });
+const data = reactive({ rekamMedik: Array, poli: null, searchText: '' });
 
 const onChangeDate = (date) => {
     if (data.poli == null) {
@@ -49,7 +49,7 @@ const onChangeDate = (date) => {
 
 let form = useForm({
     id: 0,
-    dokter_id:0,
+    dokter_id: 0,
     pasien_id: 0,
     poli_id: 0,
     tanggal: null,
@@ -132,7 +132,7 @@ function approveItem(item) {
                         icon: "success"
                     });
 
-                    item.status='admin';
+                    item.status = 'admin';
 
                 }, onError: (err) => {
                     Swal.fire({
@@ -187,6 +187,22 @@ const filterDataRekamMedik = computed(() => {
     })
 });
 
+const onChangeSearch = () => {
+    axios
+        .get(Helper.apiUrl + '/rekammedik/all')
+        .then((response) => {
+            const datax = response.data;
+            if (datax) {
+                const sText = data.searchText.toLocaleLowerCase();
+                data.rekamMedik = datax.filter(x => x.antrian.toLowerCase().includes(sText)
+                    || x.pasien.nama.toLowerCase().includes(sText)
+                    || x.dokter.nama.toLowerCase().includes(sText)
+                    || x.poli.nama.toLowerCase().includes(sText)
+                );
+            }
+        })
+};
+
 </script>
 
 <template>
@@ -199,13 +215,22 @@ const filterDataRekamMedik = computed(() => {
                 <PrinterIcon class=" cursor-pointer text-amber-600 w-12" @click="printReport()"></PrinterIcon>
             </div>
         </div>
-        <div class="flex items-center">
-            <label class="mx-2">Poli</label>
-            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-700">
-                <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
-            </select>
-            <label class="mx-2 ml-10">Tanggal</label>
-            <DatePicker v-on:on-change-date="onChangeDate"></DatePicker>
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <label class="mx-2">Poli</label>
+                <select type="text" v-model="data.poli" required
+                    class=" mx-2 rounded-lg bg-transparent text-neutral-700">
+                    <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
+                </select>
+                <label class="mx-2 ml-10">Tanggal</label>
+                <DatePicker v-on:on-change-date="onChangeDate"></DatePicker>
+
+            </div>
+            <div class="flex items-center">
+              
+                <Search v-on:on-search="onChangeSearch"></Search>
+               
+            </div>
         </div>
         <div class="py-5">
             <div class="max-w-full overflow-x-auto rounded-lg shadow">
