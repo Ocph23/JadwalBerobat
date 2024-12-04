@@ -9,7 +9,8 @@ import AddIcon from '@/Icons/AddIcon.vue';
 import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
 import PasienLayout from '@/Layouts/PasienLayout.vue';
-import Search from '@/Components/Search.vue';
+
+
 const props = defineProps({
     data: {
         type: Array
