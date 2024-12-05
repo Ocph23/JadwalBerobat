@@ -187,13 +187,19 @@ const filterDataRekamMedik = computed(() => {
     })
 });
 
-const onChangeSearch = () => {
+const onChangeSearch = (text) => {
+    if (!text) {
+        data.rekamMedik=[]    
+        return;
+    }
+
+
     axios
         .get(Helper.apiUrl + '/rekammedik/all')
         .then((response) => {
             const datax = response.data;
             if (datax) {
-                const sText = data.searchText.toLocaleLowerCase();
+                const sText = text.toLocaleLowerCase();
                 data.rekamMedik = datax.filter(x => x.antrian.toLowerCase().includes(sText)
                     || x.pasien.nama.toLowerCase().includes(sText)
                     || x.dokter.nama.toLowerCase().includes(sText)

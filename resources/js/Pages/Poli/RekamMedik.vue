@@ -12,6 +12,7 @@ import Pegawai from '@/Models/Pegawai';
 import RekamMedik from "@/Models/RekamMedik";
 import { computed, onMounted, reactive } from "vue";
 import Search from "@/Components/Search.vue";
+import Helper from "@/heper";
 
 const props = defineProps({
     pegawai: {
@@ -31,9 +32,14 @@ const form = useForm({
 })
 
 
+Helper
+
+
 const data = reactive({ searchText: '', rekamMedik: Array })
-onMounted(()=>{
-    data.rekamMedik = props.rekammedik.sort(function (a, b) {
+onMounted(() => {
+
+    var d = props.rekammedik.filter(x => x.tanggal == Helper.getOnlyDate(new Date()));
+    data.rekamMedik = d.sort(function (a, b) {
         return new Date(b.tanggal) - new Date(a.tanggal);
     });
 })
@@ -91,6 +97,11 @@ const filterDataRekamMedik = computed(() => {
 
 
 const onChangeSearch = (text) => {
+
+    if (!text) {
+        data.rekamMedik=[]    
+        return;
+    }
     const sText = text.toLocaleLowerCase();
     const xx = props.rekammedik.filter(x => x.antrian.toLowerCase().includes(sText)
         || x.pasien.nama.toLowerCase().includes(sText)
@@ -126,6 +137,10 @@ const onChangeSearch = (text) => {
                             </th>
                             <th scope="col"
                                 class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                Pasien
+                            </th>
+                            <th scope="col"
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Poli
                             </th>
                             <th scope="col"
@@ -151,6 +166,9 @@ const onChangeSearch = (text) => {
                                 <p class="whitespace-nowrap">{{ item.tanggal }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
+                                <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
+                            </td>
+                            <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.poli.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
@@ -160,8 +178,7 @@ const onChangeSearch = (text) => {
                                 <p class="whitespace-nowrap capitalize">{{ item.status }}</p>
                             </td>
 
-                            <td class="border-b border-gray-200  p-3 text-sm flex"
-                                >
+                            <td class="border-b border-gray-200  p-3 text-sm flex">
                                 <a :href="'/poli/rekammedik/' + item.id" class=" text-amber-500 hover:text-amber-700">
                                     <EditIcon class=" w-5" />
                                 </a>
