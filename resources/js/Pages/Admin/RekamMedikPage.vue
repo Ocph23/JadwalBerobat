@@ -11,6 +11,7 @@ import Helper from '@/heper';
 import RekamMedik from '@/Models/RekamMedik';
 import DatePicker from '@/Components/DatePicker.vue';
 import PrinterIcon from '@/Icons/PrinterIcon.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps({
     data: {
@@ -20,6 +21,7 @@ const props = defineProps({
     }
 })
 
+const router = useRouter();
 var date = new Date();
 let tgl = date.getFullYear() + "-" + Helper.getPadNumber(date.getMonth() + 1) + "-" + Helper.getPadNumber(date.getDate());
 const data = reactive({ rekamMedik: Array, poli: null, searchText: '' });
@@ -85,7 +87,8 @@ function deleteItem(item) {
                         text: "Data Berhasil Di hapus.",
                         icon: "success"
                     });
-
+                    let index = data.rekamMedik.indexOf(item);
+                    data.rekamMedik.splice(index,1);
                 }, onError: (err) => {
                     Swal.fire({
                         title: "Error",
@@ -189,7 +192,7 @@ const filterDataRekamMedik = computed(() => {
 
 const onChangeSearch = (text) => {
     if (!text) {
-        data.rekamMedik=[]    
+        data.rekamMedik = []
         return;
     }
 
@@ -233,9 +236,9 @@ const onChangeSearch = (text) => {
 
             </div>
             <div class="flex items-center">
-              
+
                 <Search v-on:on-search="onChangeSearch"></Search>
-               
+
             </div>
         </div>
         <div class="py-5">
@@ -291,15 +294,8 @@ const onChangeSearch = (text) => {
                                 <p class="whitespace-nowrap">{{ item.dokter.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p v-if="item.status !== 'baru'" class="whitespace-nowrap capitalize">{{ item.status }}
+                                <p class="whitespace-nowrap capitalize">{{ item.status }}
                                 </p>
-                                <div v-else>
-                                    <button @click="approveItem(item)"
-                                        class=" cursor-pointer p-2 px-5 rounded-md bg-teal-700   hover:bg-teal-300 text-white">
-                                        Setujui
-                                    </button>
-                                </div>
-
                             </td>
 
                             <td class="border-b border-gray-200  p-3 text-sm flex">

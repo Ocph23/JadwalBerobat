@@ -151,7 +151,7 @@ const rekamMedik = computed(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data.rekamMedik">
+                        <tr v-for="item in data.rekamMedik.filter(x => x.status === 'poli' || x.status === 'dokter')">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>

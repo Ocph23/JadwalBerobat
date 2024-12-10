@@ -55,14 +55,15 @@ function deleteItem(item) {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
-            form.delete(route('pasien.rekammedik.delete', item.id), {
+            form.delete(route('poli.rekammedik.delete', item.id), {
                 onSuccess: (res) => {
                     Swal.fire({
                         title: "Deleted!",
                         text: "Data Berhasil Di hapus.",
                         icon: "success"
                     });
-
+                    let index = data.rekamMedik.indexOf(item);
+                    data.rekamMedik.splice(index,1);
                 }, onError: (err) => {
                     Swal.fire({
                         title: "Error",

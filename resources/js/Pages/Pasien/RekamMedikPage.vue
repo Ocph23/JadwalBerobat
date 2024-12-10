@@ -3,7 +3,7 @@ import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
 import { useForm } from '@inertiajs/vue3'
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, reactive } from 'vue';
 import Search from '@/Components/Search.vue';
 import AddIcon from '@/Icons/AddIcon.vue';
 import Helper from '@/heper';
@@ -15,6 +15,14 @@ const props = defineProps({
     data: {
         type: Array
     }
+})
+
+const data =reactive({rekamMedik:[]})
+
+onMounted(()=>{
+
+    data.rekamMedik = props.data;
+
 })
 
 const form = useForm({
@@ -46,7 +54,8 @@ function deleteItem(item) {
                         text: "Data Berhasil Di hapus.",
                         icon: "success"
                     });
-
+                    let index = props.data.indexOf(item);
+                    props.data.splice(index,1);
                 }, onError: (err) => {
                     Swal.fire({
                         title: "Error",
@@ -92,15 +101,10 @@ const filterDataRekamMedik = computed(() => {
         }
     })
 
-
     return results.sort(function (a, b) {
         return new Date(b.tanggal) - new Date(a.tanggal);
     });
-
-
 });
-
-
 
 const onChangeSearch = (text) => {
     axios
@@ -163,7 +167,7 @@ const onChangeSearch = (text) => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in filterDataRekamMedik">
+                        <tr v-for="item in data.rekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>

@@ -44,7 +44,8 @@ function deleteItem(item) {
                         text: "Data Berhasil Di hapus.",
                         icon: "success"
                     });
-
+                    let index = data.rekamMedik.indexOf(item);
+                    data.rekamMedik.splice(index,1);
                 }, onError: (err) => {
                     Swal.fire({
                         title: "Error",
