@@ -92,7 +92,7 @@ const save = () => {
 onMounted(() => {
     if (props.pegawai) {
         form.id = props.pegawai.id;
-        form.kode = Helper.getKode(props.pegawai.id,'Pegawai');
+        form.kode = Helper.getKode(props.pegawai.id, 'Pegawai');
         form.nama = props.pegawai.nama;
         form.jk = props.pegawai.jk;
         form.email = props.pegawai.email;
@@ -130,12 +130,12 @@ onMounted(() => {
                                 <label class="mb-2">Jenis Kelamin</label>
                                 <select type="text" v-model="form.jk" required
                                     class="rounded-lg bg-transparent  text-neutral-700">
-                                    <option value="pria">Laki-Laki</option>
-                                    <option value="wanita">Perempuan</option>
+                                    <option value="pria">Pria</option>
+                                    <option value="wanita">Wanita</option>
                                 </select>
                                 <InputError :message="form.errors['jk']" />
                             </div>
-                              <div class="flex flex-col p-3">
+                            <div class="flex flex-col p-3">
                                 <label class="mb-2">Email</label>
                                 <input type="email" v-model="form.email"
                                     class=" rounded-lg bg-transparent  text-neutral-700">

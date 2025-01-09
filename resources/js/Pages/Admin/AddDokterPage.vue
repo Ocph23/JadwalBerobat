@@ -136,8 +136,8 @@ onMounted(() => {
                                 <label class="mb-2">Jenis Kelamin</label>
                                 <select type="text" v-model="form.jk" required
                                     class="rounded-lg bg-transparent  text-neutral-700">
-                                    <option value="pria">Laki-Laki</option>
-                                    <option value="wanita">Perempuan</option>
+                                    <option value="pria">Pria</option>
+                                    <option value="wanita">Wanita</option>
                                 </select>
                                 <InputError :message="form.errors['jk']" />
                             </div>

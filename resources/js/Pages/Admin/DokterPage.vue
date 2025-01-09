@@ -122,7 +122,7 @@ function deleteItem(item) {
                                 <p class="whitespace-nowrap">{{ item.nama }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.jk=='pria'?'Laki-Laki':'Perempuan' }}</p>
+                                <p class="whitespace-nowrap">{{ item.jk }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.spesialis }}</p>

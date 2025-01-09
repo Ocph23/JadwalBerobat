@@ -108,7 +108,7 @@ const filterDataRekamMedik = computed(() => {
                     <thead>
                         <tr>
                             <th scope="col"
-                                class="w-32 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Kunjungan Berikut
                             </th>
                             <th scope="col"
