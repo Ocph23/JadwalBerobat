@@ -51,7 +51,7 @@ export default class Helper {
       const year = date.getFullYear(); // Gets the year (e.g., 2024)
       const month = this.getXPadNumber(date.getMonth() + 1); // Gets the month (0-11, so we add 1 to get 1-12)
       const day =this.getXPadNumber(date.getDate(),2); // Gets the day of the month (1-31)
-     return `${year}-${month}-${day}`;
+     return `${day}/${month}/${year}`;
    }
 
 }

@@ -21,14 +21,23 @@ const props = defineProps({
     }
 })
 
-const data = reactive({ rekamMedik: Array, poli: {} });
+const data = reactive({ source: Array, rekamMedik: Array, poli: {} });
+
+
+axios
+    .get(Helper.apiUrl + `/dokter/jadwalberobat/${props.dokter.id}`)
+    .then((response) => {
+        data.source = response.data;
+        data.rekamMedik = response.data;
+    })
 
 const onChangeDate = (date) => {
     axios
         .get(Helper.apiUrl + `/dokter/jadwalberobatbydate/${props.dokter.id}/${date}`)
         .then((response) => {
-            data.rekamMedik = response.data;
-            console.log(data.rekamMedik);
+            data.rekamMedik = data.source.filter((item) => {
+                return Helper.getOnlyDate(new Date(item.konsultasi_berikut))== Helper.getOnlyDate(new Date(date));
+            })
         })
 
 

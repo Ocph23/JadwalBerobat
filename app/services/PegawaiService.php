@@ -88,8 +88,9 @@ class PegawaiService
             $data = Pegawai::find($id);
             if (!$data)
                 throw new Error("Data Tidak Ditemukan !");
-
             $data->delete();
+            $user = User::find($data->user_id);
+            $user->delete();   
             return true;
         } catch (\Throwable $th) {
             throw new Error($th->getMessage());

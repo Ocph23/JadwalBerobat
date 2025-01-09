@@ -141,8 +141,8 @@ const searchPasien = computed(() => {
                                 <p class="whitespace-nowrap">{{ item.jk }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.tempat_lahir }}, {{ item.tanggal_lahir
-                                    }}</p>
+                                <p class="whitespace-nowrap">{{ item.tempat_lahir }}, 
+                                    {{ Helper.getOnlyDate(new Date(item.tanggal_lahir)) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.kontak }}</p>

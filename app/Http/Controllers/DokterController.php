@@ -23,36 +23,37 @@ class DokterController extends Controller
         $poli = $dokterService->getPoli();
 
         $rmPasien = DB::table('rekam_mediks')
-        ->groupBy('pasien_id')
-        ->count();
+            ->groupBy('pasien_id')
+            ->count();
 
 
         $rmCount = DB::table('rekam_mediks')
-        ->where('poli_id',$poli->id)
-        ->count();
+            ->where('poli_id', $poli->id)
+            ->count();
 
         return Inertia::render(
             "Dokter/Index",
             [
                 'resep' => $rmCount,
                 'pasien' => $rmPasien,
-                'rekammedik' =>$rmCount,
+                'rekammedik' => $rmCount,
             ]
         );
     }
     public function jadwalberobat()
     {
         $user = Auth::user();
-            $dokter = Dokter::where('user_id',$user->id)->firstOrFail();
+        $dokter = Dokter::where('user_id', $user->id)->firstOrFail();
         return Inertia::render(
-            "Dokter/JadwalBerobatPage",['dokter' => $dokter]
+            "Dokter/JadwalBerobatPage",
+            ['dokter' => $dokter]
         );
     }
 
-    public function jadwalberobatByDate(RekamMedikService $rekamMedikService,$dokterId, $date)
+    public function jadwalberobatByDate(RekamMedikService $rekamMedikService, $dokterId, $date)
     {
         try {
-          
+
             $results = RekamMedik::where('dokter_id', $dokterId)
                 ->whereDate('konsultasi_berikut', '=', $date)
                 ->get();
@@ -63,7 +64,24 @@ class DokterController extends Controller
             }
             return $results->toJson();
         } catch (\Throwable $th) {
-           return Redirect()->back()->withErrors(["message"=>$th->getMessage()]);
+            return Redirect()->back()->withErrors(["message" => $th->getMessage()]);
+        }
+    }
+
+    public function getjadwalberobat(RekamMedikService $rekamMedikService, $dokterId)
+    {
+        try {
+
+            $results = RekamMedik::where('dokter_id', $dokterId)
+                ->get();
+            foreach ($results as $key => $result) {
+                $result->poli;
+                $result->dokter;
+                $result->pasien;
+            }
+            return $results->toJson();
+        } catch (\Throwable $th) {
+            return Redirect()->back()->withErrors(["message" => $th->getMessage()]);
         }
     }
 }

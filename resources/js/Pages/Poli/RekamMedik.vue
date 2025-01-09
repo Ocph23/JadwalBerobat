@@ -32,12 +32,8 @@ const form = useForm({
 })
 
 
-Helper
-
-
 const data = reactive({ searchText: '', rekamMedik: Array })
 onMounted(() => {
-
     var d = props.rekammedik.filter(x => x.tanggal == Helper.getOnlyDate(new Date()));
     data.rekamMedik = d.sort(function (a, b) {
         return new Date(b.tanggal) - new Date(a.tanggal);
@@ -164,7 +160,7 @@ const onChangeSearch = (text) => {
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.tanggal }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getOnlyDate(new Date(item.tanggal)) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>

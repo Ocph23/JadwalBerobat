@@ -156,7 +156,7 @@ const rekamMedik = computed(() => {
                                 <p class="whitespace-nowrap">{{ item.antrian }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.tanggal }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getOnlyDate(new Date(item.tanggal)) }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>

@@ -29,6 +29,17 @@ Route::get('/jadwalberobat/{poliid}/{date}', function (RekamMedikService $rekamM
     $result =  $rekamMedik->getByPoliAndDate($poliid, $date);
     return $result;
 });
+
+
+
+Route::get('/jadwalberobat/all', function (RekamMedikService $rekamMedik) {
+    $result =  $rekamMedik->all();
+    return $result;
+});
+
+
+
+
 Route::get('/rekammedik/{poliid}/{date}', function (RekamMedikService $rekamMedik, $poliid, $date) {
     $result =  $rekamMedik->getByPoliAndTanggal($poliid, $date);
     return $result;
@@ -41,4 +52,5 @@ Route::get('/rekammedik/all', function (RekamMedikService $rekamMedik) {
 });
 
 Route::get('/dokter/jadwalberobatbydate/{dokterId}/{date}', [DokterController::class, 'jadwalberobatByDate'])->name('admin.jadwalberobatByDate');
+Route::get('/dokter/jadwalberobat/{dokterId}', [DokterController::class, 'getjadwalberobat'])->name('admin.jadwalberobat');
    

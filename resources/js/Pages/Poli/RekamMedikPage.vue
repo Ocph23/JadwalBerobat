@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
@@ -99,7 +99,7 @@ const filterDataRekamMedik = computed(() => {
     <PasienLayout>
         
         <div class=" mt-5 flex justify-between">
-            <h1 class="text-xl">DATA REKAM MEDIK</h1>
+            <h1 class="text-xl">DATA REKAM MEDIKx</h1>
             <div class="flex">
                 <AddIcon class=" cursor-pointer text-teal-500  w-12" @click="addNewItem()"></AddIcon>
                 
@@ -174,4 +174,4 @@ const filterDataRekamMedik = computed(() => {
         </div>
     </PasienLayout>
 
-</template>
+</template> -->

@@ -21,19 +21,28 @@ const props = defineProps({
     }
 })
 
-const data = reactive({ rekamMedik: Array, poli: {} });
+
+const currentDate = null;
+
+
+axios
+    .get(Helper.apiUrl + '/jadwalberobat/all')
+    .then((response) => {
+        data.rekamMedik = response.data;
+    })
+
+const data = reactive({ rekamMedik: Array, poli: {},poli:null, tanggal: null });
 
 const onChangeDate = (date) => {
-    if (data.poli && data.poli.id > 0) {
-        axios
-            .get(Helper.apiUrl + '/jadwalberobat/' + data.poli.id + '/' + date)
-            .then((response) => {
-                data.rekamMedik = response.data;
-            })
-    }
-
-
+    data.tanggal = date;
+    filterDataRekamMedik.value;
 };
+
+
+const onPoli = (poli) => {
+    data.poli = poli;
+};
+
 
 const printReport = () => {
 
@@ -42,6 +51,38 @@ const printReport = () => {
     }
 
 }
+
+
+const filterDataRekamMedik = computed(() => {
+
+    let result = data.rekamMedik;
+
+    
+
+    
+    if (data.poli ) {
+        result = data.rekamMedik.filter(item => {
+            if (item.poli.id == data.poli.id) {
+                return item;
+            }
+        })
+    }else
+    {
+          result = data.rekamMedik;
+    }
+
+    if (data.tanggal) {
+        result = data.rekamMedik.filter(item => {
+            var d = Helper.getOnlyDate(new Date(item.konsultasi_berikut)) ;
+            var dt = Helper.getOnlyDate(new Date(data.tanggal));
+            if (d === dt) {
+                return item;
+            }
+        })
+    }
+
+    return result;
+});
 
 
 </script>
@@ -57,7 +98,9 @@ const printReport = () => {
         </div>
         <div class="flex items-center">
             <label class="mx-2">Poli</label>
-            <select type="text" v-model="data.poli" required class=" mx-2 rounded-lg bg-transparent text-neutral-700">
+            <select type="text" v-model="data.poli"  required
+                class=" mx-2 rounded-lg bg-transparent text-neutral-700">
+                <option class=" p-2" :value="null"  >None</option>
                 <option class=" p-2" :value="item" v-for="item in polis">{{ item.nama }}</option>
             </select>
             <label class="mx-2 ml-10">Tanggal</label>
@@ -69,7 +112,7 @@ const printReport = () => {
                     <thead>
                         <tr>
                             <th scope="col"
-                                class="border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
+                                class="w-32 border-b border-gray-200  px-5 py-3 text-left text-sm font-normal uppercase text-neutral-500">
                                 Kunjungan Berikut
                             </th>
                             <th scope="col"
@@ -91,9 +134,9 @@ const printReport = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data.rekamMedik">
+                        <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                                <p class="whitespace-nowrap">{{ item.konsultasi_berikut }}</p>
+                                <p class="whitespace-nowrap">{{ Helper.getOnlyDate(new Date(item.konsultasi_berikut)) }} {{ new Date(item.konsultasi_berikut).getHours() + ':' + new Date(item.konsultasi_berikut).getMinutes()  }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
@@ -142,15 +185,11 @@ const printReport = () => {
             <div>
                 <div class="flex">
                     <div class=" w-32">Nama Poli</div>
-                    <div>: {{ data.poli.nama }}</div>
+                    <div v-if="data.poli">: {{ data.poli.nama }}</div>
                 </div>
                 <div class="flex">
                     <div class=" w-32">Penyakit</div>
-                    <div>: {{ data.poli.penyakit }}</div>
-                </div>
-                <div class="flex">
-                    <div class=" w-32">Tanggal</div>
-                    <div>:</div>
+                    <div v-if="data.poli">: {{ data.poli.penyakit }}</div>
                 </div>
             </div>
 
@@ -176,7 +215,7 @@ const printReport = () => {
                 <tbody>
                     <tr v-for="item in data.rekamMedik">
                         <td>
-                            <p class="whitespace-nowrap">{{ item.konsultasi_berikut }}</p>
+                            <p class="whitespace-nowrap">{{ Helper.getOnlyDate(new Date(item.konsultasi_berikut)) }} </p>
                         </td>
                         <td>
                             <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
