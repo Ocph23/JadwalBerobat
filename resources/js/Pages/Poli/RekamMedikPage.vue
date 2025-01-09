@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import EditIcon from '@/Icons/EditIcon.vue';
 import DeleteIcon from '@/Icons/DeleteIcon.vue';
 import Swal from 'sweetalert2';
@@ -174,4 +174,4 @@ const filterDataRekamMedik = computed(() => {
         </div>
     </PasienLayout>
 
-</template> -->
+</template>
