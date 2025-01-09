@@ -56,10 +56,6 @@ const printReport = () => {
 const filterDataRekamMedik = computed(() => {
 
     let result = data.rekamMedik;
-
-    
-
-    
     if (data.poli ) {
         result = data.rekamMedik.filter(item => {
             if (item.poli.id == data.poli.id) {
@@ -136,7 +132,7 @@ const filterDataRekamMedik = computed(() => {
                     <tbody>
                         <tr v-for="item in filterDataRekamMedik">
                             <td class="border-b border-gray-200  p-3 text-sm">
-                             
+                                <p class="whitespace-nowrap">{{ Helper.getOnlyDate(new Date(item.konsultasi_berikut)) }} {{ new Date(item.konsultasi_berikut).getHours() + ':' + new Date(item.konsultasi_berikut).getMinutes() }}</p>
                             </td>
                             <td class="border-b border-gray-200  p-3 text-sm">
                                 <p class="whitespace-nowrap">{{ item.pasien.nama }}</p>
